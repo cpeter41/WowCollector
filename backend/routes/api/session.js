@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const { Op } = require("sequelize");
 const router = express.Router();
 const { check } = require("express-validator");
-// const { handleValidationErrors } = require("../../utils/validation");
+const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie } = require("../../utils/auth")
 const { User } = require("../../db/models");
 
@@ -15,14 +15,12 @@ const validateLogin = [
     check("password")
         .exists({ checkFalsy: true })
         .withMessage("Please provide a password."),
-    // handleValidationErrors,
+    handleValidationErrors,
 ];
 
 // login user
-router.post("/", async (req, res, next) => {
+router.post("/", validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
-
-    console.log('here!');
 
     const user = await User.unscoped().findOne({
         where: {
