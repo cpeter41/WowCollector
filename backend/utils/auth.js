@@ -12,6 +12,7 @@ const setTokenCookie = (res, user) => {
         email: user.email,
         username: user.username,
     };
+
     const token = jwt.sign(
         { data: safeUser },
         secret,
@@ -44,9 +45,9 @@ const restoreUser = (req, res, next) => {
         try {
             const { id } = jwtPayload.data;
             req.user = await User.findByPk(id, {
-                attributes: {
-                    include: ["email", "createdAt", "updatedAt"],
-                },
+                // attributes: {
+                //     include: ["email", "createdAt", "updatedAt"],
+                // },
             });
         } catch (e) {
             res.clearCookie("token");
@@ -60,14 +61,17 @@ const restoreUser = (req, res, next) => {
 };
 
 // If there is no current user, return an error
-const requireAuth = function (req, _res, next) {
-    if (req.user) return next();
+const requireAuth = [
+    restoreUser,
+    (req, _res, next) => {
+        if (req.user) return next();
 
-    const err = new Error("Authentication required");
-    err.title = "Authentication required";
-    err.errors = { message: "Authentication required" };
-    err.status = 401;
-    return next(err);
-};
+        const err = new Error("Authentication required");
+        err.title = "Authentication required";
+        err.errors = { message: "Authentication required" };
+        err.status = 401;
+        return next(err);
+    },
+];
 
 module.exports = { setTokenCookie, restoreUser, requireAuth };
