@@ -3,6 +3,7 @@ node_modules
 build
 .DS_Store
 *.db
+aa12-authenticate-me
 
 # Editor directories and files
 .vscode/*
