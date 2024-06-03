@@ -19,9 +19,9 @@ function Navigation({ isLoaded }) {
             </NavLink>
             {isLoaded && sessionUser ? (
                 <div id="nav-logged-out">
-                    <NavLink className="nav-link" to="/groups/new">
+                    {/* <NavLink className="nav-link" to="/groups/new">
                         Start a new group
-                    </NavLink>
+                    </NavLink> */}
                     <ProfileButton user={sessionUser} />
                 </div>
             ) : (
