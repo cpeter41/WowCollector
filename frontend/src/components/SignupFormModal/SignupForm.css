@@ -4,12 +4,24 @@
 
 #signup-form {
     width: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
-#signup-form > label {
-    display: none;
+.signup-div {
+    display: flex;
+    flex-direction: column;
 }
 
-#signup-form > input {
-    margin: 5px 0;
+.signup-div span {
+    height: 20px;
+}
+
+#profile-icons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+#signup-form div {
+    margin: 0 40px;
 }
