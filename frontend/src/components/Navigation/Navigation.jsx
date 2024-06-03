@@ -12,10 +12,10 @@ function Navigation({ isLoaded }) {
     return (
         <div id="nav-bar">
             <NavLink to="/">
-                <img
+                {/* <img
                     src="https://res.cloudinary.com/dkgyrbs4l/image/upload/v1714346122/meatup/meatup_logo.png"
                     alt="logo"
-                />
+                /> */}
             </NavLink>
             {isLoaded && sessionUser ? (
                 <div id="nav-logged-out">

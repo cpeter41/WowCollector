@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
+import Navigation from "./components/Navigation";
 import * as sessionActions from "./store/session";
 import { Modal } from "./context/Modal";
 import { HelmetProvider, Helmet } from "react-helmet-async";
@@ -52,7 +53,7 @@ function App() {
                     <title>Wowcollector (dev)</title>
                 )}
             </Helmet>
-            <RouterProvider router={router} />;
+            <RouterProvider router={router} />
         </HelmetProvider>
     );
 }
