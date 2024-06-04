@@ -5,8 +5,8 @@ import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 
 const demoCredentials = {
-    credential: "demo@guy.com",
-    password: "password123",
+    credential: "DemoUser",
+    password: "password",
 };
 
 function LoginFormModal() {

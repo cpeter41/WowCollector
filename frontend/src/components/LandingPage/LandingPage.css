@@ -1,0 +1,28 @@
+#landing-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+#landing-page-center-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-nav-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-nav-button h1,
+.home-nav-button p {
+    margin: 6px 0;
+}
+
+.home-nav-button h4 {
+    margin: 20px 0;
+}
