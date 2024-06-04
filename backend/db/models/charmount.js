@@ -31,8 +31,9 @@ module.exports = (sequelize, DataTypes) => {
             modelName: "CharMount",
             indexes: [
                 /**
-                 * prevents same mount from being 
+                 * prevents same mount from being
                  * added more than once per character
+                 * NOTE: needs a sync() call to apply index (happens in app.js)
                  */
                 {
                     fields: ["charId", "mountId"],

@@ -31,8 +31,9 @@ module.exports = (sequelize, DataTypes) => {
             modelName: "CharAchvmnt",
             indexes: [
                 /**
-                 * prevents same achievement from being 
+                 * prevents same achievement from being
                  * added more than once per character
+                 * NOTE: needs a sync() call to apply index (happens in app.js)
                  */
                 {
                     fields: ["charId", "achvmntId"],

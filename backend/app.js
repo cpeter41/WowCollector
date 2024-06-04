@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { ValidationError } = require("sequelize");
+const { CharAchvmnt, Character, CharMount } = require("./db/models");
 
 const { environment } = require("./config");
 const isProduction = environment === "production";
@@ -41,6 +42,11 @@ app.use(
 // apply routes after security middleware
 app.use(routes);
 
+// sync models to db to apply unique indices from models
+Character.sync();
+CharAchvmnt.sync();
+CharMount.sync();
+
 // Error Handling
 
 // 404 error
@@ -56,20 +62,33 @@ app.use((_req, _res, next) => {
 app.use((err, _req, _res, next) => {
     // check if error is a Sequelize error:
     if (err instanceof ValidationError) {
-        let errors = {};
-        for (let error of err.errors) {
-            errors[error.path] = error.message;
+        // check for index unique-constraint errors:
+        if (err.name === "SequelizeUniqueConstraintError") {
+            err.status = 400; // bad request
+            err.title = "Unique Constraint Error";
+            err.message = "Duplicate item found.";
         }
-        err.title = "Validation error";
-        err.errors = errors;
+        // non-unique-constraint validation errors:
+        else {
+            let errors = {};
+            for (let error of err.errors) {
+                errors[error.path] = error.message;
+            }
+            err.title = "Validation error";
+            err.errors = errors;
+        }
     }
     next(err);
 });
 
 // Error formatter
 app.use((err, _req, res, _next) => {
+    // quick check for 403 errors
+    if (err.message === "Forbidden") {
+        return res.status(403).json({ message: "Forbidden" });
+    }
     res.status(err.status || 500);
-    console.error(err);
+    // console.error(err);
     res.json({
         title: err.title || "Server Error",
         message: err.message,

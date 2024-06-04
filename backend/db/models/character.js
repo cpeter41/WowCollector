@@ -14,13 +14,13 @@ module.exports = (sequelize, DataTypes) => {
             Character.belongsToMany(models.Achievement, {
                 through: "CharAchvmnt",
                 foreignKey: "charId",
-                otherKey: "achvmntId"
+                otherKey: "achvmntId",
             });
 
             Character.belongsToMany(models.Mount, {
                 through: "CharMount",
                 foreignKey: "charId",
-                otherKey: "mountId"
+                otherKey: "mountId",
             });
         }
     }
@@ -48,6 +48,17 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: "Character",
+            /**
+             * prevents same character from being
+             * added more than once per user
+             * NOTE: needs a sync() call to apply index (happens in app.js)
+             */
+            indexes: [
+                {
+                    fields: ["userId", "serverSlug", "name"],
+                    unique: true,
+                },
+            ],
         }
     );
     return Character;
