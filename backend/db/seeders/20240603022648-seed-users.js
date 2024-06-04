@@ -56,12 +56,11 @@ module.exports = {
         const Op = Sequelize.Op;
         return queryInterface.bulkDelete(
             "Users",
-            // {
-            //     username: {
-            //         [Op.in]: ["Demo-lition", "spingo", "FakeUser"],
-            //     },
-            // },
-            null,
+            {
+                username: {
+                    [Op.in]: ["DemoUser", "spingo", "FakeUser"],
+                },
+            },
             options
         );
     },
