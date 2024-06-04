@@ -1,38 +1,48 @@
 "use strict";
+
+let options = {};
+if (process.env.NODE_ENV === "production") {
+    options.schema = process.env.SCHEMA;
+}
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable("Mounts", {
-            id: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER,
+        await queryInterface.createTable(
+            "Mounts",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER,
+                },
+                name: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                    unique: true,
+                },
+                desc: {
+                    type: Sequelize.TEXT,
+                },
+                imgUrl: {
+                    type: Sequelize.STRING,
+                },
+                createdAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+                },
+                updatedAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+                },
             },
-            name: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                unique: true,
-            },
-            desc: {
-                type: Sequelize.TEXT,
-            },
-            imgUrl: {
-                type: Sequelize.STRING,
-            },
-            createdAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-                defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-            },
-            updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE,
-                defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-            },
-        });
+            options
+        );
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable("Mounts");
+        await queryInterface.dropTable("Mounts", options);
     },
 };
