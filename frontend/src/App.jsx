@@ -39,7 +39,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "/app",
-                element: <MainPage />
+                element: <MainPage />,
+                children: [
+                    {
+                        path: "/app/achievements",
+                        // replace mainpage with achievements list
+                        element: <MainPage />
+                    },
+                    {
+                        path: "/app/mounts",
+                        // replace mainpage with mounts list
+                        element: <MainPage />
+                    },
+                ]
             },
             {
                 path: "*",

@@ -17,6 +17,14 @@ function Navigation({ isLoaded }) {
                     alt="logo"
                 /> */}
             </NavLink>
+            <div id="nav-bar-middle">
+                <NavLink to="/app/achievements">
+                    Achievements
+                </NavLink>
+                <NavLink to="/app/mounts">
+                    Mounts
+                </NavLink>
+            </div>
             {isLoaded && sessionUser ? (
                 <div id="nav-logged-out">
                     {/* <NavLink className="nav-link" to="/groups/new">

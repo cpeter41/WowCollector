@@ -2,12 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../redux/session";
 import { clearCharactersFromStore } from "../../redux/characters";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 
 function ProfileButton({ user }) {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
@@ -38,7 +38,7 @@ function ProfileButton({ user }) {
         dispatch(sessionActions.logout());
         closeMenu();
         dispatch(clearCharactersFromStore());
-        navigate("/");
+        // navigate("/");
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
