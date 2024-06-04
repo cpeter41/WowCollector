@@ -4,7 +4,7 @@ import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import MainPage from "./components/MainPage";
-import * as sessionActions from "./store/session";
+import * as sessionActions from "./redux/session";
 import { Modal } from "./context/Modal";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import * as sessionActions from "../../store/session";
+import * as sessionActions from "../../redux/session";
+import { clearCharactersFromStore } from "../../redux/characters";
 import { useNavigate } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
 import "./Navigation.css";
@@ -36,6 +37,7 @@ function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.logout());
         closeMenu();
+        dispatch(clearCharactersFromStore());
         navigate("/");
     };
 

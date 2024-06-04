@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import * as sessionActions from "../../store/session";
+import * as sessionActions from "../../redux/session";
 import "./SignupForm.css";
 import "../LoginFormModal/LoginForm.css";
 
@@ -25,7 +25,6 @@ function SignupFormModal() {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors({});
-            console.log(imageId);
             return dispatch(
                 sessionActions.signup({
                     email,

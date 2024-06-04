@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import * as sessionActions from "../../store/session";
+import * as sessionActions from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+// import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 
 const demoCredentials = {
@@ -11,6 +12,7 @@ const demoCredentials = {
 
 function LoginFormModal() {
     const dispatch = useDispatch();
+    // const navigate = useNavigate();
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [data, setData] = useState("");
@@ -37,8 +39,7 @@ function LoginFormModal() {
     };
 
     const logInDemo = () => {
-        return dispatch(sessionActions.login(demoCredentials))
-        .then(closeModal)
+        return dispatch(sessionActions.login(demoCredentials)).then(closeModal);
     };
 
     return (
