@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./MainPage.css";
 import { getCharactersOfUser } from "../../redux/characters";
+import "./MainPage.css";
 
 export default function MainPage() {
     const dispatch = useDispatch();

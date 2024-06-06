@@ -5,6 +5,7 @@ build
 *.db
 aa12-authenticate-me
 aa15-react-redux-authenticate-me
+node-signature-generator
 
 # Editor directories and files
 .vscode/*

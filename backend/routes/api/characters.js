@@ -8,11 +8,12 @@ const {
     Achievement,
 } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
+const { checkCharacter } = require("../../utils/bnet")
 
 // --------------------- CHARACTER ROUTES ---------------------
 
 // add a character to an account
-router.post("/", requireAuth, async (req, res) => {
+router.post("/", [requireAuth, checkCharacter], async (req, res) => {
     const { user } = req;
     const { serverSlug, name } = req.body;
 
