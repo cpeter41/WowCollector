@@ -22,7 +22,9 @@ module.exports = {
         await Character.bulkCreate([
             {
                 userId: 1,
-                serverSlug: "borean-tundra",
+                region: "us",
+                serverName: "Borean Tundra",
+                // serverSlug: "borean-tundra",
                 name: "Christopher",
                 isPrimary: true,
             },
@@ -42,7 +44,7 @@ module.exports = {
             "Characters",
             {
                 name: "Christopher",
-                serverSlug: "borean-tundra",
+                serverName: "Borean Tundra",
             },
             options
         );

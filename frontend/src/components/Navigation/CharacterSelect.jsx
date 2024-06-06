@@ -11,14 +11,6 @@ export default function CharacterSelect() {
     const characters = useSelector((state) => state.characters.characterList);
     const user = useSelector((state) => state.session.user);
 
-    const unSlug = (serverSlug) => {
-        const slugParts = serverSlug.split("-");
-        const capitalizedParts = slugParts.map((part) => {
-            return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
-        });
-        return capitalizedParts.join("");
-    };
-
     useEffect(() => {
         if (!isOpen) return;
 
@@ -45,8 +37,16 @@ export default function CharacterSelect() {
                         setOpen(!isOpen);
                     }}
                 >
+                    {/**
+                     * this displays a name-server combo as it is ingame.
+                     * e.g. character Christopher on server Borean Tundra will
+                     * look like: Christopher-BoreanTundra
+                     *  */}
                     {selChar
-                        ? `${selChar.name}-${unSlug(selChar.serverSlug)}`
+                        ? `${selChar.name}-${selChar.serverName.replace(
+                              " ",
+                              ""
+                          )}`
                         : "No Character Selected"}
                 </button>
             )}
@@ -61,7 +61,7 @@ export default function CharacterSelect() {
                             setOpen(false);
                             dispatch(selectCharacter(char));
                         }}
-                    >{`${char.name}-${unSlug(char.serverSlug)}`}</li>
+                    >{`${char.name}-${char.serverName.replace(" ", "")}`}</li>
                 ))}
                 <li id="add-character-button">
                     <i className="fa-solid fa-plus"></i>

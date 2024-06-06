@@ -32,10 +32,18 @@ module.exports = (sequelize, DataTypes) => {
                 references: { model: "Users", key: "id" },
                 onDelete: "CASCADE",
             },
-            serverSlug: {
+            region: {
+                type: DataTypes.STRING(2),
+                allowNull: false,
+            },
+            serverName: {
                 type: DataTypes.STRING(64),
                 allowNull: false,
             },
+            // serverSlug: {
+            //     type: DataTypes.STRING(64),
+            //     allowNull: false,
+            // },
             name: {
                 type: DataTypes.STRING(12),
                 allowNull: false,
@@ -55,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
              */
             indexes: [
                 {
-                    fields: ["userId", "serverSlug", "name"],
+                    fields: ["userId", "region", "serverName", "name"],
                     unique: true,
                 },
             ],

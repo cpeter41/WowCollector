@@ -23,10 +23,18 @@ module.exports = {
                     references: { model: "Users", key: "id" },
                     onDelete: "CASCADE",
                 },
-                serverSlug: {
+                region: {
                     type: Sequelize.STRING,
                     allowNull: false,
                 },
+                serverName: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                },
+                // serverSlug: {
+                //     type: Sequelize.STRING,
+                //     allowNull: false,
+                // },
                 name: {
                     type: Sequelize.STRING,
                     allowNull: false,

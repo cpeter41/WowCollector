@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-// const { Op } = require("sequelize");
 const {
     Character,
     User,
@@ -15,8 +14,13 @@ const { checkCharacter } = require("../../utils/bnet")
 // add a character to an account
 router.post("/", [requireAuth, checkCharacter], async (req, res) => {
     const { user } = req;
-    const { serverSlug, name } = req.body;
+    const { region, serverName, name } = req.body;
 
+    /**
+     * formatName capitalizes first letter for display purposes.
+     * Blizz API URI requires all lowercase name, this is accounted for in
+     * the utils function at backend/utils/bnet.js
+     */
     const formatName = (name) => {
         const lcName = name.toString().toLowerCase();
         return lcName.charAt(0).toUpperCase() + lcName.slice(1);
@@ -24,7 +28,8 @@ router.post("/", [requireAuth, checkCharacter], async (req, res) => {
 
     const newCharacter = await Character.create({
         userId: user.id,
-        serverSlug,
+        region,
+        serverName,
         name: formatName(name),
     });
 
