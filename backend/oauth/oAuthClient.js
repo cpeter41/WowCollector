@@ -1,6 +1,10 @@
 const oauth2 = require("simple-oauth2");
 
 class OAuthClient {
+    /**
+     * TODO: this functions on simple-oauth2 v2.0.0
+     * Consider updating and refactoring to 5.0.0
+     */
     constructor({ oauthOptions }) {
         this.client = oauth2.create(oauthOptions);
         this.token = null;
@@ -22,6 +26,6 @@ class OAuthClient {
     _reduceToken(token) {
         return token.token.access_token;
     }
-};
+}
 
 module.exports = OAuthClient;

@@ -17,16 +17,18 @@ router.post("/", [requireAuth, checkCharacter], async (req, res) => {
     const { user } = req;
     const { serverSlug, name } = req.body;
 
-    // TODO: WoW API check if character exists before proceeding
-    // consider putting this in middleware
+    const formatName = (name) => {
+        const lcName = name.toString().toLowerCase();
+        return lcName.charAt(0).toUpperCase() + lcName.slice(1);
+    }
 
     const newCharacter = await Character.create({
         userId: user.id,
         serverSlug,
-        name,
+        name: formatName(name),
     });
 
-    return res.json({ character: newCharacter.toJSON() });
+    return res.status(200).json({ character: newCharacter.toJSON() });
 });
 
 // get all characters on current account
@@ -42,7 +44,7 @@ router.get("/", requireAuth, async (req, res) => {
         ],
     });
 
-    return res.json(characters);
+    return res.status(200).json(characters);
 });
 
 // remove character from account
@@ -63,7 +65,7 @@ router.delete("/:charId", requireAuth, async (req, res, next) => {
 
     await foundChar.destroy();
 
-    return res.json({ message: "Character successfully removed" });
+    return res.status(200).json({ message: "Character successfully removed" });
 });
 
 // ---------------- ACHIEVEMENT TRACKER ROUTES ----------------
@@ -92,7 +94,7 @@ router.post(
             achvmntId,
         });
 
-        return res.json({ charAchvmnt: newTrackedAchievement.toJSON() });
+        return res.status(200).json({ charAchvmnt: newTrackedAchievement.toJSON() });
     }
 );
 
@@ -121,7 +123,7 @@ router.get("/:charId/achievements", requireAuth, async (req, res, next) => {
         ],
     });
 
-    return res.json(trackedAchievements);
+    return res.status(200).json(trackedAchievements);
 });
 
 // remove achievement from tracker
@@ -154,7 +156,7 @@ router.delete(
 
         await foundTrackedAchievement.destroy();
 
-        return res.json({
+        return res.status(200).json({
             message: "Tracked achievement successfully removed",
         });
     }
