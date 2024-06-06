@@ -1,0 +1,31 @@
+.characters-dropdown {
+    position: absolute;
+    padding: 0;
+}
+
+.characters-dropdown li {
+    list-style-type: none;
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin: 2px 0;
+}
+
+#add-character-button {
+    border: 1px solid gray;
+}
+
+.characters-dropdown li:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+#selected-character-button {
+    all: unset;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+#selected-character-button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+import LoginFormModal from "../Modals/LoginFormModal";
+import SignupFormModal from "../Modals/SignupFormModal";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 

@@ -1,32 +1,41 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCharactersOfUser } from "../../redux/characters";
+import { getCharactersOfUser, selectCharacter } from "../../redux/characters";
 import "./MainPage.css";
 
 export default function MainPage() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
-    const characters = useSelector((state) => state.characters);
+    const characters = useSelector((state) => state.characters.characterList);
+
+    // const setSelectedCharacter = (character) => {
+    //     dispatch(selectCharacter(character));
+    // }
 
     useEffect(() => {
         if (user) dispatch(getCharactersOfUser());
     }, [dispatch, user]);
 
-    useEffect(() => {
-        if (characters?.length) {
-            console.log("characters: ", characters);
-        }
-    }, [characters]);
+    // useEffect(() => {
+    //     if (characters?.length) {
+    //         console.log("characters: ", characters);
+    //     }
+    // }, [characters]);
 
     return (
         <>
-            <h1>Home Page</h1>
+            <h2>Home Page</h2>
             {user && characters?.length && (
                 <>
-                    <h2>Characters:</h2>
+                    <h3>Characters:</h3>
                     <ul>
                         {characters.map((character) => (
-                            <li key={character.id}>{character.name}</li>
+                            <li
+                                key={character.id}
+                                onClick={() => dispatch(selectCharacter(character))}
+                            >
+                                {character.name}
+                            </li>
                         ))}
                     </ul>
                 </>

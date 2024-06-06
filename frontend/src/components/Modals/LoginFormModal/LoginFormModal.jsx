@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import * as sessionActions from "../../redux/session";
+import * as sessionActions from "../../../redux/session";
 import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
+import { useModal } from "../../../context/Modal";
 // import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 
