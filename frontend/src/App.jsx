@@ -4,6 +4,7 @@ import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import MainPage from "./components/MainPage";
+import Achievements from "./components/Achievements";
 import * as sessionActions from "./redux/session";
 import { Modal } from "./context/Modal";
 import { HelmetProvider, Helmet } from "react-helmet-async";
@@ -38,20 +39,16 @@ const router = createBrowserRouter([
                 element: <LandingPage />,
             },
             {
-                path: "/app",
+                path: "/achievements",
+                element: <Achievements />,
+            },
+            {
+                path: "/achievements/:categoryId",
+                element: <Achievements />,
+            },
+            {
+                path: "/mounts",
                 element: <MainPage />,
-                children: [
-                    {
-                        path: "/app/achievements",
-                        // replace mainpage with achievements list
-                        element: <MainPage />
-                    },
-                    {
-                        path: "/app/mounts",
-                        // replace mainpage with mounts list
-                        element: <MainPage />
-                    },
-                ]
             },
             {
                 path: "*",

@@ -3,10 +3,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { thunk } from "redux-thunk";
 import sessionReducer from "./session";
 import characterReducer from "./characters";
+import resourcesReducer from "./resources";
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     characters: characterReducer,
+    resources: resourcesReducer,
 });
 
 let enhancer;

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCharacter } from "../../redux/characters";
+import AddCharacterModal from "../Modals/AddCharacterModal";
+import { useModal } from "../../context/Modal";
 import "./CharacterSelect.css";
 
 export default function CharacterSelect() {
@@ -10,6 +12,7 @@ export default function CharacterSelect() {
     const selChar = useSelector((state) => state.characters.selCharacter);
     const characters = useSelector((state) => state.characters.characterList);
     const user = useSelector((state) => state.session.user);
+    const { setModalContent } = useModal();
 
     useEffect(() => {
         if (!isOpen) return;
@@ -37,6 +40,7 @@ export default function CharacterSelect() {
                         setOpen(!isOpen);
                     }}
                 >
+                    <i className="fa-solid fa-shield-halved fa-xl"></i>
                     {/**
                      * this displays a name-server combo as it is ingame.
                      * e.g. character Christopher on server Borean Tundra will
@@ -60,10 +64,14 @@ export default function CharacterSelect() {
                         onClick={() => {
                             setOpen(false);
                             dispatch(selectCharacter(char));
+                            console.log("selected: ", char.name);
                         }}
-                    >{`${char.name}-${char.serverName.replace(" ", "")}`}</li>
+                    >{`${char.name}-${char?.serverName.replace(" ", "")}`}</li>
                 ))}
-                <li id="add-character-button">
+                <li
+                    id="add-character-button"
+                    onClick={() => setModalContent(<AddCharacterModal />)}
+                >
                     <i className="fa-solid fa-plus"></i>
                 </li>
             </ul>

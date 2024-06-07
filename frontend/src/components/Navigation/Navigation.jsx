@@ -1,14 +1,27 @@
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import ProfileButton from "./ProfileButton";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../Modals/LoginFormModal";
 import SignupFormModal from "../Modals/SignupFormModal";
 import CharacterSelect from "./CharacterSelect";
+import { getCharactersOfUser, selectCharacter } from "../../redux/characters";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
-    const sessionUser = useSelector((state) => state.session.user);
+    const user = useSelector((state) => state.session.user);
+    const characters = useSelector((state) => state.characters.characterList);
+    const selectedCharacter = useSelector((state) => state.characters.selCharacter)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (user) dispatch(getCharactersOfUser());
+    }, [dispatch, user]);
+
+    useEffect(() => {
+        if (!selectedCharacter) dispatch(selectCharacter(characters[0]));
+    }, [characters, dispatch, selectedCharacter])
 
     return (
         <div id="nav-bar">
@@ -17,15 +30,15 @@ function Navigation({ isLoaded }) {
             </NavLink>
             <CharacterSelect />
             <div id="nav-bar-middle">
-                <NavLink to="/app/achievements">Achievements</NavLink>
-                <NavLink to="/app/mounts">Mounts</NavLink>
+                <NavLink to="/achievements">Achievements</NavLink>
+                <NavLink to="/mounts">Mounts</NavLink>
             </div>
-            {isLoaded && sessionUser ? (
+            {isLoaded && user ? (
                 <div id="nav-logged-out">
                     {/* <NavLink className="nav-link" to="/groups/new">
                         Start a new group
                     </NavLink> */}
-                    <ProfileButton user={sessionUser} />
+                    <ProfileButton user={user} />
                 </div>
             ) : (
                 <div id="nav-logged-in">

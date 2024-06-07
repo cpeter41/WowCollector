@@ -7,7 +7,20 @@ const {
     Achievement,
 } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
-const { checkCharacter } = require("../../utils/bnet")
+const { checkCharacter } = require("../../utils/bnet");
+const app = require("../../app.js");
+const config = require("../../bnetConfig.js");
+
+/**
+ * slugifies a server name (e.g. "Borean Tundra" -> "borean-tundra" or
+ * "Mok'Nathal" -> "moknathal"). necessary for pinging Blizz API characters.
+ */
+const _slug = (name) => {
+    const singleName = name.replace("'", "");
+    const parts = singleName.split(" ");
+    const lcParts = parts.map((part) => part.toLowerCase());
+    return lcParts.join("-");
+};
 
 // --------------------- CHARACTER ROUTES ---------------------
 
@@ -24,7 +37,7 @@ router.post("/", [requireAuth, checkCharacter], async (req, res) => {
     const formatName = (name) => {
         const lcName = name.toString().toLowerCase();
         return lcName.charAt(0).toUpperCase() + lcName.slice(1);
-    }
+    };
 
     const newCharacter = await Character.create({
         userId: user.id,
@@ -33,7 +46,7 @@ router.post("/", [requireAuth, checkCharacter], async (req, res) => {
         name: formatName(name),
     });
 
-    return res.status(200).json({ character: newCharacter.toJSON() });
+    return res.status(200).json(newCharacter.toJSON());
 });
 
 // get all characters on current account
@@ -75,6 +88,33 @@ router.delete("/:charId", requireAuth, async (req, res, next) => {
 
 // ---------------- ACHIEVEMENT TRACKER ROUTES ----------------
 
+// gets achievement status of all achievements on a character
+// displays obtained and in-progress achievements only
+router.get("/achievements", requireAuth, async (req, res, next) => {
+    const { serverName, name, region } = req.query;
+
+    // obtain oauth access token for API usage
+    const oAuthToken = await app.oAuthClient.getToken();
+
+    // format API request URI
+    // const region = "us";
+    const host = config.apiHosts[region];
+    const namespace = config.namespaces.profile[region];
+    const formattedName = encodeURIComponent(name).toLocaleLowerCase("en-US");
+    const URL = `${host}/profile/wow/character/${_slug(serverName)}/${formattedName}/achievements`;
+    const queryParams = new URLSearchParams({ locale: "en_US", namespace });
+    const formattedURI = `${URL}?${queryParams}`;
+
+    // attach oauth token
+    const headers = { Authorization: `Bearer ${oAuthToken}` };
+    const response = await fetch(formattedURI, { headers });
+
+    const data = await response.json();
+    // achievements are uncategorized and are in a single giant array
+    // thank you blizzard
+    return res.json({ achievements: data.achievements });
+});
+
 // add an achievement to tracker
 router.post(
     "/:charId/achievements/:achvmntId/new",
@@ -99,7 +139,9 @@ router.post(
             achvmntId,
         });
 
-        return res.status(200).json({ charAchvmnt: newTrackedAchievement.toJSON() });
+        return res
+            .status(200)
+            .json({ charAchvmnt: newTrackedAchievement.toJSON() });
     }
 );
 
@@ -168,10 +210,7 @@ router.delete(
 );
 
 /**
- * TODO: test these routes!
- *
- * TODO: update tracked achievement order?
- * try to incorporate into backend, not just frontend
+ * TODO: add notes to achievements! edit notes. this is update functionality
  */
 
 // ------------------- MOUNT TRACKER ROUTES -------------------

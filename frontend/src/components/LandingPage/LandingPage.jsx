@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import LoginFormModal from "../Modals";
-import SignupFormModal from "../Modals";
+import LoginFormModal from "../Modals/LoginFormModal";
+import SignupFormModal from "../Modals/SignupFormModal";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 
@@ -16,7 +16,7 @@ export default function LandingPage() {
                     className="home-nav-button clickable"
                     onClick={() => {
                         // navigate to main page
-                        navigate("/app");
+                        navigate("/achievements");
                     }}
                 >
                     <h1>Welcome to WowCollector!</h1>

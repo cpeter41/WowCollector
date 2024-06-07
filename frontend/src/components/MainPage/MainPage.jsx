@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCharactersOfUser, selectCharacter } from "../../redux/characters";
+import { getCharactersOfUser } from "../../redux/characters";
 import "./MainPage.css";
 
 export default function MainPage() {
@@ -32,7 +32,6 @@ export default function MainPage() {
                         {characters.map((character) => (
                             <li
                                 key={character.id}
-                                onClick={() => dispatch(selectCharacter(character))}
                             >
                                 {character.name}
                             </li>

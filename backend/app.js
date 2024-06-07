@@ -12,6 +12,18 @@ const { CharAchvmnt, Character, CharMount } = require("./db/models");
 const { environment } = require("./config");
 const isProduction = environment === "production";
 
+const OAuthClient = require("./oauth/oAuthClient");
+const oauthOptions = {
+    client: {
+        id: process.env.CLIENT_ID,
+        secret: process.env.CLIENT_SECRET,
+    },
+    auth: {
+        tokenHost: process.env.OAUTH_TOKEN_HOST || "https://us.battle.net",
+    },
+};
+const oAuthClient = new OAuthClient({ oauthOptions });
+
 const app = express();
 
 app.use(morgan("dev"));
@@ -97,4 +109,7 @@ app.use((err, _req, res, _next) => {
     });
 });
 
-module.exports = app;
+// when importing, these 2 components are alias.app and 
+// alias.oAuthClient, respectively
+exports.app = app;
+exports.oAuthClient = oAuthClient;

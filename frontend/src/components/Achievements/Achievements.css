@@ -1,0 +1,27 @@
+#category-container {
+    display: flex;
+    justify-content: center;
+}
+
+#category-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1300px;
+    margin-top: 20px;
+}
+
+.achievement-category {
+    height: 200px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    margin: 8px;
+}
+
+.achievement-category:hover {
+    cursor: pointer;
+}

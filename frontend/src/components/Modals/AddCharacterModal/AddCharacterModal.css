@@ -1,0 +1,10 @@
+#add-character-form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+#add-character-form label,
+#add-character-submit-button {
+    margin-top: 12px;
+}

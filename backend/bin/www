@@ -6,7 +6,8 @@ require("dotenv").config();
 
 const { port } = require("../config");
 
-const app = require("../app");
+// const { app } = require("../app");
+const backendApp = require("../app")
 const db = require("../db/models");
 
 // Check the database connection before starting the app
@@ -18,7 +19,7 @@ db.sequelize
         );
 
         // Start listening for connections
-        app.listen(port, () => console.log(`Listening on port ${port}...`));
+        backendApp.app.listen(port, () => console.log(`Listening on port ${port}...`));
     })
     .catch((err) => {
         console.log("Database connection failure.");

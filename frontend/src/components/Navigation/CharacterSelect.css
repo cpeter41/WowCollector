@@ -1,6 +1,9 @@
 .characters-dropdown {
     position: absolute;
     padding: 0;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 8px;
 }
 
 .characters-dropdown li {
@@ -12,6 +15,7 @@
 
 #add-character-button {
     border: 1px solid gray;
+    margin-bottom: 0;
 }
 
 .characters-dropdown li:hover {
@@ -28,4 +32,8 @@
 #selected-character-button:hover {
     cursor: pointer;
     background-color: lightgray;
+}
+
+#selected-character-button i {
+    margin-right: 6px;
 }
