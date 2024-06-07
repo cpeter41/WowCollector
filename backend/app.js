@@ -7,7 +7,7 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { ValidationError } = require("sequelize");
-const { CharAchvmnt, Character, CharMount } = require("./db/models");
+const { /*CharAchvmnt,*/ Character/*, CharMount*/ } = require("./db/models");
 
 const { environment } = require("./config");
 const isProduction = environment === "production";
@@ -56,8 +56,8 @@ app.use(routes);
 
 // sync models to db to apply unique indices from models
 Character.sync();
-CharAchvmnt.sync();
-CharMount.sync();
+// CharAchvmnt.sync();
+// CharMount.sync();
 
 // Error Handling
 

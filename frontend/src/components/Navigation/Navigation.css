@@ -73,3 +73,7 @@
 #profile-button > * {
     margin: 0 2px;
 }
+
+#open-tracker-button:hover {
+    cursor: pointer;
+}

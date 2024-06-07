@@ -101,7 +101,9 @@ router.get("/achievements", requireAuth, async (req, res, next) => {
     const host = config.apiHosts[region];
     const namespace = config.namespaces.profile[region];
     const formattedName = encodeURIComponent(name).toLocaleLowerCase("en-US");
-    const URL = `${host}/profile/wow/character/${_slug(serverName)}/${formattedName}/achievements`;
+    const URL = `${host}/profile/wow/character/${_slug(
+        serverName
+    )}/${formattedName}/achievements`;
     const queryParams = new URLSearchParams({ locale: "en_US", namespace });
     const formattedURI = `${URL}?${queryParams}`;
 
@@ -116,34 +118,32 @@ router.get("/achievements", requireAuth, async (req, res, next) => {
 });
 
 // add an achievement to tracker
-router.post(
-    "/:charId/achievements/:achvmntId/new",
-    requireAuth,
-    async (req, res, next) => {
-        const { user } = req;
-        const { charId, achvmntId } = req.params;
+router.post("/:charId/achievements", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { charId } = req.params;
+    const { name, achvmntId } = req.body;
 
-        const foundChar = await Character.findByPk(charId);
-        if (!foundChar)
-            return res
-                .status(404)
-                .json({ message: "Character couldn't be found." });
-
-        // authorization
-        // consider moving this to middleware
-        if (foundChar.toJSON().userId !== user.id)
-            return next(new Error("Forbidden"));
-
-        const newTrackedAchievement = await CharAchvmnt.create({
-            charId,
-            achvmntId,
-        });
-
+    const foundChar = await Character.findByPk(charId);
+    if (!foundChar)
         return res
-            .status(200)
-            .json({ charAchvmnt: newTrackedAchievement.toJSON() });
-    }
-);
+            .status(404)
+            .json({ message: "Character couldn't be found." });
+
+    // authorization
+    // consider moving this to middleware
+    if (foundChar.toJSON().userId !== user.id)
+        return next(new Error("Forbidden"));
+
+    const newTrackedAchievement = await Achievement.create({
+        name,
+        characterId: charId,
+        blizzId: achvmntId,
+    });
+
+    return res
+        .status(201)
+        .json({ charAchvmnt: newTrackedAchievement.toJSON() });
+});
 
 // get all tracked achievements
 router.get("/:charId/achievements", requireAuth, async (req, res, next) => {
@@ -163,9 +163,13 @@ router.get("/:charId/achievements", requireAuth, async (req, res, next) => {
 
     const trackedAchievements = await Achievement.findAll({
         include: [
+            // {
+            //     model: Character,
+            //     through: { where: { charId }, attributes: [] },
+            // },
             {
                 model: Character,
-                through: { where: { charId }, attributes: [] },
+                attributes: [],
             },
         ],
     });

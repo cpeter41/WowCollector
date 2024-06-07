@@ -4,11 +4,13 @@ import { thunk } from "redux-thunk";
 import sessionReducer from "./session";
 import characterReducer from "./characters";
 import resourcesReducer from "./resources";
+import trackerReducer from "./tracker";
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     characters: characterReducer,
     resources: resourcesReducer,
+    tracker: trackerReducer,
 });
 
 let enhancer;

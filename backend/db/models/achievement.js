@@ -9,10 +9,13 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            Achievement.belongsToMany(models.Character, {
-                through: "CharAchvmnt",
-                foreignKey: "achvmntId",
-                otherKey: "charId"
+            // Achievement.belongsToMany(models.Character, {
+            //     through: "CharAchvmnt",
+            //     foreignKey: "achvmntId",
+            //     otherKey: "charId"
+            // });
+            Achievement.belongsTo(models.Character, {
+                foreignKey: "characterId",
             });
         }
     }
@@ -21,17 +24,25 @@ module.exports = (sequelize, DataTypes) => {
             name: {
                 type: DataTypes.STRING(128),
                 allowNull: false,
-                unique: true,
             },
-            desc: {
-                type: DataTypes.TEXT,
-            },
-            points: {
+            characterId: {
                 type: DataTypes.INTEGER,
+                allowNull: false,
+                references: { model: "Characters", key: "id" },
             },
-            imgUrl: {
-                type: DataTypes.STRING(512),
+            blizzId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
             },
+            // desc: {
+            //     type: DataTypes.TEXT,
+            // },
+            // points: {
+            //     type: DataTypes.INTEGER,
+            // },
+            // imgUrl: {
+            //     type: DataTypes.STRING(512),
+            // },
         },
         {
             sequelize,

@@ -11,17 +11,23 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             Character.belongsTo(models.User, { foreignKey: "userId" });
 
-            Character.belongsToMany(models.Achievement, {
-                through: "CharAchvmnt",
-                foreignKey: "charId",
-                otherKey: "achvmntId",
+            Character.hasMany(models.Achievement, {
+                foreignKey: "characterId",
+                onDelete: "CASCADE",
+                hooks: true,
             });
 
-            Character.belongsToMany(models.Mount, {
-                through: "CharMount",
-                foreignKey: "charId",
-                otherKey: "mountId",
-            });
+            // Character.belongsToMany(models.Achievement, {
+            //     through: "CharAchvmnt",
+            //     foreignKey: "charId",
+            //     otherKey: "achvmntId",
+            // });
+
+            // Character.belongsToMany(models.Mount, {
+            //     through: "CharMount",
+            //     foreignKey: "charId",
+            //     otherKey: "mountId",
+            // });
         }
     }
     Character.init(
