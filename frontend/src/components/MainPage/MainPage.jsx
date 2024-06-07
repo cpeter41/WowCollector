@@ -8,23 +8,14 @@ export default function MainPage() {
     const user = useSelector((state) => state.session.user);
     const characters = useSelector((state) => state.characters.characterList);
 
-    // const setSelectedCharacter = (character) => {
-    //     dispatch(selectCharacter(character));
-    // }
-
     useEffect(() => {
         if (user) dispatch(getCharactersOfUser());
     }, [dispatch, user]);
 
-    // useEffect(() => {
-    //     if (characters?.length) {
-    //         console.log("characters: ", characters);
-    //     }
-    // }, [characters]);
-
     return (
         <>
-            <h2>Home Page</h2>
+            <h2>Mounts not yet implemented.</h2>
+            {/* <p>To use Wowcollector, add a character</p> */}
             {user && characters?.length && (
                 <>
                     <h3>Characters:</h3>
