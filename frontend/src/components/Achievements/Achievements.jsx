@@ -8,7 +8,9 @@ import {
 import CategoryDetails from "./CategoryDetails";
 import "./Achievements.css";
 
-// const _slug = (name) => {
+// TODO: show progress bar on each category
+
+// const _enhancedSlug = (name) => {
 //     const singleName = name.replace("'", "");
 //     const noAnds = singleName.replace("&", encodeURIComponent("&"));
 //     const noColons = noAnds.replace(":", encodeURIComponent(":"));

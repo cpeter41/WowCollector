@@ -48,7 +48,7 @@ export const addCharacter = (char) => async (dispatch) => {
         body: JSON.stringify(char),
     });
     const data = await res.json();
-    console.log("DATA: ", data);
+    // console.log("DATA: ", data);
     dispatch(addChar(data));
 };
 

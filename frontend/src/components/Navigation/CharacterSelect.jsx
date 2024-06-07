@@ -64,7 +64,6 @@ export default function CharacterSelect() {
                         onClick={() => {
                             setOpen(false);
                             dispatch(selectCharacter(char));
-                            console.log("selected: ", char.name);
                         }}
                     >{`${char.name}-${char?.serverName.replace(" ", "")}`}</li>
                 ))}

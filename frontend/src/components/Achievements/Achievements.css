@@ -1,3 +1,5 @@
+/* Achievement Categories Page */
+
 #category-container {
     display: flex;
     justify-content: center;
@@ -24,4 +26,43 @@
 
 .achievement-category:hover {
     cursor: pointer;
+}
+
+/* Category Details Page */
+
+#category-details-container {
+    display: flex;
+}
+
+#category-details-subcategories {
+    width: 320px;
+    min-height: 93.8vh;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+#category-details-subcategories ul {
+    padding: 0;
+}
+
+.subcategory {
+    height: 60px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.subcategory:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: lightgray;
+}
+
+.selected:hover {
+    background-color: lightgray;
 }
