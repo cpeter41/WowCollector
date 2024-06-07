@@ -32,7 +32,7 @@ export default function CharacterSelect() {
         <div>
             {/* load character select if signed in */}
             {user && (
-                <button
+                <div
                     id="selected-character-button"
                     onClick={(e) => {
                         // toggle. dont propagate to avoid closeDropdown
@@ -52,7 +52,7 @@ export default function CharacterSelect() {
                               ""
                           )}`
                         : "No Character Selected"}
-                </button>
+                </div>
             )}
             <ul
                 className={`characters-dropdown ${isOpen ? "" : " hidden"}`}

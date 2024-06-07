@@ -61,6 +61,29 @@ router.get("/achievements/categories/:categoryId", async (req, res, next) => {
     });
 });
 
+// gets the full details of an achievement
+router.get("/achievements/:achievementId", async (req, res, next) => {
+    const { achievementId } = req.params;
+
+    // obtain oauth access token for API usage
+    const oAuthToken = await app.oAuthClient.getToken();
+
+    // format API request URI
+    const region = "us";
+    const host = config.apiHosts[region];
+    const namespace = config.namespaces.static[region];
+    const URL = `${host}/data/wow/achievement/${achievementId}`;
+    const queryParams = new URLSearchParams({ locale: "en_US", namespace });
+    const formattedURI = `${URL}?${queryParams}`;
+
+    // attach oauth token
+    const headers = { Authorization: `Bearer ${oAuthToken}` };
+    const response = await fetch(formattedURI, { headers });
+    // console.log(response);
+    const data = await response.json();
+    return res.json(data)
+});
+
 // ---------------- BLIZZARD API MOUNT ROUTES ----------------
 /**
  * These routes are for obtaining all of the mounts from the

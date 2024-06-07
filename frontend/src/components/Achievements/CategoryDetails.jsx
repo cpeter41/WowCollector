@@ -1,14 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import AchievementDetails from "./AchievementDetails";
+import AchievementContainer from "./AchievementContainer";
 import { useEffect } from "react";
 import {
     getCategoryDetails,
     getSubCategoryDetails,
-    getGlobalSubcategoryDetails,
 } from "../../redux/resources";
 import "./Achievements.css";
 
 // TODO: show progress bar on each subcategory
+// TODO: show selected CATEGORY details at top of subcategory list
+// also put a back button :)
+// TODO: dont dispatch if subcategory is already selected
 
 export default function CategoryDetails({ categoryId }) {
     const dispatch = useDispatch();
@@ -19,15 +21,19 @@ export default function CategoryDetails({ categoryId }) {
         (state) => state.resources.current_subcategory
     );
 
-    // loads category if not in store based on url
     useEffect(() => {
-        if (!Object.keys(categoryDetails).length)
+        if (!Object.keys(categoryDetails).length) {
+            // loads category if not in store on load
             dispatch(getCategoryDetails(categoryId));
+            // loads subcategory if not in store on load
+            dispatch(getSubCategoryDetails(categoryId));
+        }
     }, [categoryDetails, categoryId, dispatch]);
 
     const handleSubcategoryClick = (e) => {
         const globalSubcat = document.getElementById("global-subcategory");
-        if (globalSubcat.classList.contains("selected")) globalSubcat.classList.remove("selected");
+        if (globalSubcat.classList.contains("selected"))
+            globalSubcat.classList.remove("selected");
         dispatch(getSubCategoryDetails(e.target.id));
     };
 
@@ -39,7 +45,8 @@ export default function CategoryDetails({ categoryId }) {
             const lastSelectedSubcat = subCategories.getElementsByClassName(
                 "subcategory selected"
             )[0];
-            if (lastSelectedSubcat) lastSelectedSubcat.classList.remove("selected");
+            if (lastSelectedSubcat)
+                lastSelectedSubcat.classList.remove("selected");
             e.target.classList.add("selected");
             dispatch(getSubCategoryDetails(categoryId));
         }
@@ -50,7 +57,7 @@ export default function CategoryDetails({ categoryId }) {
             <div id="category-details-subcategories">
                 <ul>
                     <li
-                        className={`subcategory`}
+                        className={`subcategory selected`}
                         id="global-subcategory"
                         onClick={handleGlobalSubcatClick}
                     >
@@ -72,7 +79,7 @@ export default function CategoryDetails({ categoryId }) {
                     ))}
                 </ul>
             </div>
-            <AchievementDetails />
+            <AchievementContainer />
         </div>
     );
 }

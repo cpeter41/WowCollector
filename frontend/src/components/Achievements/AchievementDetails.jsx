@@ -1,17 +1,30 @@
 import { useSelector } from "react-redux";
+import "./Achievements.css";
 
-export default function AchievementDetails() {
-    // TODO: list achievements in subcategory
-    // TODO: display selected achievement
-    // TODO: highlight achievement if obtained by character
-    const current_subcategory = useSelector(
-        (state) => state.resources.current_subcategory
+export default function AchievementDetails({ handleAchievementClick }) {
+    const achievementDetails = useSelector(
+        (state) => state.resources.current_achievement
     );
+
+    // console.log(achievementDetails);
+
     return (
-        <div id="">
-            {current_subcategory?.achievements_in_category?.map((ach) => (
-                <div className="achievement-button" key={ach.id}>{ach.name}</div>
-            ))}
+        <div id="achievement-details">
+            <h2>{achievementDetails.name}</h2>
+            <p>{achievementDetails.description}</p>
+            <div id="criteria-container">
+                {achievementDetails?.criteria?.child_criteria &&
+                    achievementDetails.criteria.child_criteria.map((crta) => (
+                        <div
+                            key={crta.id}
+                            id={crta?.achievement?.id}
+                            className="criteria-achievement"
+                            onClick={handleAchievementClick}
+                        >
+                            {crta.description}
+                        </div>
+                    ))}
+            </div>
         </div>
     );
 }

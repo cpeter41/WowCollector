@@ -26,24 +26,29 @@
 
 .achievement-category:hover {
     cursor: pointer;
+    background-color: whitesmoke;
 }
 
 /* Category Details Page */
 
 #category-details-container {
     display: flex;
+    width: 100%;
+    height: 93vh;
 }
 
 #category-details-subcategories {
-    width: 320px;
-    min-height: 93.8vh;
+    min-width: 280px;
     border: 1px solid lightgray;
     border-radius: 8px;
-    margin-top: 8px;
+    height: 100%;
 }
 
 #category-details-subcategories ul {
     padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .subcategory {
@@ -59,10 +64,92 @@
     cursor: pointer;
 }
 
-.selected {
+#category-details-subcategories .selected {
     background-color: lightgray;
 }
 
-.selected:hover {
+#category-details-subcategories .selected:hover {
+    background-color: lightgray;
+}
+
+/* Achievements List Section */
+
+#achievement-list-and-details-container {
+    width: 100%;
+    height: 100%;
+}
+
+#achievement-details-container {
+    height: 40%;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+}
+
+#achievement-list-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 60%;
+    overflow-y: auto;
+    border-bottom: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-radius: 8px;
+}
+
+#achievement-list-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    max-width: 1500px;
+}
+
+.achievement-button {
+    margin: 24px 24px 0 24px;
+    border: 1px solid black;
+    border-radius: 6px;
+    width: 400px;
+    min-width: 320px;
+    max-width: 420px;
+    height: 86px;
+}
+
+.achievement-button:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+
+/* Achievement Details Section */
+#achievement-details {
+    height: 100%;
+}
+
+#criteria-container {
+    display: flex;
+    flex-flow: row wrap;
+    height: 70%;
+    overflow-y: auto;
+}
+
+.criteria-achievement {
+    width: 300px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    margin: 10px;
+    padding: 6px 4px;
+    margin-bottom: 0;
+}
+
+.criteria-achievement:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+
+#achievement-list-container .selected {
+    background-color: lightgray;
+}
+
+#achievement-list-container .selected:hover {
     background-color: lightgray;
 }

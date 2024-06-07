@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
 import { csrfFetch } from "./csrf";
 
 const GET_CATEGORIES = "resources/getAchievementCategories";
 const GET_CATEGORY_DETAILS = "resources/getCategoryDetails";
 const GET_SUBCAT_DETAILS = "resources/getSubcategoryDetails";
+const GET_ACHVMNT_DETAILS = "resources/getAchievementDetails";
 
 const getCategories = (categories) => {
     return {
@@ -22,6 +22,13 @@ const getCatDeets = (details) => {
 const getSubCatDeets = (details) => {
     return {
         type: GET_SUBCAT_DETAILS,
+        details,
+    };
+};
+
+const getAchvmntDetails = (details) => {
+    return {
+        type: GET_ACHVMNT_DETAILS,
         details,
     };
 };
@@ -58,18 +65,24 @@ export const getSubCategoryDetails = (categoryId) => async (dispatch) => {
     dispatch(getSubCatDeets(data));
 };
 
-export const getGlobalSubcategoryDetails = () => async (dispatch) => {
-    const current_category = useSelector(
-        (state) => state.resources.current_category
-    );
-    console.log(current_category);
-    dispatch(getSubCatDeets(current_category));
+export const getAchievementDetails = (achievementId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/resources/achievements/${achievementId}`);
+
+    let data;
+    if (res.ok) data = await res.json();
+
+    dispatch(getAchvmntDetails(data));
 };
 
 const initState = {
+    // root categories of achievements for base "/achievements" page
     achievement_categories: [],
+    // selected category for modified "/achievements" page (shows subcategories)
     current_category: {},
+    // selected subcategory for achievements list on modified "/achievements" page
     current_subcategory: {},
+    // selected achievement for full details on modified page ^
+    current_achievement: {}
 };
 
 export default function resourcesReducer(state = initState, action) {
@@ -80,6 +93,8 @@ export default function resourcesReducer(state = initState, action) {
             return { ...state, current_category: action.details };
         case GET_SUBCAT_DETAILS:
             return { ...state, current_subcategory: action.details };
+        case GET_ACHVMNT_DETAILS:
+            return { ...state, current_achievement: action.details };
         default:
             return state;
     }

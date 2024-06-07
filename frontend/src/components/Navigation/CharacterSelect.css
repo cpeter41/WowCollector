@@ -20,7 +20,7 @@
 
 .characters-dropdown li:hover {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: whitesmoke;
 }
 
 #selected-character-button {
@@ -31,7 +31,7 @@
 
 #selected-character-button:hover {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: whitesmoke;
 }
 
 #selected-character-button i {

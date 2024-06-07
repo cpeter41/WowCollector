@@ -19,6 +19,8 @@ function Navigation({ isLoaded }) {
         if (user) dispatch(getCharactersOfUser());
     }, [dispatch, user]);
 
+    // TODO: currently picks first character in list to load
+    // instead, store a cookie to use on load
     useEffect(() => {
         if (!selectedCharacter) dispatch(selectCharacter(characters[0]));
     }, [characters, dispatch, selectedCharacter])
