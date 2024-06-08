@@ -81,7 +81,7 @@ router.delete("/:charId", requireAuth, async (req, res, next) => {
     if (foundChar.toJSON().userId !== user.id)
         return next(new Error("Forbidden"));
 
-    await foundChar.destroy();
+    await foundChar?.destroy();
 
     return res.status(200).json({ message: "Character successfully removed" });
 });
@@ -205,7 +205,7 @@ router.delete(
                 .status(404)
                 .json({ message: "Tracked achievement couldn't be found." });
 
-        await foundTrackedAchievement.destroy();
+        await foundTrackedAchievement?.destroy();
 
         return res.status(200).json({
             message: "Tracked achievement successfully removed",

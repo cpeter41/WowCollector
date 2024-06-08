@@ -55,7 +55,7 @@ export default function CharacterSelect() {
                 </div>
             )}
             <ul
-                className={`characters-dropdown ${isOpen ? "" : " hidden"}`}
+                className={`characters-dropdown${isOpen ? "" : " hidden"}`}
                 ref={ulRef}
             >
                 {characters.map((char) => (

@@ -23,6 +23,7 @@ export const getTrackedAchievements = (characterId) => async (dispatch) => {
     let data;
     if (res.ok) data = await res.json();
 
+    console.log(data);
     dispatch(getAchievements(data));
 };
 

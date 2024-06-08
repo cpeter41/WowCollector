@@ -1,7 +1,9 @@
-import { useSelector } from "react-redux";
+import { /*useDispatch,*/ useSelector } from "react-redux";
+// import { trackAchievement } from "../../redux/tracker";
 import "./Achievements.css";
 
 export default function AchievementDetails({ handleAchievementClick }) {
+    // const dispatch = useDispatch();
     const achievementDetails = useSelector(
         (state) => state.resources.current_achievement
     );

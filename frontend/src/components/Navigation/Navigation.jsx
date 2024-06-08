@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, /*useRef,*/ useState } from "react";
 import ProfileButton from "./ProfileButton";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../Modals/LoginFormModal";
 import SignupFormModal from "../Modals/SignupFormModal";
 import CharacterSelect from "./CharacterSelect";
-// import TrackerModal from "./TrackerModal";
+import TrackerList from "../TrackerList";
 import { getCharactersOfUser, selectCharacter } from "../../redux/characters";
 import "./Navigation.css";
 
@@ -17,7 +17,7 @@ function Navigation({ isLoaded }) {
         (state) => state.characters.selCharacter
     );
     const [isOpen, setOpen] = useState(false);
-    const ulRef = useRef();
+    // const ulRef = useRef();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -30,23 +30,27 @@ function Navigation({ isLoaded }) {
         if (!selectedCharacter) dispatch(selectCharacter(characters[0]));
     }, [characters, dispatch, selectedCharacter]);
 
-    useEffect(() => {
-        if (!isOpen) return;
+    // useEffect(() => {
+    //     if (!isOpen) {
+    //         console.log("here: ", isOpen);
+    //         return;
+    //     }
 
-        const closeDropdown = (e) => {
-            if (ulRef.current && !ulRef.current.contains(e.target)) {
-                setOpen(false);
-            }
-        };
+    //     const closeDropdown = (e) => {
+    //         if (ulRef.current && !ulRef.current.contains(e.target)) {
+    //             console.log("closing lol");
+    //             setOpen(false);
+    //         }
+    //     };
 
-        document.addEventListener("click", closeDropdown);
+    //     document.addEventListener("click", closeDropdown);
 
-        return () => document.removeEventListener("click", closeDropdown);
-    }, [isOpen]);
+    //     return () => document.removeEventListener("click", closeDropdown);
+    // }, [isOpen]);
 
-    const handleTrackerClick = (e) => {
-
-    }
+    const handleTrackerClick = () => {
+        setOpen(!isOpen);
+    };
 
     return (
         <div id="nav-bar">
@@ -61,14 +65,14 @@ function Navigation({ isLoaded }) {
             <div id="open-tracker-button" onClick={handleTrackerClick}>
                 <i className="fa-solid fa-crosshairs fa-2xl"></i>
             </div>
-            <div className={`tracker-modal ${isOpen ? "" : " hidden"}`}
-                ref={ulRef}>
+            {/* <TrackerList /> */}
+            <div
+                className={`tracker-menu${isOpen ? "" : " hidden"}`}
+            >
+                <TrackerList />
             </div>
             {isLoaded && user ? (
                 <div id="nav-logged-out">
-                    {/* <NavLink className="nav-link" to="/groups/new">
-                        Start a new group
-                    </NavLink> */}
                     <ProfileButton user={user} />
                 </div>
             ) : (

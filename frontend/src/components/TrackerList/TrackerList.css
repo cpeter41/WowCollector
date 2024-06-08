@@ -1,0 +1,37 @@
+#tracked-achievements-container h2,
+#tracked-mounts-container h2 {
+    margin: 0 0 0 8px;
+}
+
+#tracked-achievements-container ul {
+    list-style-type: none;
+    padding-left: 30px;
+}
+
+#tracked-achievements-container li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    height: 32px;
+    text-indent: 10px;
+}
+
+#tracked-achievements-container li:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+
+.tracker-list-section-header {
+    display: flex;
+    align-items: center;
+}
+
+.tracker-list-section-header:hover {
+    cursor: pointer;
+}
+
+.tracked-achievement,
+.tracked-mount {
+    border: 1px solid lightgray;
+    border-radius: 8px;
+}

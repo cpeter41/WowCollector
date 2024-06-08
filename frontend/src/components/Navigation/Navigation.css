@@ -77,3 +77,16 @@
 #open-tracker-button:hover {
     cursor: pointer;
 }
+
+/* tracker */
+
+.tracker-menu {
+    position: absolute;
+    right: 20px;
+    top: 72px;
+    width: 20%;
+    padding: 10px;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    background-color: white;
+}
