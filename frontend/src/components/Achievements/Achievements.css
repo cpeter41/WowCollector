@@ -31,6 +31,27 @@
 
 /* Category Details Page */
 
+#subcategories-header {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    border-bottom: 1px solid lightgray;
+    font-size: large;
+}
+
+/* #subcategories-header h3 {
+    margin: 0 0 0 4px;
+} */
+
+#subcategories-header i {
+    padding: 6px;
+}
+
+#subcategories-header:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+
 #category-details-container {
     display: flex;
     width: 100%;

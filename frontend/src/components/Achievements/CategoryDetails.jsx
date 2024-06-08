@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import AchievementContainer from "./AchievementContainer";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     getCategoryDetails,
     getSubCategoryDetails,
+    clearSelections,
+    clearAchievementSelection,
 } from "../../redux/resources";
 import "./Achievements.css";
 
@@ -13,6 +16,7 @@ import "./Achievements.css";
 // TODO: dont dispatch if subcategory is already selected
 
 export default function CategoryDetails({ categoryId }) {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const categoryDetails = useSelector(
         (state) => state.resources.current_category
@@ -22,21 +26,23 @@ export default function CategoryDetails({ categoryId }) {
     );
 
     useEffect(() => {
+        // loads category/subcategory if not in store on load
         if (!Object.keys(categoryDetails).length) {
-            // loads category if not in store on load
             dispatch(getCategoryDetails(categoryId));
-            // loads subcategory if not in store on load
             dispatch(getSubCategoryDetails(categoryId));
         }
     }, [categoryDetails, categoryId, dispatch]);
 
+    // unselects the global subcategory and gets details of new selection
     const handleSubcategoryClick = (e) => {
         const globalSubcat = document.getElementById("global-subcategory");
         if (globalSubcat.classList.contains("selected"))
             globalSubcat.classList.remove("selected");
         dispatch(getSubCategoryDetails(e.target.id));
+        dispatch(clearAchievementSelection());
     };
 
+    // unselects the selected subcategory and gets details of global subcategory
     const handleGlobalSubcatClick = (e) => {
         if (!e.target.classList.contains("selected")) {
             const subCategories = document.getElementById(
@@ -49,13 +55,28 @@ export default function CategoryDetails({ categoryId }) {
                 lastSelectedSubcat.classList.remove("selected");
             e.target.classList.add("selected");
             dispatch(getSubCategoryDetails(categoryId));
+            dispatch(clearAchievementSelection());
         }
+    };
+
+    const handleCategoryBackClick = () => {
+        dispatch(clearSelections());
+        navigate("/achievements");
     };
 
     return (
         <div id="category-details-container">
             <div id="category-details-subcategories">
                 <ul>
+                    {/* TODO: move header up and make the subcats scrollable,
+                    making the header always visible */}
+                    <li
+                        id="subcategories-header"
+                        onClick={handleCategoryBackClick}
+                    >
+                        <i className="fa-solid fa-angle-left fa-2xl"></i>
+                        <h3>{categoryDetails.name}</h3>
+                    </li>
                     <li
                         className={`subcategory selected`}
                         id="global-subcategory"

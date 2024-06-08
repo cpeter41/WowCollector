@@ -74,6 +74,16 @@ export const getAchievementDetails = (achievementId) => async (dispatch) => {
     dispatch(getAchvmntDetails(data));
 };
 
+export const clearSelections = () => async (dispatch) => {
+    dispatch(getAchvmntDetails({}));
+    dispatch(getSubCatDeets({}));
+    dispatch(getCatDeets({}));
+}
+
+export const clearAchievementSelection = () => async (dispatch) => {
+    dispatch(getAchvmntDetails({}));
+}
+
 const initState = {
     // root categories of achievements for base "/achievements" page
     achievement_categories: [],
