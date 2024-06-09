@@ -92,7 +92,7 @@ router.delete("/:charId", requireAuth, async (req, res, next) => {
 
     await foundChar?.destroy();
 
-    return res.status(200).json({ message: "Character successfully removed" });
+    return res.status(204).json({ message: "Character successfully removed" });
 });
 
 // ---------------- ACHIEVEMENT TRACKER ROUTES ----------------
@@ -123,7 +123,7 @@ router.get("/achievements", requireAuth, async (req, res, next) => {
     const data = await response.json();
     // achievements are uncategorized and are in a single giant array
     // thank you blizzard
-    return res.json({ achievements: data.achievements });
+    return res.json(data.achievements);
 });
 
 // add an achievement to tracker
@@ -181,6 +181,37 @@ router.get("/:charId/achievements", requireAuth, async (req, res, next) => {
     return res.status(200).json(trackedAchievements);
 });
 
+// add/modify note set on achievement
+router.put("/:charId/achievements", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { charId } = req.params;
+    const { note, achvmntId } = req.body;
+
+    const foundChar = await Character.findByPk(charId);
+    if (!foundChar)
+        return res
+            .status(404)
+            .json({ message: "Character couldn't be found." });
+
+    // authorization
+    // consider moving this to middleware
+    if (foundChar.toJSON().userId !== user.id)
+        return next(new Error("Forbidden"));
+
+    const foundAch = await Achievement.findOne({
+        where: { blizzId: achvmntId },
+    });
+    if (!foundAch)
+        return res
+            .status(404)
+            .json({ message: "Tracked achievement couldn't be found." });
+
+    foundAch.note = note;
+    await foundAch.save();
+
+    return res.status(200).json(foundAch)
+});
+
 // remove achievement from tracker
 router.delete(
     "/:charId/achievements/:achvmntId",
@@ -211,7 +242,7 @@ router.delete(
 
         await foundTrackedAchievement.destroy();
 
-        return res.status(200).json({
+        return res.status(204).json({
             message: "Tracked achievement successfully removed",
         });
     }

@@ -34,7 +34,6 @@ export default function AchievementDetails({ handleAchievementClick }) {
                 (cat) => cat.id == achievementDetails?.category?.id
             );
             if (isRootCategory) {
-                // console.log("its in the root category!")
                 dispatch(getCategoryDetails(achievementDetails.category?.id));
             } else {
                 const rootCat = rootCategories.find((rootCat) => {
@@ -43,10 +42,8 @@ export default function AchievementDetails({ handleAchievementClick }) {
                             subCat.id == achievementDetails?.category?.id
                     );
                 });
-                // console.log("rootcat: ", rootCat);
                 dispatch(getCategoryDetails(rootCat.id));
             }
-            // console.log("setting subcat to ", achievementDetails.category?.id);
             dispatch(getSubCategoryDetails(achievementDetails.category?.id));
         }
     }, [achievementDetails, dispatch, rootCategories]);
@@ -145,12 +142,14 @@ export default function AchievementDetails({ handleAchievementClick }) {
                                  * item slot, but none of these are achievements. We remove
                                  * the onclick to prevent trying to load an achievement that
                                  * doesn't exist.
-                                 */ 
-                                else if (crta.child_criteria) 
+                                 */ else if (crta.child_criteria)
                                     return (
                                         <div
                                             key={crta.id}
-                                            id={crta?.child_criteria[0].achievement?.id}
+                                            id={
+                                                crta?.child_criteria[0]
+                                                    .achievement?.id
+                                            }
                                             className="criteria-achievement"
                                             onClick={(e) => {
                                                 // unselect old subcategory

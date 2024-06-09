@@ -29,6 +29,9 @@ module.exports = {
                     type: Sequelize.INTEGER,
                     allowNull: false,
                 },
+                note: {
+                    type: Sequelize.TEXT,
+                },
                 // desc: {
                 //     type: Sequelize.TEXT,
                 // },

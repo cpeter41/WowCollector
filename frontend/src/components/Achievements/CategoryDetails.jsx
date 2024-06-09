@@ -14,6 +14,9 @@ import "./Achievements.css";
 export default function CategoryDetails({ setOnRootPage }) {
     // const navigate = useNavigate();
     const dispatch = useDispatch();
+    const selectedAchievement = useSelector(
+        (state) => state.resources.current_achievement
+    );
     const categoryDetails = useSelector(
         (state) => state.resources.current_category
     );
@@ -23,10 +26,13 @@ export default function CategoryDetails({ setOnRootPage }) {
 
     useEffect(() => {
         // loads subcategory if not in store on init load
-        if (categoryDetails.id && !Object.keys(subcategoryDetails).length) {
+        if (
+            categoryDetails.id &&
+            !Object.keys(subcategoryDetails).length &&
+            !Object.keys(selectedAchievement).length
+        )
             dispatch(getSubCategoryDetails(categoryDetails.id));
-        }
-    }, [categoryDetails, subcategoryDetails, dispatch]);
+    });
 
     // unselects the global subcategory and gets details of new selection
     const handleSubcategoryClick = (e) => {
@@ -75,11 +81,12 @@ export default function CategoryDetails({ setOnRootPage }) {
                     <h3>{categoryDetails.name}</h3>
                 </div>
                 <ul>
-                    {/* TODO: move header up and make the subcats scrollable,
-                    making the header always visible */}
-
                     <li
-                        className={`subcategory ${categoryDetails.id === subcategoryDetails.id ? "selected" : ""}`}
+                        className={`subcategory ${
+                            categoryDetails.id === subcategoryDetails.id
+                                ? "selected"
+                                : ""
+                        }`}
                         id="global-subcategory"
                         onClick={handleGlobalSubcatClick}
                     >

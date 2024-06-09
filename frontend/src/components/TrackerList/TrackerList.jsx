@@ -6,12 +6,12 @@ import {
 import { getAchievementDetails } from "../../redux/resources";
 import { useEffect, useState } from "react";
 import "./TrackerList.css";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function TrackerList({ setOpen }) {
     // TODO: close when clicking off of the menu
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const selectedCharacter = useSelector(
         (state) => state.characters.selCharacter
     );
@@ -43,7 +43,7 @@ export default function TrackerList({ setOpen }) {
 
     const handleAchievementNavigate = (e) => {
         dispatch(getAchievementDetails(e.target.id));
-        // navigate(`/achievements/${}`)
+        navigate("/achievements");
         setOpen(false);
     };
 

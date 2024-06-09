@@ -31,6 +31,9 @@ export default function Achievements() {
     // let navigate = useNavigate();
     const dispatch = useDispatch();
     const [onRootPage, setOnRootPage] = useState(true);
+    const selectedAchievement = useSelector(
+        (state) => state.resources.current_achievement
+    );
     const achievement_categories = useSelector(
         (state) => state.resources.achievement_categories
     );
@@ -43,7 +46,11 @@ export default function Achievements() {
 
     // runs on initial component render
     useEffect(() => {
-        dispatch(setAchievementCategories(data))
+        if (Object.keys(selectedAchievement).length) {
+            setOnRootPage(false);
+        }
+        if (!achievement_categories[0]?.subcategories)
+            dispatch(setAchievementCategories(data));
     });
 
     return onRootPage ? (
