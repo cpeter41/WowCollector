@@ -46,7 +46,16 @@ router.post("/", [requireAuth, checkCharacter], async (req, res) => {
         name: formatName(name),
     });
 
-    return res.status(200).json(newCharacter.toJSON());
+    // console.log(res.locals.character);
+
+    const data = newCharacter.toJSON();
+    // data.faction = res.locals.character.faction;
+    // data.gender = res.locals.character.gender;
+    // data.race = res.locals.character.race;
+    // data.class = res.locals.character.character_class;
+    // data.spec = res.locals.character.active_spec;
+
+    return res.status(200).json(data);
 });
 
 // get all characters on current account
@@ -161,12 +170,9 @@ router.get("/:charId/achievements", requireAuth, async (req, res, next) => {
 
     const trackedAchievements = await Achievement.findAll({
         include: [
-            // {
-            //     model: Character,
-            //     through: { where: { charId }, attributes: [] },
-            // },
             {
                 model: Character,
+                where: { id: charId },
                 attributes: [],
             },
         ],

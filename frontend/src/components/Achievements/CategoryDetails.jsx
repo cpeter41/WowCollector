@@ -26,7 +26,7 @@ export default function CategoryDetails({ setOnRootPage }) {
         if (categoryDetails.id && !Object.keys(subcategoryDetails).length) {
             dispatch(getSubCategoryDetails(categoryDetails.id));
         }
-    }, [categoryDetails, dispatch]);
+    }, [categoryDetails, subcategoryDetails, dispatch]);
 
     // unselects the global subcategory and gets details of new selection
     const handleSubcategoryClick = (e) => {

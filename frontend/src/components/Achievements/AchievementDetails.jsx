@@ -34,7 +34,7 @@ export default function AchievementDetails({ handleAchievementClick }) {
                 (cat) => cat.id == achievementDetails?.category?.id
             );
             if (isRootCategory) {
-                console.log("its in the root category!")
+                // console.log("its in the root category!")
                 dispatch(getCategoryDetails(achievementDetails.category?.id));
             } else {
                 const rootCat = rootCategories.find((rootCat) => {
@@ -43,10 +43,10 @@ export default function AchievementDetails({ handleAchievementClick }) {
                             subCat.id == achievementDetails?.category?.id
                     );
                 });
-                console.log("rootcat: ", rootCat);
+                // console.log("rootcat: ", rootCat);
                 dispatch(getCategoryDetails(rootCat.id));
             }
-            console.log("setting subcat to ", achievementDetails.category?.id);
+            // console.log("setting subcat to ", achievementDetails.category?.id);
             dispatch(getSubCategoryDetails(achievementDetails.category?.id));
         }
     }, [achievementDetails, dispatch, rootCategories]);
@@ -129,7 +129,7 @@ export default function AchievementDetails({ handleAchievementClick }) {
                                                         .getElementsByClassName(
                                                             "selected"
                                                         )[0];
-                                                lastSelectedSubcat.classList.remove(
+                                                lastSelectedSubcat?.classList.remove(
                                                     "selected"
                                                 );
                                                 // display new achievement in details section
@@ -145,11 +145,38 @@ export default function AchievementDetails({ handleAchievementClick }) {
                                  * item slot, but none of these are achievements. We remove
                                  * the onclick to prevent trying to load an achievement that
                                  * doesn't exist.
-                                 */ else
+                                 */ 
+                                else if (crta.child_criteria) 
                                     return (
                                         <div
                                             key={crta.id}
-                                            id={crta?.achievement?.id}
+                                            id={crta?.child_criteria[0].achievement?.id}
+                                            className="criteria-achievement"
+                                            onClick={(e) => {
+                                                // unselect old subcategory
+                                                const lastSelectedSubcat =
+                                                    document
+                                                        .getElementById(
+                                                            "category-details-subcategories"
+                                                        )
+                                                        .getElementsByClassName(
+                                                            "selected"
+                                                        )[0];
+                                                lastSelectedSubcat?.classList.remove(
+                                                    "selected"
+                                                );
+                                                // display new achievement in details section
+                                                handleAchievementClick(e);
+                                            }}
+                                        >
+                                            {crta.child_criteria[0].description}
+                                        </div>
+                                    );
+                                else
+                                    return (
+                                        <div
+                                            key={crta.id}
+                                            id={crta.id}
                                             // different class to avoid hover effects
                                             className="criteria-part"
                                         >

@@ -44,22 +44,6 @@ router.get("/achievements/categories", async (req, res, next) => {
         rCat.subcategories = data.subcategories;
         // console.log("rcat: ", rCat.subcategories);
     }
-    // data.root_categories.forEach(async (rCat) => {
-    //     // format API request URI
-    //     console.log("----------------- RCAT ", rCat);
-    //     const URL = `${host}/data/wow/achievement-category/${rCat.id}`;
-    //     const queryParams = new URLSearchParams({ locale: "en_US", namespace });
-    //     const formattedURI = `${URL}?${queryParams}`;
-
-    //     // attach oauth token
-    //     const headers = { Authorization: `Bearer ${oAuthToken}` };
-    //     const response = await fetch(formattedURI, { headers });
-    //     const data = await response.json();
-    //     // console.log("data for ", rCat, " : ", data.subcategories);
-    //     rCat.subcategories = data.subcategories;
-    //     // console.log("rcat: ", rCat.subcategories);
-    // });
-    // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!FINALLY: ", data.root_categories);
     return res.json(data.root_categories);
 });
 

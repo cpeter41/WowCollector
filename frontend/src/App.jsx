@@ -42,10 +42,10 @@ const router = createBrowserRouter([
                 path: "/achievements",
                 element: <Achievements />,
             },
-            {
-                path: "/achievements/:categoryId",
-                element: <Achievements />,
-            },
+            // {
+            //     path: "/achievements/:categoryId",
+            //     element: <Achievements />,
+            // },
             {
                 path: "/mounts",
                 element: <MainPage />,

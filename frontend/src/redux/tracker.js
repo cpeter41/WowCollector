@@ -30,6 +30,7 @@ export const getTrackedAchievements = (characterId) => async (dispatch) => {
 
     let data;
     if (res.ok) data = await res.json();
+    console.log("tracked achievements: ", data);
 
     dispatch(getAchievements(data));
 };
@@ -79,7 +80,10 @@ export default function trackerReducer(state = initState, action) {
             i = state.achievements.findIndex((ach) => {
                 return ach.blizzId == action.achievementId;
             });
-            return { ...state, achievements: state.achievements.toSpliced(i, 1) };
+            return {
+                ...state,
+                achievements: state.achievements.toSpliced(i, 1),
+            };
         default:
             return state;
     }

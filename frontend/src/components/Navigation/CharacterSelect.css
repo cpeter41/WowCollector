@@ -8,6 +8,8 @@
 
 .characters-dropdown li {
     list-style-type: none;
+    display: flex;
+    align-items: center;
     padding: 4px 8px;
     border-radius: 8px;
     margin: 2px 0;
@@ -36,4 +38,23 @@
 
 #selected-character-button i {
     margin-right: 6px;
+}
+
+.tracked-character .delete-button {
+    opacity: 0;
+    display: flex;
+    margin-right: 4px;
+}
+
+.tracked-character:hover .delete-button {
+    opacity: 1;
+}
+
+.delete-button:hover .fa-regular,
+.delete-button .fa-solid {
+    display: none;
+}
+
+.delete-button:hover .fa-solid {
+    display: contents;
 }

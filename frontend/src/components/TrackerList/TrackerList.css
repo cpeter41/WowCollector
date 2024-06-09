@@ -77,7 +77,7 @@
     background-color: whitesmoke;
 }
 
-.delete-button {
+.tracked .delete-button {
     opacity: 0;
     display: flex;
 }

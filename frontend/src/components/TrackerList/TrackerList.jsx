@@ -25,8 +25,10 @@ export default function TrackerList({ setOpen }) {
     const [mntOpen, setMntOpen] = useState(true);
 
     useEffect(() => {
-        if (selectedCharacter)
+        if (selectedCharacter) {
+            console.log("getting tracked achievements for ", selectedCharacter);
             dispatch(getTrackedAchievements(selectedCharacter.id));
+        }
     }, [selectedCharacter, dispatch]);
 
     const handleDeleteAchievement = (e) => {

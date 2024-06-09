@@ -13,7 +13,7 @@ const _slug = (name) => {
 };
 
 // middleware for checking if character exists before adding to account
-const checkCharacter = async (req, _res, next) => {
+const checkCharacter = async (req, res, next) => {
     // obtain oauth access token for API usage
     const oAuthToken = await app.oAuthClient.getToken();
 
@@ -29,8 +29,11 @@ const checkCharacter = async (req, _res, next) => {
     // attach oauth token
     const headers = { Authorization: `Bearer ${oAuthToken}` };
 
-    const res = await fetch(formattedURI, { headers });
-    if (res.ok) next();
+    const response = await fetch(formattedURI, { headers });
+    const data = await response.json();
+    // for passing more data into character if need be (see in characters route)
+    res.locals.character = data;
+    if (response.ok) next();
     else
         next({
             message: "Character not found on Blizzard API",

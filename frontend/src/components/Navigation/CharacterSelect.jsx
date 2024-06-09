@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCharacter } from "../../redux/characters";
+import { selectCharacter, deleteCharacter } from "../../redux/characters";
 import AddCharacterModal from "../Modals/AddCharacterModal";
 import { useModal } from "../../context/Modal";
 import "./CharacterSelect.css";
@@ -13,6 +13,11 @@ export default function CharacterSelect() {
     const characters = useSelector((state) => state.characters.characterList);
     const user = useSelector((state) => state.session.user);
     const { setModalContent } = useModal();
+
+    const handleDeleteCharacter = (e) => {
+        e.stopPropagation();
+        dispatch(deleteCharacter(e.target.id));
+    };
 
     useEffect(() => {
         if (!isOpen) return;
@@ -60,12 +65,23 @@ export default function CharacterSelect() {
             >
                 {characters.map((char) => (
                     <li
+                        className="tracked-character"
                         key={char.id}
                         onClick={() => {
                             setOpen(false);
                             dispatch(selectCharacter(char));
                         }}
-                    >{`${char.name}-${char?.serverName.replace(" ", "")}`}</li>
+                    >
+                        <div className="delete-button">
+                            <i className="fa-regular fa-circle-xmark fa-lg"></i>
+                            <i
+                                className="fa-solid fa-circle-xmark fa-lg"
+                                id={char.id}
+                                onClick={handleDeleteCharacter}
+                            ></i>
+                        </div>
+                        {`${char.name}-${char?.serverName.replace(" ", "")}`}
+                    </li>
                 ))}
                 <li
                     id="add-character-button"

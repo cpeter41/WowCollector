@@ -1,8 +1,9 @@
 import { csrfFetch } from "./csrf";
 
 const GET_CHARS = "characters/getCharactersOfUser";
-const SEL_CHAR = "chracters/selectCharacter";
+const SEL_CHAR = "characters/selectCharacter";
 const ADD_CHAR = "characters/addCharacter";
+const DEL_CHAR = "characters/deleteCharacter";
 
 const setCharacters = (chars) => {
     return {
@@ -22,6 +23,13 @@ const addChar = (char) => {
     return {
         type: ADD_CHAR,
         char,
+    };
+};
+
+const delChar = (charId) => {
+    return {
+        type: DEL_CHAR,
+        charId,
     };
 };
 
@@ -52,9 +60,19 @@ export const addCharacter = (char) => async (dispatch) => {
     dispatch(addChar(data));
 };
 
+export const deleteCharacter = (charId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/characters/${charId}`, {
+        method: "DELETE",
+    });
+
+    if (res.ok) dispatch(delChar(charId));
+};
+
 const initState = { characterList: [], selCharacter: null };
 
 export default function characterReducer(state = initState, action) {
+    // i is for finding the index of the character to delete
+    let i;
     switch (action.type) {
         case GET_CHARS:
             return { ...state, characterList: [...action.chars] };
@@ -64,6 +82,14 @@ export default function characterReducer(state = initState, action) {
             return {
                 ...state,
                 characterList: [...state.characterList, action.char],
+            };
+        case DEL_CHAR:
+            i = state.characterList.findIndex(
+                (char) => char.id == action.charId
+            );
+            return {
+                ...state,
+                characterList: state.characterList.toSpliced(i, 1),
             };
         default:
             return state;
