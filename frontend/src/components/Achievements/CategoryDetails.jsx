@@ -23,7 +23,7 @@ export default function CategoryDetails({ setOnRootPage }) {
 
     useEffect(() => {
         // loads subcategory if not in store on init load
-        if (Object.keys(categoryDetails).length) {
+        if (categoryDetails.id && !Object.keys(subcategoryDetails).length) {
             dispatch(getSubCategoryDetails(categoryDetails.id));
         }
     }, [categoryDetails, dispatch]);

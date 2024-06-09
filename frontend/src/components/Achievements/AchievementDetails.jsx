@@ -34,6 +34,7 @@ export default function AchievementDetails({ handleAchievementClick }) {
                 (cat) => cat.id == achievementDetails?.category?.id
             );
             if (isRootCategory) {
+                console.log("its in the root category!")
                 dispatch(getCategoryDetails(achievementDetails.category?.id));
             } else {
                 const rootCat = rootCategories.find((rootCat) => {
@@ -45,6 +46,7 @@ export default function AchievementDetails({ handleAchievementClick }) {
                 console.log("rootcat: ", rootCat);
                 dispatch(getCategoryDetails(rootCat.id));
             }
+            console.log("setting subcat to ", achievementDetails.category?.id);
             dispatch(getSubCategoryDetails(achievementDetails.category?.id));
         }
     }, [achievementDetails, dispatch, rootCategories]);
