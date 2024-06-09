@@ -96,21 +96,3 @@
     margin: 0;
     margin: 4px 0;
 }
-
-.tracked span > div {
-    border: 1px solid lightgray;
-}
-
-/* #comment-button {
-    position: fixed;
-    right: 20px;
-} */
-
-/* #testing-time {
-    height: 18px;
-    width: 95%;
-    background-color: black;
-    border: 1px solid lightgray;
-    border-radius: 4px;
-    margin-top: 2px;
-} */

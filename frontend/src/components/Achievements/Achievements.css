@@ -189,3 +189,14 @@
 #achievement-list-container .selected:hover {
     background-color: lightgray;
 }
+
+#tracked-note {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    position: absolute;
+    padding: 10px;
+    right: 20px;
+    top: 72px;
+    width: 200px;
+    /* text-wrap: wrap; */
+}

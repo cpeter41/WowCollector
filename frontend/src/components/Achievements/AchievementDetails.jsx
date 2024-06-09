@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     trackAchievement,
@@ -26,6 +26,7 @@ export default function AchievementDetails({ handleAchievementClick }) {
     const rootCategories = useSelector(
         (state) => state.resources.achievement_categories
     );
+    const [notes, setNotes] = useState();
 
     // loads proper categories and subcategories when navigating achievements
     useEffect(() => {
@@ -51,12 +52,24 @@ export default function AchievementDetails({ handleAchievementClick }) {
     // color crosshair button based on if achievement is tracked or not
     useEffect(() => {
         const addButton = document.getElementById("track-button-container");
+        // const detailNotes = document.getElementById("tracked-note");
         if (achievementDetails && trackedAchievements && addButton) {
-            const alreadyTracked = trackedAchievements.find(
-                (ach) => ach.blizzId == achievementDetails.id
-            );
-            if (alreadyTracked) addButton.style.color = "black";
-            else addButton.style.color = "lightgray";
+            let note;
+            const alreadyTracked = trackedAchievements.find((ach) => {
+                if (ach.blizzId == achievementDetails.id) {
+                    note = ach.note;
+                    return true;
+                }
+                // return ach.blizzId == achievementDetails.id
+            });
+            if (alreadyTracked) {
+                if (note) setNotes(note);
+                else setNotes();
+                addButton.style.color = "black";
+            } else {
+                setNotes();
+                addButton.style.color = "lightgray";
+            }
         }
     }, [achievementDetails, trackedAchievements]);
 
@@ -185,6 +198,7 @@ export default function AchievementDetails({ handleAchievementClick }) {
                             }
                         )}
                     </div>
+                    {notes && <div id="tracked-note">{notes}</div>}
                 </>
             )}
         </div>
