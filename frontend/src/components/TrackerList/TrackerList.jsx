@@ -26,7 +26,7 @@ export default function TrackerList({ setOpen }) {
 
     useEffect(() => {
         if (selectedCharacter) {
-            console.log("getting tracked achievements for ", selectedCharacter);
+            document.cookie = `selCharacterId=${selectedCharacter.id};max-age=2629744`
             dispatch(getTrackedAchievements(selectedCharacter.id));
         }
     }, [selectedCharacter, dispatch]);

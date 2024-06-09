@@ -26,13 +26,22 @@ function Navigation({ isLoaded }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user) dispatch(getCharactersOfUser());
+        if (user)
+            dispatch(getCharactersOfUser());
     }, [dispatch, user]);
 
-    // TODO: currently picks first character in list to load
-    // instead, store a cookie to use on load
+    // check cookie for last selected character
     useEffect(() => {
-        if (!selectedCharacter) dispatch(selectCharacter(characters[0]));
+        const cookie = document.cookie;
+        const cookieArray = cookie.split("; ");
+        const selCharacterId = cookieArray
+            .map((cookie) => cookie.split("="))
+            .find((entry) => entry[0] == "selCharacterId");
+        if (!selCharacterId) dispatch(selectCharacter(characters[0]));
+        else if (characters?.length && !selectedCharacter) {
+            const selChar = characters.find((char) => char.id == selCharacterId[1])
+            dispatch(selectCharacter(selChar));
+        }
     }, [characters, dispatch, selectedCharacter]);
 
     const handleTrackerExit = (e) => {
@@ -59,7 +68,7 @@ function Navigation({ isLoaded }) {
                 onClick={handleTrackerExit}
             >
                 <div className={`tracker-menu${isOpen ? "" : " hidden"}`}>
-                    <TrackerList setOpen={setOpen}/>
+                    <TrackerList setOpen={setOpen} />
                 </div>
             </div>
             {isLoaded && user ? (

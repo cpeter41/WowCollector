@@ -30,7 +30,6 @@ export const getTrackedAchievements = (characterId) => async (dispatch) => {
 
     let data;
     if (res.ok) data = await res.json();
-    console.log("tracked achievements: ", data);
 
     dispatch(getAchievements(data));
 };
