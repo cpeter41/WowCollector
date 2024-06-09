@@ -4,6 +4,7 @@ import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import MainPage from "./components/MainPage";
+import Mounts from "./components/Mounts";
 import Achievements from "./components/Achievements";
 import * as sessionActions from "./redux/session";
 import { Modal } from "./context/Modal";
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
             // },
             {
                 path: "/mounts",
-                element: <MainPage />,
+                element: <Mounts />,
             },
             {
                 path: "*",

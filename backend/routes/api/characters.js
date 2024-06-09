@@ -145,7 +145,7 @@ router.post("/:charId/achievements", requireAuth, async (req, res, next) => {
 
     const newTrackedAchievement = await Achievement.create({
         name,
-        characterId: charId,
+        characterId: parseInt(charId),
         blizzId: achvmntId,
     });
 
@@ -247,10 +247,6 @@ router.delete(
         });
     }
 );
-
-/**
- * TODO: add notes to achievements! edit notes. this is update functionality
- */
 
 // ------------------- MOUNT TRACKER ROUTES -------------------
 

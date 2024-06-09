@@ -36,7 +36,6 @@ export default function EditTrackerModal({ achievement }) {
                     value={note}
                     rows={4}
                     onChange={(e) => setNote(e.target.value)}
-                    required
                 ></textarea>
 
                 <button id="edit-note-submit" type="submit">

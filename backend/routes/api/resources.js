@@ -13,7 +13,6 @@ const config = require("../../bnetConfig.js");
 // gets a list of all categories of achievements
 router.get("/achievements/categories", async (req, res, next) => {
     // obtain oauth access token for API usage
-    console.log("called!")
     const oAuthToken = await app.oAuthClient.getToken();
 
     // format API request URI
@@ -106,5 +105,24 @@ router.get("/achievements/:achievementId", async (req, res, next) => {
  * Blizzard API. Should only need to be run when new mounts
  * are added to the game.
  */
+router.get("/mounts", async (req, res, next) => {
+    const oAuthToken = await app.oAuthClient.getToken();
+
+    // format API request URI
+    const region = "us";
+    const host = config.apiHosts[region];
+    const namespace = config.namespaces.static[region];
+    const URL = `${host}/data/wow/mount/index`;
+    const queryParams = new URLSearchParams({ locale: "en_US", namespace });
+    const formattedURI = `${URL}?${queryParams}`;
+
+    // attach oauth token
+    const headers = { Authorization: `Bearer ${oAuthToken}` };
+    const response = await fetch(formattedURI, { headers });
+    const data = await response.json();
+    console.log(data);
+
+    return res.json([...data.mounts]);
+});
 
 module.exports = router;

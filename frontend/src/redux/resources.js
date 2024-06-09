@@ -5,6 +5,8 @@ const GET_CATEGORY_DETAILS = "resources/getCategoryDetails";
 const GET_SUBCAT_DETAILS = "resources/getSubcategoryDetails";
 const GET_ACHVMNT_DETAILS = "resources/getAchievementDetails";
 
+const GET_MOUNT_LIST = "resources/getMountList";
+
 const getCategories = (categories) => {
     return {
         type: GET_CATEGORIES,
@@ -30,6 +32,13 @@ const getAchvmntDetails = (details) => {
     return {
         type: GET_ACHVMNT_DETAILS,
         details,
+    };
+};
+
+const getMounts = (mounts) => {
+    return {
+        type: GET_MOUNT_LIST,
+        mounts,
     };
 };
 
@@ -78,11 +87,20 @@ export const clearSelections = () => async (dispatch) => {
     dispatch(getAchvmntDetails({}));
     dispatch(getSubCatDeets({}));
     dispatch(getCatDeets({}));
-}
+};
 
 export const clearAchievementSelection = () => async (dispatch) => {
     dispatch(getAchvmntDetails({}));
-}
+};
+
+export const getMountList = () => async (dispatch) => {
+    const res = await csrfFetch("/api/resources/mounts");
+    
+    let data;
+    if (res.ok) data = await res.json();
+
+    dispatch(getMounts(data));
+};
 
 const initState = {
     // root categories of achievements for base "/achievements" page
@@ -92,7 +110,9 @@ const initState = {
     // selected subcategory for achievements list on modified "/achievements" page
     current_subcategory: {},
     // selected achievement for full details on modified page ^
-    current_achievement: {}
+    current_achievement: {},
+    // entire list of mounts (HUGE)
+    mount_list: []
 };
 
 export default function resourcesReducer(state = initState, action) {
@@ -105,6 +125,8 @@ export default function resourcesReducer(state = initState, action) {
             return { ...state, current_subcategory: action.details };
         case GET_ACHVMNT_DETAILS:
             return { ...state, current_achievement: action.details };
+        case GET_MOUNT_LIST:
+            return { ...state, mount_list: action.mounts };
         default:
             return state;
     }

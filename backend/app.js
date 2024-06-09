@@ -8,6 +8,9 @@ const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { ValidationError } = require("sequelize");
 const { Character, Achievement } = require("./db/models");
+// const aws = require("aws-sdk");
+
+// const s3 = aws.S3();
 
 const { environment } = require("./config");
 const isProduction = environment === "production";
