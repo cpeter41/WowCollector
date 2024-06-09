@@ -1,0 +1,36 @@
+#edit-note-container {
+    min-width: 400px;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+#edit-note-container h2 {
+    margin: 20px;
+    margin-bottom: 12px;
+}
+
+#edit-note-form {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    margin: 32px 20px;
+}
+
+#edit-note-form textarea {
+    margin-bottom: 20px;
+}
+
+#edit-note-submit {
+    all: unset;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    height: 32px;
+    /* width: 60px; */
+    text-align: center;
+}
+
+#edit-note-submit:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+}

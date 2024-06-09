@@ -44,13 +44,9 @@
 
 .tracked {
     margin-bottom: 4px;
-    height: 32px;
+    height: 48px;
     display: flex;
-    align-items: center;
-    border-right: 1px solid lightgray;
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
-    border-image: linear-gradient(to left, lightgray 80%, transparent 20%) 10% 1;
+    /* align-items: center; */
     background-origin: border-box;
     background-clip: padding-box, border-box;
 }
@@ -63,13 +59,12 @@
     text-wrap: nowrap;
     overflow-x: hidden;
     display: flex;
-    align-items: center;
-    height: 32px;
+    flex-direction: column;
+    height: 48px;
     width: 100%;
-    margin-left: 12px;
     padding-left: 10px;
+    /* padding-top: 4px; */
     border: 1px solid lightgray;
-    border-right: none;
     border-radius: 8px 0 0 8px;
 }
 
@@ -77,20 +72,45 @@
     background-color: whitesmoke;
 }
 
-.tracked .delete-button {
+.tracked .tracker-button {
     opacity: 0;
     display: flex;
+    margin-right: 10px;
+    align-self: center;
 }
 
-.tracked:hover .delete-button {
+.tracked:hover .tracker-button {
     opacity: 1;
 }
 
-.delete-button:hover .fa-regular,
-.delete-button .fa-solid {
+.tracker-button:hover .fa-regular,
+.tracker-button .fa-solid {
     display: none;
 }
 
-.delete-button:hover .fa-solid {
+.tracker-button:hover .fa-solid {
     display: contents;
 }
+
+.tracked span > h4 {
+    margin: 0;
+    margin: 4px 0;
+}
+
+.tracked span > div {
+    border: 1px solid lightgray;
+}
+
+/* #comment-button {
+    position: fixed;
+    right: 20px;
+} */
+
+/* #testing-time {
+    height: 18px;
+    width: 95%;
+    background-color: black;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    margin-top: 2px;
+} */
