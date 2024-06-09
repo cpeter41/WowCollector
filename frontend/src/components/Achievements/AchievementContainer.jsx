@@ -4,25 +4,29 @@ import AchievementDetails from "./AchievementDetails";
 import "./Achievements.css";
 
 export default function AchievementContainer() {
-    // TODO: display selected achievement
     // TODO: highlight achievement if obtained by character
-    // TODO: dont dispatch if achievement is already selected
     const dispatch = useDispatch();
     const current_subcategory = useSelector(
         (state) => state.resources.current_subcategory
     );
+    const selectedAchievement = useSelector((state) => state.resources.current_achievement);
 
     const handleAchievementClick = (e) => {
-        // console.log(e.target);
-        const achievementList = document.getElementById(
-            "achievement-list-container"
-        );
-        const oldSelectedAchievement =
-        achievementList.getElementsByClassName("selected")[0];
-        // console.log(oldSelectedAchievement);
-        oldSelectedAchievement?.classList?.remove("selected");
-        e.target.classList.add("selected");
-        dispatch(getAchievementDetails(e.target.id));
+        console.log(e.target);
+        if (!e.target.classList.contains("selected")) {
+            const achievementList = document.getElementById(
+                "achievement-list-container"
+            );
+            const oldSelectedAchievement =
+                achievementList.getElementsByClassName("selected")[0];
+            if (oldSelectedAchievement !== e.target) {
+                oldSelectedAchievement?.classList?.remove("selected");
+                achievementList.getElementById
+                e.target.classList.add("selected");
+                dispatch(getAchievementDetails(e.target.id));
+            }
+
+        }
     };
 
     return (
@@ -37,7 +41,7 @@ export default function AchievementContainer() {
                     {current_subcategory?.achievements_in_category?.map(
                         (ach) => (
                             <div
-                                className="achievement-button"
+                                className={`achievement-button${selectedAchievement.id == ach.id ? " selected" : ""}`}
                                 key={ach.id}
                                 id={ach.id}
                                 onClick={handleAchievementClick}

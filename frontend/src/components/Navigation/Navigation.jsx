@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, /*useRef,*/ useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileButton from "./ProfileButton";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../Modals/LoginFormModal";
@@ -16,8 +16,13 @@ function Navigation({ isLoaded }) {
     const selectedCharacter = useSelector(
         (state) => state.characters.selCharacter
     );
+    const trackedAchievementsLength = useSelector(
+        (state) => state.tracker.achievements.length
+    );
+    const trackedMountsLength = useSelector(
+        (state) => state.tracker.mounts.length
+    );
     const [isOpen, setOpen] = useState(false);
-    // const ulRef = useRef();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -30,26 +35,8 @@ function Navigation({ isLoaded }) {
         if (!selectedCharacter) dispatch(selectCharacter(characters[0]));
     }, [characters, dispatch, selectedCharacter]);
 
-    // useEffect(() => {
-    //     if (!isOpen) {
-    //         console.log("here: ", isOpen);
-    //         return;
-    //     }
-
-    //     const closeDropdown = (e) => {
-    //         if (ulRef.current && !ulRef.current.contains(e.target)) {
-    //             console.log("closing lol");
-    //             setOpen(false);
-    //         }
-    //     };
-
-    //     document.addEventListener("click", closeDropdown);
-
-    //     return () => document.removeEventListener("click", closeDropdown);
-    // }, [isOpen]);
-
-    const handleTrackerClick = () => {
-        setOpen(!isOpen);
+    const handleTrackerExit = (e) => {
+        if (e.target.id === "tracker-background") setOpen(false);
     };
 
     return (
@@ -62,14 +49,18 @@ function Navigation({ isLoaded }) {
                 <NavLink to="/achievements">Achievements</NavLink>
                 <NavLink to="/mounts">Mounts</NavLink>
             </div>
-            <div id="open-tracker-button" onClick={handleTrackerClick}>
+            <div id="open-tracker-button" onClick={() => setOpen(true)}>
                 <i className="fa-solid fa-crosshairs fa-2xl"></i>
+                <h2>({trackedAchievementsLength + trackedMountsLength})</h2>
             </div>
-            {/* <TrackerList /> */}
             <div
-                className={`tracker-menu${isOpen ? "" : " hidden"}`}
+                id="tracker-background"
+                className={`${isOpen ? "" : "hidden"}`}
+                onClick={handleTrackerExit}
             >
-                <TrackerList />
+                <div className={`tracker-menu${isOpen ? "" : " hidden"}`}>
+                    <TrackerList setOpen={setOpen}/>
+                </div>
             </div>
             {isLoaded && user ? (
                 <div id="nav-logged-out">

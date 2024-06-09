@@ -74,19 +74,19 @@
     margin: 0 2px;
 }
 
-#open-tracker-button:hover {
-    cursor: pointer;
+#open-tracker-button {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 6px;
 }
 
-/* tracker */
+#open-tracker-button h2 {
+    margin: 0;
+    margin-left: 4px;
+}
 
-.tracker-menu {
-    position: absolute;
-    right: 20px;
-    top: 72px;
-    width: 20%;
-    padding: 10px;
-    border: 2px solid lightgray;
-    border-radius: 10px;
-    background-color: white;
+#open-tracker-button:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
 }

@@ -1,6 +1,6 @@
 import { csrfFetch } from "./csrf";
 
-const GET_CATEGORIES = "resources/getAchievementCategories";
+const GET_CATEGORIES = "resources/setAchievementCategories";
 const GET_CATEGORY_DETAILS = "resources/getCategoryDetails";
 const GET_SUBCAT_DETAILS = "resources/getSubcategoryDetails";
 const GET_ACHVMNT_DETAILS = "resources/getAchievementDetails";
@@ -33,13 +33,13 @@ const getAchvmntDetails = (details) => {
     };
 };
 
-export const getAchievementCategories = () => async (dispatch) => {
-    const res = await csrfFetch("/api/resources/achievements/categories");
+export const setAchievementCategories = (data) => async (dispatch) => {
+    // const res = await csrfFetch("/api/resources/achievements/categories");
 
-    let data;
-    if (res.ok) data = await res.json();
+    // let data;
+    // if (res.ok) data = await res.json();
 
-    dispatch(getCategories(data.root_categories));
+    dispatch(getCategories(data));
 };
 
 export const getCategoryDetails = (categoryId) => async (dispatch) => {

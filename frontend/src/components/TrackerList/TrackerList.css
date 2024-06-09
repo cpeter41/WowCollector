@@ -1,7 +1,31 @@
+/* id tracker-background and class tracker-menu is defined in Navigation.jsx */
+#tracker-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.33);
+    z-index: 1;
+}
+
+.tracker-menu {
+    position: absolute;
+    right: 8px;
+    top: 64px;
+    width: 24%;
+    min-width: 210px;
+    height: 91%;
+    padding: 10px;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    background-color: white;
+    overflow-y: auto;
+    z-index: 2;
+}
+
 .tracker-list-section-header h2 {
     margin: 0 0 0 8px;
-    text-wrap: nowrap;
-    overflow-x: hidden;
 }
 
 #tracked-achievements-container ul {
@@ -26,15 +50,12 @@
     border-right: 1px solid lightgray;
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
-    /* border-radius: 8px; */
     border-image: linear-gradient(to left, lightgray 80%, transparent 20%) 10% 1;
     background-origin: border-box;
     background-clip: padding-box, border-box;
 }
 
 .tracked:hover {
-    /* background-color: whitesmoke; */
-    /* background-image: linear-gradient(to left, whitesmoke 90%, transparent 10%); */
     cursor: pointer;
 }
 
@@ -45,7 +66,7 @@
     align-items: center;
     height: 32px;
     width: 100%;
-    margin-left: 29px;
+    margin-left: 12px;
     padding-left: 10px;
     border: 1px solid lightgray;
     border-right: none;
@@ -56,14 +77,13 @@
     background-color: whitesmoke;
 }
 
-.tracked:hover .delete-button {
+.delete-button {
+    opacity: 0;
     display: flex;
 }
 
-.delete-button {
-    display: none;
-    position: fixed;
-    /* margin-left: 2px; */
+.tracked:hover .delete-button {
+    opacity: 1;
 }
 
 .delete-button:hover .fa-regular,

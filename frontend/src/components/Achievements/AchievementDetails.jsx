@@ -4,11 +4,16 @@ import {
     trackAchievement,
     removeTrackedAchievement,
 } from "../../redux/tracker";
-import { getSubCategoryDetails } from "../../redux/resources";
+import {
+    getCategoryDetails,
+    getSubCategoryDetails,
+} from "../../redux/resources";
 import "./Achievements.css";
+// import { useParams } from "react-router-dom";
 
 export default function AchievementDetails({ handleAchievementClick }) {
     const dispatch = useDispatch();
+    // let { categoryId } = useParams();
     const achievementDetails = useSelector(
         (state) => state.resources.current_achievement
     );
@@ -18,11 +23,31 @@ export default function AchievementDetails({ handleAchievementClick }) {
     const trackedAchievements = useSelector(
         (state) => state.tracker.achievements
     );
+    const rootCategories = useSelector(
+        (state) => state.resources.achievement_categories
+    );
 
+    // loads proper categories and subcategories when navigating achievements
     useEffect(() => {
-        if (achievementDetails.category)
+        if (achievementDetails?.category) {
+            const isRootCategory = rootCategories.find(
+                (cat) => cat.id == achievementDetails?.category?.id
+            );
+            if (isRootCategory) {
+                dispatch(getCategoryDetails(achievementDetails.category?.id));
+            } else {
+                const rootCat = rootCategories.find((rootCat) => {
+                    return rootCat.subcategories?.find(
+                        (subCat) =>
+                            subCat.id == achievementDetails?.category?.id
+                    );
+                });
+                console.log("rootcat: ", rootCat);
+                dispatch(getCategoryDetails(rootCat.id));
+            }
             dispatch(getSubCategoryDetails(achievementDetails.category?.id));
-    }, [achievementDetails, dispatch]);
+        }
+    }, [achievementDetails, dispatch, rootCategories]);
 
     // color crosshair button based on if achievement is tracked or not
     useEffect(() => {
@@ -37,7 +62,7 @@ export default function AchievementDetails({ handleAchievementClick }) {
     }, [achievementDetails, trackedAchievements]);
 
     const handleTrackClick = () => {
-        // dont track if achievement is already tracked
+        // track or untrack
         if (
             !trackedAchievements.find((ach) => {
                 return ach.blizzId == achievementDetails.id;

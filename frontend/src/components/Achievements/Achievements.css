@@ -63,12 +63,13 @@
     border: 1px solid lightgray;
     border-radius: 8px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #category-details-subcategories ul {
     padding: 0;
     margin: 0;
-    height: 100%;
     overflow-y: auto;
 }
 

@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom";
 import {
-    getAchievementCategories,
+    setAchievementCategories,
     getCategoryDetails,
 } from "../../redux/resources";
+import { csrfFetch } from "../../redux/csrf";
 import CategoryDetails from "./CategoryDetails";
 import "./Achievements.css";
 
@@ -19,25 +20,33 @@ import "./Achievements.css";
 //     return lcParts.join("-");
 // };
 
+let data;
+if (typeof window !== "undefined") {
+    const res = await csrfFetch("/api/resources/achievements/categories");
+    data = await res.json();
+}
+
 export default function Achievements() {
-    let { categoryId } = useParams();
-    let navigate = useNavigate();
+    // let { categoryId } = useParams();
+    // let navigate = useNavigate();
     const dispatch = useDispatch();
+    const [onRootPage, setOnRootPage] = useState(true);
     const achievement_categories = useSelector(
         (state) => state.resources.achievement_categories
     );
 
     const handleCategoryClick = (e) => {
         dispatch(getCategoryDetails(e.target.id));
-        navigate(`/achievements/${e.target.id}`);
+        // navigate(`/achievements/${e.target.id}`);
+        setOnRootPage(false);
     };
 
     // runs on initial component render
     useEffect(() => {
-        dispatch(getAchievementCategories());
-    }, [dispatch]);
+        dispatch(setAchievementCategories(data))
+    });
 
-    return categoryId === undefined ? (
+    return onRootPage ? (
         <div id="category-container">
             <div id="category-wrapper">
                 {achievement_categories &&
@@ -54,6 +63,6 @@ export default function Achievements() {
             </div>
         </div>
     ) : (
-        <CategoryDetails categoryId={categoryId}/>
+        <CategoryDetails setOnRootPage={setOnRootPage} />
     );
 }

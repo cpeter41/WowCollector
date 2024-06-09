@@ -3,12 +3,15 @@ import {
     getTrackedAchievements,
     removeTrackedAchievement,
 } from "../../redux/tracker";
+import { getAchievementDetails } from "../../redux/resources";
 import { useEffect, useState } from "react";
 import "./TrackerList.css";
+// import { useNavigate } from "react-router-dom";
 
-export default function TrackerList() {
+export default function TrackerList({ setOpen }) {
     // TODO: close when clicking off of the menu
     const dispatch = useDispatch();
+    // const navigate = useNavigate();
     const selectedCharacter = useSelector(
         (state) => state.characters.selCharacter
     );
@@ -34,6 +37,12 @@ export default function TrackerList() {
                     achievementId: e.target.id,
                 })
             );
+    };
+
+    const handleAchievementNavigate = (e) => {
+        dispatch(getAchievementDetails(e.target.id));
+        // navigate(`/achievements/${}`)
+        setOpen(false);
     };
 
     return (
@@ -63,7 +72,12 @@ export default function TrackerList() {
                                         onClick={handleDeleteAchievement}
                                     ></i>
                                 </div>
-                                <span>{achv.name}</span>
+                                <span
+                                    id={achv.blizzId}
+                                    onClick={handleAchievementNavigate}
+                                >
+                                    {achv.name}
+                                </span>
                             </li>
                         ))}
                 </ul>
