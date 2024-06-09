@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getTrackedAchievements } from "../../redux/tracker";
+import {
+    getTrackedAchievements,
+    removeTrackedAchievement,
+} from "../../redux/tracker";
 import { useEffect, useState } from "react";
 import "./TrackerList.css";
 
@@ -14,23 +17,24 @@ export default function TrackerList() {
         (state) => state.tracker.achievements
     );
     const [achOpen, setAchOpen] = useState(true);
-    
-    const trackedMounts = useSelector(
-        (state) => state.tracker.mounts
-    );
-    const [mntOpen, setMntOpen] = useState(true);
 
-    // console.log(trackedAchievements);
+    const trackedMounts = useSelector((state) => state.tracker.mounts);
+    const [mntOpen, setMntOpen] = useState(true);
 
     useEffect(() => {
         if (selectedCharacter)
             dispatch(getTrackedAchievements(selectedCharacter.id));
     }, [selectedCharacter, dispatch]);
 
-    // const handleClose = (e) => {
-    //     e.preventDefault();
-    //     return dispatch()
-    // }
+    const handleDeleteAchievement = (e) => {
+        if (trackedAchievements.find((ach) => ach.blizzId == e.target.id))
+            dispatch(
+                removeTrackedAchievement({
+                    characterId: selectedCharacter.id,
+                    achievementId: e.target.id,
+                })
+            );
+    };
 
     return (
         <>
@@ -50,8 +54,16 @@ export default function TrackerList() {
                     {achOpen &&
                         trackedAchievements &&
                         trackedAchievements.map((achv) => (
-                            <li className="tracked-achievement" key={achv.id}>
-                                {achv.name}
+                            <li className="tracked achievement" key={achv.id}>
+                                <div className="delete-button">
+                                    <i className="fa-regular fa-circle-xmark fa-lg"></i>
+                                    <i
+                                        className="fa-solid fa-circle-xmark fa-lg"
+                                        id={achv.blizzId}
+                                        onClick={handleDeleteAchievement}
+                                    ></i>
+                                </div>
+                                <span>{achv.name}</span>
                             </li>
                         ))}
                 </ul>
@@ -72,8 +84,12 @@ export default function TrackerList() {
                     {mntOpen &&
                         trackedMounts &&
                         trackedMounts.map((mnt) => (
-                            <li className="tracked-mount" key={mnt.id}>
-                                {mnt.name}
+                            <li className="tracked mount" key={mnt.id}>
+                                <div className="delete-button">
+                                    <i className="fa-regular fa-circle-xmark fa-lg"></i>
+                                    <i className="fa-solid fa-circle-xmark fa-lg"></i>
+                                </div>
+                                <span>{mnt.name}</span>
                             </li>
                         ))}
                 </ul>

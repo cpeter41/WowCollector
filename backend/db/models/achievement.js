@@ -47,6 +47,12 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: "Achievement",
+            indexes: [
+                {
+                    fields: ["characterId", "blizzId"],
+                    unique: true,
+                },
+            ],
         }
     );
     return Achievement;

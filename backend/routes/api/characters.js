@@ -140,9 +140,7 @@ router.post("/:charId/achievements", requireAuth, async (req, res, next) => {
         blizzId: achvmntId,
     });
 
-    return res
-        .status(201)
-        .json({ charAchvmnt: newTrackedAchievement.toJSON() });
+    return res.status(201).json(newTrackedAchievement);
 });
 
 // get all tracked achievements
@@ -196,8 +194,8 @@ router.delete(
         if (foundChar.toJSON().userId !== user.id)
             return next(new Error("Forbidden"));
 
-        const foundTrackedAchievement = await CharAchvmnt.findOne({
-            where: { charId, achvmntId },
+        const foundTrackedAchievement = await Achievement.findOne({
+            where: { characterId: charId, blizzId: achvmntId },
         });
 
         if (!foundTrackedAchievement)
@@ -205,7 +203,7 @@ router.delete(
                 .status(404)
                 .json({ message: "Tracked achievement couldn't be found." });
 
-        await foundTrackedAchievement?.destroy();
+        await foundTrackedAchievement.destroy();
 
         return res.status(200).json({
             message: "Tracked achievement successfully removed",

@@ -1,24 +1,12 @@
-#tracked-achievements-container h2,
-#tracked-mounts-container h2 {
+.tracker-list-section-header h2 {
     margin: 0 0 0 8px;
+    text-wrap: nowrap;
+    overflow-x: hidden;
 }
 
 #tracked-achievements-container ul {
     list-style-type: none;
-    padding-left: 30px;
-}
-
-#tracked-achievements-container li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 4px;
-    height: 32px;
-    text-indent: 10px;
-}
-
-#tracked-achievements-container li:hover {
-    background-color: whitesmoke;
-    cursor: pointer;
+    padding-left: 0;
 }
 
 .tracker-list-section-header {
@@ -30,8 +18,59 @@
     cursor: pointer;
 }
 
-.tracked-achievement,
-.tracked-mount {
+.tracked {
+    margin-bottom: 4px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    /* border-radius: 8px; */
+    border-image: linear-gradient(to left, lightgray 80%, transparent 20%) 10% 1;
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.tracked:hover {
+    /* background-color: whitesmoke; */
+    /* background-image: linear-gradient(to left, whitesmoke 90%, transparent 10%); */
+    cursor: pointer;
+}
+
+.tracked span {
+    text-wrap: nowrap;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    height: 32px;
+    width: 100%;
+    margin-left: 29px;
+    padding-left: 10px;
     border: 1px solid lightgray;
-    border-radius: 8px;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+}
+
+.tracked span:hover {
+    background-color: whitesmoke;
+}
+
+.tracked:hover .delete-button {
+    display: flex;
+}
+
+.delete-button {
+    display: none;
+    position: fixed;
+    /* margin-left: 2px; */
+}
+
+.delete-button:hover .fa-regular,
+.delete-button .fa-solid {
+    display: none;
+}
+
+.delete-button:hover .fa-solid {
+    display: contents;
 }

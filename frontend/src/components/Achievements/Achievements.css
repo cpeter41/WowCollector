@@ -146,6 +146,19 @@
     height: 100%;
 }
 
+#achievement-title-and-button {
+    display: flex;
+    align-items: center;
+}
+
+#achievement-title-and-button > div {
+    margin-left: 20px;
+}
+
+#achievement-title-and-button i:hover {
+    cursor: pointer;
+}
+
 #criteria-container {
     display: flex;
     flex-flow: row wrap;
@@ -153,7 +166,8 @@
     overflow-y: auto;
 }
 
-.criteria-achievement {
+.criteria-achievement,
+.criteria-part {
     width: 300px;
     border: 1px solid lightgray;
     border-radius: 4px;
