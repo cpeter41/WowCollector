@@ -26,8 +26,7 @@ function Navigation({ isLoaded }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user)
-            dispatch(getCharactersOfUser());
+        if (user) dispatch(getCharactersOfUser());
     }, [dispatch, user]);
 
     // check cookie for last selected character
@@ -39,7 +38,9 @@ function Navigation({ isLoaded }) {
             .find((entry) => entry[0] == "selCharacterId");
         if (!selCharacterId) dispatch(selectCharacter(characters[0]));
         else if (characters?.length && !selectedCharacter) {
-            const selChar = characters.find((char) => char.id == selCharacterId[1])
+            const selChar = characters.find(
+                (char) => char.id == selCharacterId[1]
+            );
             dispatch(selectCharacter(selChar));
         }
     }, [characters, dispatch, selectedCharacter]);
@@ -58,10 +59,12 @@ function Navigation({ isLoaded }) {
                 <NavLink to="/achievements">Achievements</NavLink>
                 <NavLink to="/mounts">Mounts</NavLink>
             </div>
-            <div id="open-tracker-button" onClick={() => setOpen(true)}>
-                <i className="fa-solid fa-crosshairs fa-2xl"></i>
-                <h2>({trackedAchievementsLength + trackedMountsLength})</h2>
-            </div>
+            {user && (
+                <div id="open-tracker-button" onClick={() => setOpen(true)}>
+                    <i className="fa-solid fa-crosshairs fa-2xl"></i>
+                    <h2>({trackedAchievementsLength + trackedMountsLength})</h2>
+                </div>
+            )}
             <div
                 id="tracker-background"
                 className={`${isOpen ? "" : "hidden"}`}

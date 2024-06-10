@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../redux/session";
-import { clearCharactersFromStore } from "../../redux/characters";
+import { clearCharactersFromStore, selectCharacter } from "../../redux/characters";
+import { clearTracker } from "../../redux/tracker";
 // import { useNavigate } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
 import "./Navigation.css";
@@ -37,6 +38,8 @@ function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.logout());
         dispatch(clearCharactersFromStore());
+        dispatch(selectCharacter(null));
+        dispatch(clearTracker());
         closeMenu();
         // navigate("/");
     };
