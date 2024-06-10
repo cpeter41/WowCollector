@@ -150,7 +150,7 @@ export default function Mounts() {
                             <div id="mount-title-and-button">
                                 <h2>{selectedMount?.name}</h2>
                                 {/* font size 'amplifier' div (xl + 2xl) */}
-                                {user && (
+                                {user && selectedCharacter && (
                                     <div
                                         id="track-button-container"
                                         style={{ fontSize: "x-large" }}

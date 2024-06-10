@@ -59,7 +59,7 @@ function Navigation({ isLoaded }) {
                 <NavLink to="/achievements">Achievements</NavLink>
                 <NavLink to="/mounts">Mounts</NavLink>
             </div>
-            {user && (
+            {user && selectedCharacter && (
                 <div id="open-tracker-button" onClick={() => setOpen(true)}>
                     <i className="fa-solid fa-crosshairs fa-2xl"></i>
                     <h2>({trackedAchievementsLength + trackedMountsLength})</h2>
