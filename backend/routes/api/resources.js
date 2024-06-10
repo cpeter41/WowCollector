@@ -120,9 +120,48 @@ router.get("/mounts", async (req, res, next) => {
     const headers = { Authorization: `Bearer ${oAuthToken}` };
     const response = await fetch(formattedURI, { headers });
     const data = await response.json();
-    console.log(data);
 
-    return res.json([...data.mounts]);
+    data.mounts.sort((a, b) => {
+        if (a.name < b.name) return -1;
+        else return 1;
+    });
+
+    // categorized into keys of each letter of the alphabet
+    // also sorts the weird non ingame mounts into categories like "["
+    // filter those out i guess
+    const categorizedMounts = {};
+    data.mounts.forEach((mount) => {
+        const key = mount.name[0];
+        if (categorizedMounts[key]) {
+            categorizedMounts[key].push(mount);
+        } else categorizedMounts[key] = [mount];
+    });
+
+    // console.log(categorizedMounts);
+
+    return res.json(categorizedMounts);
+});
+
+router.get("/mounts/:mountId", async (req, res, next) => {
+    console.log("called! :)")
+    const { mountId } = req.params;
+
+    const oAuthToken = await app.oAuthClient.getToken();
+
+    // format API request URI
+    const region = "us";
+    const host = config.apiHosts[region];
+    const namespace = config.namespaces.static[region];
+    const URL = `${host}/data/wow/mount/${mountId}`;
+    const queryParams = new URLSearchParams({ locale: "en_US", namespace });
+    const formattedURI = `${URL}?${queryParams}`;
+
+    // attach oauth token
+    const headers = { Authorization: `Bearer ${oAuthToken}` };
+    const response = await fetch(formattedURI, { headers });
+    const data = await response.json();
+
+    return res.json(data);
 });
 
 module.exports = router;

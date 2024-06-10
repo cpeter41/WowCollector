@@ -6,6 +6,8 @@ const GET_SUBCAT_DETAILS = "resources/getSubcategoryDetails";
 const GET_ACHVMNT_DETAILS = "resources/getAchievementDetails";
 
 const GET_MOUNT_LIST = "resources/getMountList";
+const SEL_MOUNT_CAT = "resources/selectMountCategory";
+const SEL_MOUNT = "resources/selectMount";
 
 const getCategories = (categories) => {
     return {
@@ -39,6 +41,20 @@ const getMounts = (mounts) => {
     return {
         type: GET_MOUNT_LIST,
         mounts,
+    };
+};
+
+const getMountCategoryDetails = (key) => {
+    return {
+        type: SEL_MOUNT_CAT,
+        key,
+    };
+};
+
+const getMountDetails = (mount) => {
+    return {
+        type: SEL_MOUNT,
+        mount,
     };
 };
 
@@ -95,11 +111,22 @@ export const clearAchievementSelection = () => async (dispatch) => {
 
 export const getMountList = () => async (dispatch) => {
     const res = await csrfFetch("/api/resources/mounts");
-    
+
+    let data;
+    if (res.ok) data = await res.json();
+    dispatch(getMounts(data));
+};
+
+export const selectMountCategory = (key) => async (dispatch) => {
+    dispatch(getMountCategoryDetails(key));
+};
+
+export const selectMount = (mountId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/resources/mounts/${mountId}`);
     let data;
     if (res.ok) data = await res.json();
 
-    dispatch(getMounts(data));
+    dispatch(getMountDetails(data));
 };
 
 const initState = {
@@ -111,8 +138,12 @@ const initState = {
     current_subcategory: {},
     // selected achievement for full details on modified page ^
     current_achievement: {},
-    // entire list of mounts (HUGE)
-    mount_list: []
+    // list of mounts, alphabetized
+    mount_list: [],
+    // current selected mount category (first letter)
+    current_mount_category: "",
+    // current selected mount
+    current_mount: {},
 };
 
 export default function resourcesReducer(state = initState, action) {
@@ -127,6 +158,10 @@ export default function resourcesReducer(state = initState, action) {
             return { ...state, current_achievement: action.details };
         case GET_MOUNT_LIST:
             return { ...state, mount_list: action.mounts };
+        case SEL_MOUNT_CAT:
+            return { ...state, current_mount_category: action.key };
+        case SEL_MOUNT:
+            return { ...state, current_mount: action.mount };
         default:
             return state;
     }
