@@ -9,10 +9,8 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            Mount.belongsToMany(models.Character, {
-                through: "CharMount",
-                foreignKey: "mountId",
-                otherKey: "charId",
+            Mount.belongsTo(models.Character, {
+                foreignKey: "characterId",
             });
         }
     }
@@ -23,16 +21,28 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
                 unique: true,
             },
-            desc: {
-                type: DataTypes.TEXT,
+            characterId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                references: { model: "Characters", key: "id" },
             },
-            imgUrl: {
-                type: DataTypes.STRING(512),
+            blizzId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
+            note: {
+                type: DataTypes.TEXT,
             },
         },
         {
             sequelize,
             modelName: "Mount",
+            indexes: [
+                {
+                    fields: ["characterId", "blizzId"],
+                    unique: true,
+                },
+            ],
         }
     );
     return Mount;

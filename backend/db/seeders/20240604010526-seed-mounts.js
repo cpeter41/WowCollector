@@ -22,18 +22,24 @@ module.exports = {
         await Mount.bulkCreate([
             {
                 name: "Pinto",
-                desc: "Its calm temperament makes it ideal to train young children in horseback riding.",
-                imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_mount_ridinghorse.jpg",
+                characterId: 1,
+                blizzId: 11,
+                // desc: "Its calm temperament makes it ideal to train young children in horseback riding.",
+                // imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_mount_ridinghorse.jpg",
             },
             {
                 name: "Invincible",
-                desc: "The famous steed of Arthas Menethil, who serves its master in life and in death. Riding him is truly a feat of strength.",
-                imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_mount_pegasus.jpg",
+                characterId: 1,
+                blizzId: 363,
+                //     desc: "The famous steed of Arthas Menethil, who serves its master in life and in death. Riding him is truly a feat of strength.",
+                //     imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_mount_pegasus.jpg",
             },
             {
                 name: "Swift Zulian Tiger",
-                desc: "The last known Zulian tigers were kept by High Priest Thekal, deep within Zul'Gurub. They are said to have been hunted into extinction.",
-                imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_mount_jungletiger.jpg",
+                characterId: 1,
+                blizzId: 111,
+                // desc: "The last known Zulian tigers were kept by High Priest Thekal, deep within Zul'Gurub. They are said to have been hunted into extinction.",
+                // imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_mount_jungletiger.jpg",
             },
         ]);
     },

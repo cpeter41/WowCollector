@@ -3,7 +3,7 @@ const router = express.Router();
 const {
     Character,
     User,
-    CharAchvmnt,
+    Mount,
     Achievement,
 } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
@@ -250,6 +250,126 @@ router.delete(
 
 // ------------------- MOUNT TRACKER ROUTES -------------------
 
-// TODO: mount routes
+// add a mount to tracker
+router.post("/:charId/mounts", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { charId } = req.params;
+    const { name, mountId } = req.body;
+
+    const foundChar = await Character.findByPk(charId);
+    if (!foundChar)
+        return res
+            .status(404)
+            .json({ message: "Character couldn't be found." });
+
+    // authorization
+    // consider moving this to middleware
+    if (foundChar.toJSON().userId !== user.id)
+        return next(new Error("Forbidden"));
+
+    const newTrackedMount = await Mount.create({
+        name,
+        characterId: parseInt(charId),
+        blizzId: mountId,
+    });
+
+    return res.status(201).json(newTrackedMount);
+});
+
+// get all tracked mounts
+router.get("/:charId/mounts", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { charId } = req.params;
+
+    const foundChar = await Character.findByPk(charId);
+    if (!foundChar)
+        return res
+            .status(404)
+            .json({ message: "Character couldn't be found." });
+
+    // authorization
+    // consider moving this to middleware
+    if (foundChar.toJSON().userId !== user.id)
+        return next(new Error("Forbidden"));
+
+    const trackedMounts = await Mount.findAll({
+        include: [
+            {
+                model: Character,
+                where: { id: charId },
+                attributes: [],
+            },
+        ],
+    });
+
+    return res.status(200).json(trackedMounts);
+});
+
+// add/modify note set on mount
+router.put("/:charId/mounts", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { charId } = req.params;
+    const { note, mountId } = req.body;
+
+    const foundChar = await Character.findByPk(charId);
+    if (!foundChar)
+        return res
+            .status(404)
+            .json({ message: "Character couldn't be found." });
+
+    // authorization
+    // consider moving this to middleware
+    if (foundChar.toJSON().userId !== user.id)
+        return next(new Error("Forbidden"));
+
+    const foundMnt = await Mount.findOne({
+        where: { blizzId: mountId },
+    });
+    if (!foundMnt)
+        return res
+            .status(404)
+            .json({ message: "Tracked mount couldn't be found." });
+
+    foundMnt.note = note;
+    await foundMnt.save();
+
+    return res.status(200).json(foundMnt)
+});
+
+// remove mount from tracker
+router.delete(
+    "/:charId/mounts/:mountId",
+    requireAuth,
+    async (req, res, next) => {
+        const { user } = req;
+        const { charId, mountId } = req.params;
+
+        const foundChar = await Character.findByPk(charId);
+        if (!foundChar)
+            return res
+                .status(404)
+                .json({ message: "Character couldn't be found." });
+
+        // authorization
+        // consider moving this to middleware
+        if (foundChar.toJSON().userId !== user.id)
+            return next(new Error("Forbidden"));
+
+        const foundTrackedMount = await Mount.findOne({
+            where: { characterId: charId, blizzId: mountId },
+        });
+
+        if (!foundTrackedMount)
+            return res
+                .status(404)
+                .json({ message: "Tracked mount couldn't be found." });
+
+        await foundTrackedMount.destroy();
+
+        return res.status(204).json({
+            message: "Tracked mount successfully removed",
+        });
+    }
+);
 
 module.exports = router;

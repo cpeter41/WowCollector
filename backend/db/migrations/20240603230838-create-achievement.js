@@ -24,6 +24,7 @@ module.exports = {
                 characterId: {
                     type: Sequelize.INTEGER,
                     allowNull: false,
+                    references: { model: "Characters", key: "id" },
                 },
                 blizzId: {
                     type: Sequelize.INTEGER,

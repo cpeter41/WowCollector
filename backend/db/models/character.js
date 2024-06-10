@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
                 hooks: true,
             });
 
+            Character.hasMany(models.Mount, {
+                foreignKey: "characterId",
+                onDelete: "CASCADE",
+                hooks: true,
+            });
+
             // Character.belongsToMany(models.Achievement, {
             //     through: "CharAchvmnt",
             //     foreignKey: "charId",

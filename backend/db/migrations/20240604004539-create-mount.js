@@ -20,13 +20,18 @@ module.exports = {
                 name: {
                     type: Sequelize.STRING,
                     allowNull: false,
-                    unique: true,
                 },
-                desc: {
+                characterId: {
+                    type: Sequelize.INTEGER,
+                    allowNull: false,
+                    references: { model: "Characters", key: "id" },
+                },
+                blizzId: {
+                    type: Sequelize.INTEGER,
+                    allowNull: false,
+                },
+                note: {
                     type: Sequelize.TEXT,
-                },
-                imgUrl: {
-                    type: Sequelize.STRING,
                 },
                 createdAt: {
                     allowNull: false,

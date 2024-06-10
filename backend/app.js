@@ -7,7 +7,7 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { ValidationError } = require("sequelize");
-const { Character, Achievement } = require("./db/models");
+const { Character, Achievement, Mount } = require("./db/models");
 // const aws = require("aws-sdk");
 
 // const s3 = aws.S3();
@@ -60,6 +60,7 @@ app.use(routes);
 // sync models to db to apply unique indices from models
 Character.sync();
 Achievement.sync();
+Mount.sync();
 
 // Error Handling
 
