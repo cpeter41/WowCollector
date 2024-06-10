@@ -5,10 +5,9 @@ import {
     setAchievementCategories,
     getCategoryDetails,
 } from "../../redux/resources";
-import { csrfFetch } from "../../redux/csrf";
+// import { csrfFetch } from "../../redux/csrf";
 import CategoryDetails from "./CategoryDetails";
 import "./Achievements.css";
-
 
 // const _enhancedSlug = (name) => {
 //     const singleName = name.replace("'", "");
@@ -19,11 +18,11 @@ import "./Achievements.css";
 //     return lcParts.join("-");
 // };
 
-let data;
-if (typeof window !== "undefined") {
-    const res = await csrfFetch("/api/resources/achievements/categories");
-    data = await res.json();
-}
+// let data;
+// if (typeof window !== "undefined") {
+//     const res = await csrfFetch("/api/resources/achievements/categories");
+//     data = await res.json();
+// }
 
 export default function Achievements() {
     // let { categoryId } = useParams();
@@ -49,7 +48,7 @@ export default function Achievements() {
             setOnRootPage(false);
         }
         if (!achievement_categories[0]?.subcategories)
-            dispatch(setAchievementCategories(data));
+            dispatch(setAchievementCategories());
     });
 
     return onRootPage ? (

@@ -58,11 +58,11 @@ const getMountDetails = (mount) => {
     };
 };
 
-export const setAchievementCategories = (data) => async (dispatch) => {
-    // const res = await csrfFetch("/api/resources/achievements/categories");
+export const setAchievementCategories = () => async (dispatch) => {
+    const res = await csrfFetch("/api/resources/achievements/categories");
 
-    // let data;
-    // if (res.ok) data = await res.json();
+    let data;
+    if (res.ok) data = await res.json();
 
     dispatch(getCategories(data));
 };
