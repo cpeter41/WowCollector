@@ -1,3 +1,7 @@
+#signup-container {
+    margin: 20px 40px;
+}
+
 #signup-container > h1 {
     margin-top: 12px;
 }
@@ -15,6 +19,7 @@
 
 .signup-div span {
     height: 20px;
+    color: red;
 }
 
 #profile-icons {
@@ -22,6 +27,58 @@
     grid-template-columns: repeat(6, 1fr);
 }
 
-#signup-form div {
-    margin: 0 40px;
+#preview-image {
+    height: 128px;
+    width: 128px;
+    border: 1px solid lightgray;
+    border-radius: 12px;
+}
+
+#preview-image img {
+    height: 128px;
+    width: 128px;
+    border-radius: 12px;
+}
+
+#image-upload {
+    display: flex;
+    justify-content: center;
+}
+
+#choose-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 192px;
+}
+
+#choose-image label {
+    border: 2px solid gray;
+    background-color: whitesmoke;
+    border-radius: 8px;
+    padding: 2px 8px;
+}
+
+#choose-image label:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+#image-input {
+    visibility: hidden;
+}
+
+#signup-submit {
+    all: unset;
+    border: 2px solid gray;
+    background-color: whitesmoke;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px 0 10px 0;
+}
+
+#signup-submit:hover {
+    background-color: lightgray;
+    cursor: pointer;
 }

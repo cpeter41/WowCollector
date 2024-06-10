@@ -10,7 +10,8 @@ const { ValidationError } = require("sequelize");
 const { Character, Achievement, Mount } = require("./db/models");
 // const aws = require("aws-sdk");
 
-// const s3 = aws.S3();
+// const s3 = new aws.S3();
+// console.log(s3);
 
 const { environment } = require("./config");
 const isProduction = environment === "production";

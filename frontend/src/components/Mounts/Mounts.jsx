@@ -10,6 +10,7 @@ import { trackMount, removeTrackedMount } from "../../redux/tracker";
 import "./Mounts.css";
 
 export default function Mounts() {
+    const user = useSelector((state) => state.session.user);
     const mounts = useSelector((state) => state.resources.mount_list);
     const selectedCategoryKey = useSelector(
         (state) => state.resources.current_mount_category
@@ -149,15 +150,17 @@ export default function Mounts() {
                             <div id="mount-title-and-button">
                                 <h2>{selectedMount?.name}</h2>
                                 {/* font size 'amplifier' div (xl + 2xl) */}
-                                <div
-                                    id="track-button-container"
-                                    style={{ fontSize: "x-large" }}
-                                >
-                                    <i
-                                        className="fa-solid fa-crosshairs fa-2xl"
-                                        onClick={handleTrackClick}
-                                    ></i>
-                                </div>
+                                {user && selectedCharacter && (
+                                    <div
+                                        id="track-button-container"
+                                        style={{ fontSize: "x-large" }}
+                                    >
+                                        <i
+                                            className="fa-solid fa-crosshairs fa-2xl"
+                                            onClick={handleTrackClick}
+                                        ></i>
+                                    </div>
+                                )}
                             </div>
                             <p>{selectedMount?.description}</p>
                             <p>Source: {selectedMount?.source?.name}</p>

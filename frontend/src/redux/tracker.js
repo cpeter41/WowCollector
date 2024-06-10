@@ -158,16 +158,18 @@ export const removeTrackedMount =
 export const editMountNote =
     ({ characterId, mountId, note }) =>
     async (dispatch) => {
-        const res = await csrfFetch(
-            `/api/characters/${characterId}/mounts`,
-            {
-                method: "PUT",
-                body: JSON.stringify({ note, mountId }),
-            }
-        );
+        const res = await csrfFetch(`/api/characters/${characterId}/mounts`, {
+            method: "PUT",
+            body: JSON.stringify({ note, mountId }),
+        });
 
         if (res.ok) dispatch(editMntNote(mountId, note));
     };
+
+export const clearTracker = () => async (dispatch) => {
+    dispatch(getMounts([]));
+    dispatch(getAchievements([]));
+};
 
 const initState = { achievements: [], mounts: [] };
 
@@ -205,9 +207,7 @@ export default function trackerReducer(state = initState, action) {
                 mounts: [...state.mounts, action.mount],
             };
         case REMOVE_TRACKED_MNT:
-            i = state.mounts.findIndex(
-                (mnt) => mnt.blizzId == action.mountId
-            );
+            i = state.mounts.findIndex((mnt) => mnt.blizzId == action.mountId);
             return {
                 ...state,
                 mounts: state.mounts.toSpliced(i, 1),

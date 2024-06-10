@@ -14,6 +14,7 @@ import "./Achievements.css";
 export default function AchievementDetails({ handleAchievementClick }) {
     const dispatch = useDispatch();
     // let { categoryId } = useParams();
+    const user = useSelector((state) => state.session.user);
     const achievementDetails = useSelector(
         (state) => state.resources.current_achievement
     );
@@ -104,15 +105,17 @@ export default function AchievementDetails({ handleAchievementClick }) {
                     <div id="achievement-title-and-button">
                         <h2>{achievementDetails?.name}</h2>
                         {/* font size 'amplifier' div (xl + 2xl) */}
-                        <div
-                            id="track-button-container"
-                            style={{ fontSize: "x-large" }}
-                        >
-                            <i
-                                className="fa-solid fa-crosshairs fa-2xl"
-                                onClick={handleTrackClick}
-                            ></i>
-                        </div>
+                        {user && selectedCharacter && (
+                            <div
+                                id="track-button-container"
+                                style={{ fontSize: "x-large" }}
+                            >
+                                <i
+                                    className="fa-solid fa-crosshairs fa-2xl"
+                                    onClick={handleTrackClick}
+                                ></i>
+                            </div>
+                        )}
                     </div>
                     <p>{achievementDetails?.description}</p>
                     {/**
