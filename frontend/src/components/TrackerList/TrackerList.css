@@ -51,7 +51,7 @@
     background-clip: padding-box, border-box;
 }
 
-.tracked:hover {
+.tracked > *:hover {
     cursor: pointer;
 }
 

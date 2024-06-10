@@ -6,14 +6,13 @@ import {
     removeTrackedMount,
 } from "../../redux/tracker";
 import EditTrackerModal from "../Modals/EditTrackerNoteModal";
-import { getAchievementDetails } from "../../redux/resources";
+import { getAchievementDetails, selectMount } from "../../redux/resources";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import "./TrackerList.css";
 
 export default function TrackerList({ setOpen }) {
-    // TODO: close when clicking off of the menu
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { setModalContent } = useModal();
@@ -74,16 +73,21 @@ export default function TrackerList({ setOpen }) {
             (mnt) => mnt.blizzId == e.target.id
         );
         if (Object.keys(foundMount))
-            setModalContent(
-                <EditTrackerModal mount={foundMount} />
-            );
+            setModalContent(<EditTrackerModal mount={foundMount} />);
         const trackerBackground = document.getElementById("tracker-background");
         trackerBackground.style.zIndex = 0;
-    }
+    };
 
     const handleAchievementNavigate = (e) => {
         dispatch(getAchievementDetails(e.target.id));
         navigate("/achievements");
+        setOpen(false);
+    };
+
+    const handleMountNavigate = (e) => {
+        console.log(e.target)
+        dispatch(selectMount(e.target.id));
+        navigate("/mounts");
         setOpen(false);
     };
 
@@ -129,12 +133,13 @@ export default function TrackerList({ setOpen }) {
                                         onClick={handleNoteAchievement}
                                     ></i>
                                 </div>
+                                {/* dont repeat ids. oh well... */}
                                 <span
                                     id={achv.blizzId}
                                     onClick={handleAchievementNavigate}
                                 >
-                                    <h4>{achv.name}</h4>
-                                    <div>{achv.note}</div>
+                                    <h4 id={achv.blizzId}>{achv.name}</h4>
+                                    <div id={achv.blizzId}>{achv.note}</div>
                                 </span>
                             </li>
                         ))}
@@ -182,10 +187,10 @@ export default function TrackerList({ setOpen }) {
                                 </div>
                                 <span
                                     id={mnt.blizzId}
-                                    onClick={handleAchievementNavigate}
+                                    onClick={handleMountNavigate}
                                 >
-                                    <h4>{mnt.name}</h4>
-                                    <div>{mnt.note}</div>
+                                    <h4 id={mnt.blizzId}>{mnt.name}</h4>
+                                    <div id={mnt.blizzId}>{mnt.note}</div>
                                 </span>
                             </li>
                         ))}

@@ -10,8 +10,6 @@ export default function EditTrackerModal({ achievement, mount }) {
     const [note, setNote] = useState(achievement?.note || mount?.note);
     const character = useSelector((state) => state.characters.selCharacter);
 
-    // console.log(achievement);
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const trackerBackground = document.getElementById("tracker-background");

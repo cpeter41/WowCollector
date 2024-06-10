@@ -9,7 +9,6 @@ import { csrfFetch } from "../../redux/csrf";
 import CategoryDetails from "./CategoryDetails";
 import "./Achievements.css";
 
-// TODO: show progress bar on each category
 
 // const _enhancedSlug = (name) => {
 //     const singleName = name.replace("'", "");

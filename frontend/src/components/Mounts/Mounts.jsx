@@ -28,6 +28,16 @@ export default function Mounts() {
         if (!Object.keys(mounts).length) dispatch(getMountList());
     });
 
+    // load category if navigating from tracker (need to back populate)
+    useEffect(() => {
+        if (
+            Object.keys(selectedMount).length &&
+            selectedCategoryKey !== selectedMount.name[0]
+        ) {
+            dispatch(selectMountCategory(selectedMount.name[0]));
+        }
+    }, [selectedMount, dispatch, selectedCategoryKey]);
+
     // color crosshair button based on if mount is tracked or not
     useEffect(() => {
         const addButton = document.getElementById("track-button-container");
@@ -118,7 +128,11 @@ export default function Mounts() {
                     if (key !== "[")
                         return (
                             <div
-                                className="mount-category"
+                                className={`mount-category${
+                                    key === selectedCategoryKey
+                                        ? " selected"
+                                        : ""
+                                }`}
                                 key={key}
                                 id={key}
                                 onClick={handleCategoryClick}
@@ -158,7 +172,11 @@ export default function Mounts() {
                         mounts[selectedCategoryKey] &&
                         mounts[selectedCategoryKey].map((mount) => (
                             <div
-                                className="mount-item"
+                                className={`mount-item${
+                                    mount.id === selectedMount.id
+                                        ? " selected"
+                                        : ""
+                                }`}
                                 id={mount.id}
                                 key={mount.id}
                                 onClick={handleMountClick}

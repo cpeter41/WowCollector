@@ -9,7 +9,6 @@ import {
 } from "../../redux/resources";
 import "./Achievements.css";
 
-// TODO: show progress bar on each subcategory
 
 export default function CategoryDetails({ setOnRootPage }) {
     // const navigate = useNavigate();

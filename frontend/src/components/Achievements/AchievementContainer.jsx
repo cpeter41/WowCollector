@@ -4,7 +4,6 @@ import AchievementDetails from "./AchievementDetails";
 import "./Achievements.css";
 
 export default function AchievementContainer() {
-    // TODO: highlight achievement if obtained by character
     const dispatch = useDispatch();
     const current_subcategory = useSelector(
         (state) => state.resources.current_subcategory

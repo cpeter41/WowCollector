@@ -138,7 +138,7 @@ export const trackMount =
         });
 
         const data = await res.json();
-        console.log("added", data);
+        // console.log("added", data);
         dispatch(addMount(data));
     };
 

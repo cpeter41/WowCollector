@@ -67,3 +67,16 @@
     cursor: pointer;
     background-color: whitesmoke;
 }
+
+#mount-title-and-button {
+    display: flex;
+    align-items: center;
+}
+
+#mount-title-and-button > div {
+    margin-left: 20px;
+}
+
+#mount-title-and-button i:hover {
+    cursor: pointer;
+}
