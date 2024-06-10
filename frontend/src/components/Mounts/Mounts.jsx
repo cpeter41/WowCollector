@@ -1,7 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getMountList } from "../../redux/resources";
 import { useDispatch, useSelector } from "react-redux";
-import { selectMountCategory, selectMount } from "../../redux/resources";
+import {
+    selectMountCategory,
+    selectMount,
+    clearSelectedMount,
+} from "../../redux/resources";
+import { trackMount, removeTrackedMount } from "../../redux/tracker";
 import "./Mounts.css";
 
 export default function Mounts() {
@@ -10,13 +15,42 @@ export default function Mounts() {
         (state) => state.resources.current_mount_category
     );
     const selectedMount = useSelector((state) => state.resources.current_mount);
+    const trackedMounts = useSelector((state) => state.tracker.mounts);
+    const selectedCharacter = useSelector(
+        (state) => state.characters.selCharacter
+    );
     const dispatch = useDispatch();
+    const [notes, setNotes] = useState();
     // const [mountArray, setArray] = useState([]);
 
     // on load component, if mount_list doesnt exist
     useEffect(() => {
         if (!Object.keys(mounts).length) dispatch(getMountList());
     });
+
+    // color crosshair button based on if mount is tracked or not
+    useEffect(() => {
+        const addButton = document.getElementById("track-button-container");
+        // const detailNotes = document.getElementById("tracked-note");
+        if (selectedMount && trackedMounts && addButton) {
+            let note;
+            const alreadyTracked = trackedMounts.find((mnt) => {
+                if (mnt.blizzId == selectedMount.id) {
+                    note = mnt.note;
+                    return true;
+                }
+                // return ach.blizzId == achievementDetails.id
+            });
+            if (alreadyTracked) {
+                if (note) setNotes(note);
+                else setNotes();
+                addButton.style.color = "black";
+            } else {
+                setNotes();
+                addButton.style.color = "lightgray";
+            }
+        }
+    }, [selectedMount, trackedMounts]);
 
     const handleCategoryClick = (e) => {
         let id;
@@ -26,7 +60,7 @@ export default function Mounts() {
         // swaps selected className
         if (!mountCategory.classList.contains("selected")) {
             // unselect mount from details when switching categories
-            dispatch(selectMount());
+            dispatch(clearSelectedMount());
             dispatch(selectMountCategory(e.target.id));
             const mountCategories = document.getElementById(
                 "mount-category-container"
@@ -54,6 +88,25 @@ export default function Mounts() {
         }
     };
 
+    const handleTrackClick = () => {
+        // track or untrack
+        if (!trackedMounts.find((mnt) => mnt.blizzId == selectedMount.id))
+            dispatch(
+                trackMount({
+                    name: selectedMount.name,
+                    characterId: selectedCharacter.id,
+                    mountId: selectedMount.id,
+                })
+            );
+        else
+            dispatch(
+                removeTrackedMount({
+                    characterId: selectedCharacter.id,
+                    mountId: selectedMount.id,
+                })
+            );
+    };
+
     return (
         <div id="mounts-container">
             <div id="mount-category-container">
@@ -77,7 +130,28 @@ export default function Mounts() {
             </div>
             <div id="mounts-and-details-container">
                 <div id="mount-details">
-                    <h2>{selectedMount.name}</h2>
+                    {Object.keys(selectedMount).length > 0 && (
+                        <>
+                            <div id="mount-title-and-button">
+                                <h2>{selectedMount?.name}</h2>
+                                {/* font size 'amplifier' div (xl + 2xl) */}
+                                <div
+                                    id="track-button-container"
+                                    style={{ fontSize: "x-large" }}
+                                >
+                                    <i
+                                        className="fa-solid fa-crosshairs fa-2xl"
+                                        onClick={handleTrackClick}
+                                    ></i>
+                                </div>
+                            </div>
+                            <p>{selectedMount?.description}</p>
+                            <p>Source: {selectedMount?.source?.name}</p>
+                            {notes && notes !== "" && (
+                                <div id="tracked-note">{notes}</div>
+                            )}
+                        </>
+                    )}
                 </div>
                 <div id="mounts-in-category-list">
                     {mounts &&

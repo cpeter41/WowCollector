@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     getTrackedAchievements,
     removeTrackedAchievement,
+    getTrackedMounts,
+    removeTrackedMount,
 } from "../../redux/tracker";
 import EditTrackerModal from "../Modals/EditTrackerNoteModal";
 import { getAchievementDetails } from "../../redux/resources";
@@ -31,6 +33,7 @@ export default function TrackerList({ setOpen }) {
         if (selectedCharacter) {
             document.cookie = `selCharacterId=${selectedCharacter.id};max-age=2629744`;
             dispatch(getTrackedAchievements(selectedCharacter.id));
+            dispatch(getTrackedMounts(selectedCharacter.id));
         }
     }, [selectedCharacter, dispatch]);
 
@@ -44,25 +47,39 @@ export default function TrackerList({ setOpen }) {
             );
     };
 
+    const handleDeleteMount = (e) => {
+        if (trackedMounts.find((mnt) => mnt.blizzId == e.target.id))
+            dispatch(
+                removeTrackedMount({
+                    characterId: selectedCharacter.id,
+                    mountId: e.target.id,
+                })
+            );
+    };
+
     const handleNoteAchievement = (e) => {
-        // console.log(e.target);
-        // const foundAchievement = document.getElementById(`t${e.target.id}`);
         const foundAchievement = trackedAchievements.find(
             (ach) => ach.blizzId == e.target.id
         );
-        // console.log(foundAchievement);
         if (Object.keys(foundAchievement))
             setModalContent(
                 <EditTrackerModal achievement={foundAchievement} />
             );
         const trackerBackground = document.getElementById("tracker-background");
         trackerBackground.style.zIndex = 0;
-        // if (!foundAchievement?.classList.contains("editing")) {
-        //     foundAchievement?.classList.add("editing");
-        // } else {
-        //     foundAchievement?.classList.remove("editing");
-        // }
     };
+
+    const handleNoteMount = (e) => {
+        const foundMount = trackedMounts.find(
+            (mnt) => mnt.blizzId == e.target.id
+        );
+        if (Object.keys(foundMount))
+            setModalContent(
+                <EditTrackerModal mount={foundMount} />
+            );
+        const trackerBackground = document.getElementById("tracker-background");
+        trackerBackground.style.zIndex = 0;
+    }
 
     const handleAchievementNavigate = (e) => {
         dispatch(getAchievementDetails(e.target.id));
@@ -71,7 +88,7 @@ export default function TrackerList({ setOpen }) {
     };
 
     return (
-        <>
+        <div id="tracker-container">
             <div id="tracked-achievements-container">
                 <div
                     className="tracker-list-section-header"
@@ -117,9 +134,7 @@ export default function TrackerList({ setOpen }) {
                                     onClick={handleAchievementNavigate}
                                 >
                                     <h4>{achv.name}</h4>
-                                    <div>
-                                        {achv.note}
-                                    </div>
+                                    <div>{achv.note}</div>
                                 </span>
                             </li>
                         ))}
@@ -141,20 +156,41 @@ export default function TrackerList({ setOpen }) {
                     {mntOpen &&
                         trackedMounts &&
                         trackedMounts.map((mnt) => (
-                            <li className="tracked mount" key={mnt.id}>
+                            <li
+                                className="tracked mount"
+                                key={mnt.id}
+                                id={`t${mnt.blizzId}`}
+                            >
                                 <div className="tracker-button">
                                     <i className="fa-regular fa-circle-xmark fa-lg"></i>
-                                    <i className="fa-solid fa-circle-xmark fa-lg"></i>
+                                    <i
+                                        className="fa-solid fa-circle-xmark fa-lg"
+                                        id={mnt.blizzId}
+                                        onClick={handleDeleteMount}
+                                    ></i>
                                 </div>
-                                <div className="tracker-button">
+                                <div
+                                    className="tracker-button"
+                                    id="comment-button"
+                                >
                                     <i className="fa-regular fa-comment fa-lg"></i>
-                                    <i className="fa-solid fa-comment fa-lg"></i>
+                                    <i
+                                        className="fa-solid fa-comment fa-lg"
+                                        id={mnt.blizzId}
+                                        onClick={handleNoteMount}
+                                    ></i>
                                 </div>
-                                <span>{mnt.name}</span>
+                                <span
+                                    id={mnt.blizzId}
+                                    onClick={handleAchievementNavigate}
+                                >
+                                    <h4>{mnt.name}</h4>
+                                    <div>{mnt.note}</div>
+                                </span>
                             </li>
                         ))}
                 </ul>
             </div>
-        </>
+        </div>
     );
 }

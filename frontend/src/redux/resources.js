@@ -129,6 +129,10 @@ export const selectMount = (mountId) => async (dispatch) => {
     dispatch(getMountDetails(data));
 };
 
+export const clearSelectedMount = () => async (dispatch) => {
+    dispatch(getMountDetails({}));
+}
+
 const initState = {
     // root categories of achievements for base "/achievements" page
     achievement_categories: [],

@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { useState } from "react";
-import { editAchievementNote } from "../../../redux/tracker";
+import { editAchievementNote, editMountNote } from "../../../redux/tracker";
 import "./EditTrackerModal.css";
 
-export default function EditTrackerModal({ achievement }) {
+export default function EditTrackerModal({ achievement, mount }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
-    const [note, setNote] = useState(achievement.note);
+    const [note, setNote] = useState(achievement?.note || mount?.note);
     const character = useSelector((state) => state.characters.selCharacter);
 
     // console.log(achievement);
@@ -16,14 +16,26 @@ export default function EditTrackerModal({ achievement }) {
         e.preventDefault();
         const trackerBackground = document.getElementById("tracker-background");
         trackerBackground.style.zIndex = 1;
-        if (character?.id && achievement?.blizzId)
-            return dispatch(
-                editAchievementNote({
-                    characterId: character.id,
-                    achievementId: achievement.blizzId,
-                    note,
-                })
-            ).then(closeModal);
+        if (achievement) {
+            if (character?.id && achievement?.blizzId)
+                return dispatch(
+                    editAchievementNote({
+                        characterId: character.id,
+                        achievementId: achievement.blizzId,
+                        note,
+                    })
+                ).then(closeModal);
+        }
+        else if (mount) {
+            if (character?.id && mount?.blizzId)
+                return dispatch(
+                    editMountNote({
+                        characterId: character.id,
+                        mountId: mount.blizzId,
+                        note,
+                    })
+                ).then(closeModal);
+        }
     };
 
     return (

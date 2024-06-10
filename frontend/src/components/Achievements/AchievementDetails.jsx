@@ -198,7 +198,9 @@ export default function AchievementDetails({ handleAchievementClick }) {
                             }
                         )}
                     </div>
-                    {notes && <div id="tracked-note">{notes}</div>}
+                    {notes && notes !== "" && (
+                        <div id="tracked-note">{notes}</div>
+                    )}
                 </>
             )}
         </div>
