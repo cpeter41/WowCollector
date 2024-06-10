@@ -8,10 +8,6 @@ const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { ValidationError } = require("sequelize");
 const { Character, Achievement, Mount } = require("./db/models");
-// const aws = require("aws-sdk");
-
-// const s3 = new aws.S3();
-// console.log(s3);
 
 const { environment } = require("./config");
 const isProduction = environment === "production";
@@ -113,7 +109,7 @@ app.use((err, _req, res, _next) => {
     });
 });
 
-// when importing, these 2 components are alias.app and 
+// when importing, these 2 components are alias.app and
 // alias.oAuthClient, respectively
 exports.app = app;
 exports.oAuthClient = oAuthClient;
