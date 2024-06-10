@@ -66,10 +66,10 @@ export default function AchievementDetails({ handleAchievementClick }) {
             if (alreadyTracked) {
                 if (note) setNotes(note);
                 else setNotes();
-                addButton.style.color = "black";
+                addButton.style.color = "lightcyan";
             } else {
                 setNotes();
-                addButton.style.color = "lightgray";
+                addButton.style.color = "rgb(110, 110, 110)";
             }
         }
     }, [achievementDetails, trackedAchievements]);

@@ -51,7 +51,7 @@ function ProfileButton({ user }) {
             <button id="profile-button" onClick={toggleMenu}>
                 <i
                     className="fas fa-user-circle fa-xl"
-                    style={{ color: "rgb(229, 91, 72)" }}
+                    style={{ color: "lightgray" }}
                 />
                 {showMenu ? (
                     <i className="fa-solid fa-angle-down fa-xl"></i>

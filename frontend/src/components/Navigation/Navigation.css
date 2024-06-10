@@ -3,9 +3,9 @@
     right: 8px;
     top: 46px;
     list-style-type: none;
-    border: 2px solid black;
+    border: 2px solid whitesmoke;
     border-radius: 6px;
-    background-color: white;
+    background-color: rgb(42, 47, 60);
     padding: 0;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .bottom-border {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid whitesmoke;
 }
 
 #logout-li {
@@ -45,6 +45,19 @@
     border-bottom: 2px solid gray;
 }
 
+#nav-bar > a {
+    all: unset;
+}
+
+#nav-bar > a:hover {
+    cursor: pointer;
+    color: rgb(76, 76, 76);
+}
+
+#nav-bar-middle .active {
+    text-decoration: underline;
+}
+
 #nav-logged-out > * {
     margin: 0 10px;
 }
@@ -58,7 +71,7 @@
 }
 
 #nav-logged-in > *:hover {
-    color: rgb(229, 91, 72);
+    color: rgb(93, 97, 138);
     cursor: pointer;
 }
 
@@ -88,5 +101,20 @@
 
 #open-tracker-button:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: rgb(87, 101, 135);
+}
+
+#nav-bar-middle {
+    position: absolute;
+    left: 43%;
+}
+
+#nav-bar-middle a {
+    all: unset;
+    margin: 0 10px;
+}
+
+#nav-bar-middle a:hover {
+    cursor: pointer;
+    color: red;
 }

@@ -14,19 +14,21 @@
 }
 
 .achievement-category {
-    height: 200px;
+    height: 160px;
     width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid lightgray;
+    background-color: rgb(50, 56, 73);
     border-radius: 20px;
     margin: 8px;
+    font-size: larger;
 }
 
 .achievement-category:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: rgb(43, 48, 62);
 }
 
 /* Category Details Page */
@@ -36,7 +38,9 @@
     align-items: center;
     height: 80px;
     border-bottom: 1px solid lightgray;
+    border-radius: 8px;
     font-size: large;
+    background-color: rgb(68, 78, 105);
 }
 
 /* #subcategories-header h3 {
@@ -49,7 +53,7 @@
 
 #subcategories-header:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: rgb(56, 66, 88);
 }
 
 #category-details-container {
@@ -79,19 +83,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-indent: 20px;
 }
 
 .subcategory:hover {
-    background-color: whitesmoke;
+    background-color: rgb(49, 57, 79);
     cursor: pointer;
 }
 
 #category-details-subcategories .selected {
-    background-color: lightgray;
+    background-color: rgb(134, 157, 214);
 }
 
 #category-details-subcategories .selected:hover {
-    background-color: lightgray;
+    background-color: rgb(134, 157, 214);
 }
 
 /* Achievements List Section */
@@ -104,6 +109,7 @@
 #achievement-details-container {
     height: 40%;
     border: 1px solid lightgray;
+    background-color: rgb(54, 62, 84);
     border-radius: 8px;
 }
 
@@ -122,6 +128,8 @@
 
 #achievement-list-container {
     display: flex;
+    /* border: 1px solid whitesmoke; */
+    border-radius: 8px;
     flex-flow: row wrap;
     justify-content: space-evenly;
     max-width: 1500px;
@@ -131,20 +139,32 @@
     margin: 24px 24px 0 24px;
     border: 1px solid black;
     border-radius: 6px;
+    background-color: rgb(87, 101, 135);
     width: 400px;
     min-width: 320px;
     max-width: 420px;
     height: 86px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-indent: 20px;
+    /* font-weight: 700; */
+    font-size: larger;
+    text-overflow: clip;
 }
 
 .achievement-button:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: rgb(54, 62, 84);
 }
 
 /* Achievement Details Section */
 #achievement-details {
     height: 100%;
+}
+
+#achievement-details > * {
+    margin-left: 20px;
 }
 
 #achievement-title-and-button {
@@ -171,6 +191,7 @@
 .criteria-part {
     width: 300px;
     border: 1px solid lightgray;
+    background-color: rgb(87, 101, 135);
     border-radius: 4px;
     margin: 10px;
     padding: 6px 4px;
@@ -179,15 +200,15 @@
 
 .criteria-achievement:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: rgb(72, 83, 112);
 }
 
 #achievement-list-container .selected {
-    background-color: lightgray;
+    background-color: rgb(134, 157, 214);
 }
 
 #achievement-list-container .selected:hover {
-    background-color: lightgray;
+    background-color: rgb(134, 157, 214);
 }
 
 #tracked-note {

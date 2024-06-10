@@ -6,19 +6,20 @@
 #mount-category-container {
     width: 280px;
     border: 1px solid lightgray;
+    border-radius: 8px;
     overflow-y: auto;
     height: 100%;
 }
 
 #mounts-container .selected {
-    background-color: lightgray;
+    background-color: rgb(134, 157, 214);
 }
 
 .mount-category {
     height: 60px;
-    border: 1px solid lightgray;
+    /* border: 1px solid lightgray; */
     border-radius: 10px;
-    margin: 10px 0;
+    /* margin: 10px 0; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,11 +28,16 @@
 
 .mount-category:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: rgb(49, 57, 79);
 }
 
 #mounts-categories-header {
     border: 1px solid lightgray;
+    background-color: rgb(68, 78, 105);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 60px;
     display: flex;
     justify-content: center;
@@ -43,12 +49,21 @@
 }
 
 #mount-details {
+    background-color: rgb(54, 62, 84);
+    border-radius: 8px;
     height: 30%;
     border: 1px solid lightgray;
 }
 
+#mount-details > * {
+    margin-left: 20px;
+}
+
 #mounts-in-category-list {
     height: 70%;
+    border: 1px solid whitesmoke;
+    border-top: none;
+    border-radius: 8px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -61,11 +76,19 @@
     border: 1px solid lightgray;
     border-radius: 8px;
     margin: 20px;
+    background-color: rgb(87, 101, 135);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-indent: 20px;
+    /* font-weight: 700; */
+    font-size: larger;
+    text-overflow: clip;
 }
 
 .mount-item:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: rgb(54, 62, 84);
 }
 
 #mount-title-and-button {

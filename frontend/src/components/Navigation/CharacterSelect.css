@@ -1,8 +1,9 @@
 .characters-dropdown {
     position: absolute;
+    left: 20%;
     padding: 0;
-    background-color: white;
     border: 1px solid lightgray;
+    background-color: rgb(42, 47, 60);
     border-radius: 8px;
 }
 
@@ -22,18 +23,21 @@
 
 .characters-dropdown li:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: rgb(87, 101, 135);
 }
 
 #selected-character-button {
     all: unset;
     padding: 4px 8px;
     border-radius: 8px;
+    position: absolute;
+    left: 20%;
+    top: 20px
 }
 
 #selected-character-button:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: rgb(87, 101, 135);
 }
 
 #selected-character-button i {

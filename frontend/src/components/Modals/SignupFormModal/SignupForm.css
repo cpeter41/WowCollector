@@ -72,13 +72,13 @@
 #signup-submit {
     all: unset;
     border: 2px solid gray;
-    background-color: whitesmoke;
+    background-color: rgb(82, 93, 119);
     border-radius: 8px;
     text-align: center;
     margin: 20px 0 10px 0;
 }
 
 #signup-submit:hover {
-    background-color: lightgray;
+    background-color: rgb(65, 74, 93);
     cursor: pointer;
 }

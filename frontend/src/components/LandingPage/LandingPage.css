@@ -16,6 +16,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgb(54, 61, 82);
+    border-radius: 6px;
+    margin: 20px;
+    padding: 10px 20px;
+}
+
+.home-nav-button:hover {
+    background-color: rgb(64, 70, 89);
 }
 
 .home-nav-button h1,
@@ -32,9 +40,10 @@
     margin: 0 10px;
     padding: 2px 10px;
     border-radius: 8px;
+    border: 1px solid lightgray;
 }
 
 #landing-page-center-div button:hover {
-    background-color: rgb(229, 91, 72);
+    background-color: rgb(93, 97, 138);
     cursor: pointer;
 }
