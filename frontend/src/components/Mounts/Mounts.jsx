@@ -25,6 +25,8 @@ export default function Mounts() {
         const mountCategory = document.getElementById(id);
         // swaps selected className
         if (!mountCategory.classList.contains("selected")) {
+            // unselect mount from details when switching categories
+            dispatch(selectMount());
             dispatch(selectMountCategory(e.target.id));
             const mountCategories = document.getElementById(
                 "mount-category-container"
@@ -58,16 +60,20 @@ export default function Mounts() {
                 <div id="mounts-categories-header">
                     <h2>Mounts</h2>
                 </div>
-                {Object.keys(mounts).map((key) => (
-                    <div
-                        className="mount-category"
-                        key={key}
-                        id={key}
-                        onClick={handleCategoryClick}
-                    >
-                        <h3 id={`h${key}`}>{key}</h3>
-                    </div>
-                ))}
+                {Object.keys(mounts).map((key) => {
+                    // filter out the strange nonimplemented mounts ("[" category)
+                    if (key !== "[")
+                        return (
+                            <div
+                                className="mount-category"
+                                key={key}
+                                id={key}
+                                onClick={handleCategoryClick}
+                            >
+                                <h3 id={`h${key}`}>{key}</h3>
+                            </div>
+                        );
+                })}
             </div>
             <div id="mounts-and-details-container">
                 <div id="mount-details">
