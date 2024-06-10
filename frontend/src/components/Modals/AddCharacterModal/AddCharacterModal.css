@@ -8,3 +8,23 @@
 #add-character-submit-button {
     margin-top: 12px;
 }
+
+#error-box {
+    height: 20px;
+    color: red;
+}
+
+#add-character-submit-button {
+    all: unset;
+    border: 1px solid whitesmoke;
+    border-radius: 8px;
+    height: 24px;
+    margin-top: 20px;
+    text-align: center;
+    background-color: rgb(68, 78, 105);
+}
+
+#add-character-submit-button:hover {
+    background-color: rgb(56, 64, 86);
+    cursor: pointer;
+}

@@ -28,7 +28,7 @@ export default function AddCharacterModal() {
         <div id="add-character-container">
             <form id="add-character-form" onSubmit={handleSubmit}>
                 <span>Support for other regions coming soon!</span>
-                <span>{error}</span>
+                <span id="error-box">{error}</span>
                 <label>Region:</label>
                 <select
                     name="region"
