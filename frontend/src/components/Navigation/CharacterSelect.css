@@ -32,12 +32,12 @@
     border-radius: 8px;
     position: absolute;
     left: 20%;
-    top: 20px
+    top: 30px
 }
 
 #selected-character-button:hover {
     cursor: pointer;
-    background-color: rgb(87, 101, 135);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 #selected-character-button i {

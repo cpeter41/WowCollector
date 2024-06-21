@@ -38,15 +38,18 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 4vh;
+    height: 5vh;
     justify-content: space-between;
     min-width: 240px;
-    /* padding: 8px 8px 0 8px; */
-    border-bottom: 2px solid gray;
+    margin-top: 12px;
+    /* margin-bottom: 64px; */
+    padding: 0 16px 8px 16px;
+    border-bottom: 1px solid rgba(245, 245, 245, 0.33);
 }
 
 #nav-bar > a {
     all: unset;
+    /* margin-left: 16px; */
 }
 
 #nav-bar > a:hover {
@@ -101,7 +104,7 @@
 
 #open-tracker-button:hover {
     cursor: pointer;
-    background-color: rgb(87, 101, 135);
+    background-color: rgba(54, 61, 82, 0.4);
 }
 
 #nav-bar-middle {

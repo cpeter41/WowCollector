@@ -116,6 +116,9 @@ export default function AchievementDetails({ handleAchievementClick }) {
                                 ></i>
                             </div>
                         )}
+                        {notes && notes !== "" && (
+                            <div id="tracked-note">{notes}</div>
+                        )}
                     </div>
                     <p>{achievementDetails?.description}</p>
                     {/**
@@ -187,23 +190,20 @@ export default function AchievementDetails({ handleAchievementClick }) {
                                             {crta.child_criteria[0].description}
                                         </div>
                                     );
-                                else
-                                    return (
-                                        <div
-                                            key={crta.id}
-                                            id={crta.id}
-                                            // different class to avoid hover effects
-                                            className="criteria-part"
-                                        >
-                                            {crta.description}
-                                        </div>
-                                    );
+                                // else
+                                //     return (
+                                //         <div
+                                //             key={crta.id}
+                                //             id={crta.id}
+                                //             // different class to avoid hover effects
+                                //             className="criteria-part"
+                                //         >
+                                //             {crta.description}
+                                //         </div>
+                                //     );
                             }
                         )}
                     </div>
-                    {notes && notes !== "" && (
-                        <div id="tracked-note">{notes}</div>
-                    )}
                 </>
             )}
         </div>

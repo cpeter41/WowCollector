@@ -16,14 +16,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(54, 61, 82);
+    background-color: rgba(255, 255, 255, 0.2);
+    /* box-shadow: 0px 0px 6px whitesmoke; */
     border-radius: 20px;
     margin: 20px;
     padding: 10px 20px;
 }
 
 .home-nav-button:hover {
-    background-color: rgb(64, 70, 89);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .home-nav-button h1,

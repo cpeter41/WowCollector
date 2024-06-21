@@ -9,8 +9,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 1300px;
-    margin-top: 20px;
+    max-width: 1200px;
+    /* min-width: 440px; */
+    margin-top: 110px;
 }
 
 .achievement-category {
@@ -19,8 +20,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid lightgray;
-    background-color: rgb(50, 56, 73);
+    /* border: 1px solid transparent; */
+    background-color: rgb(42, 46, 57);
+    /* box-shadow: 0px 0px 6px whitesmoke; */
     border-radius: 20px;
     margin: 8px;
     font-size: larger;
@@ -28,7 +30,8 @@
 
 .achievement-category:hover {
     cursor: pointer;
-    background-color: rgb(43, 48, 62);
+    background-color: rgba(255, 255, 255, 0.1);
+    /* border: 1px solid lightgray; */
 }
 
 /* Category Details Page */
@@ -37,10 +40,10 @@
     display: flex;
     align-items: center;
     height: 80px;
-    border-bottom: 1px solid lightgray;
-    border-radius: 8px;
+    /* border-bottom: 1px solid rgba(245, 245, 245, 0.33); */
+    border-radius: 4px;
     font-size: large;
-    background-color: rgb(68, 78, 105);
+    /* background-color: rgb(68, 78, 105); */
 }
 
 /* #subcategories-header h3 {
@@ -59,14 +62,16 @@
 #category-details-container {
     display: flex;
     width: 100%;
-    height: 93vh;
+    height: 89vh;
+    margin-top: 16px;
 }
 
 #category-details-subcategories {
     min-width: 280px;
-    border: 1px solid lightgray;
-    border-radius: 8px;
+    /* border: 1px solid lightgray; */
+    /* border-radius: 8px; */
     height: 100%;
+    margin: 12px;
     display: flex;
     flex-direction: column;
 }
@@ -80,6 +85,7 @@
 .subcategory {
     height: 60px;
     list-style-type: none;
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -92,11 +98,12 @@
 }
 
 #category-details-subcategories .selected {
-    background-color: rgb(134, 157, 214);
+    background-color: rgb(83, 95, 129);
 }
 
 #category-details-subcategories .selected:hover {
-    background-color: rgb(134, 157, 214);
+    /* background-color: rgb(134, 157, 214); */
+    cursor: default;
 }
 
 /* Achievements List Section */
@@ -104,13 +111,22 @@
 #achievement-list-and-details-container {
     width: 100%;
     height: 100%;
+    margin: 12px;
+    margin-left: 0;
 }
 
 #achievement-details-container {
     height: 40%;
-    border: 1px solid lightgray;
-    background-color: rgb(54, 62, 84);
-    border-radius: 8px;
+    /* border: 1px solid rgba(245, 245, 245, 0.33); */
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.5);
+    /* border-bottom: 1px solid rgba(245, 245, 245, 0.33); */
+    /* border-bottom: 1px solid rgba(245, 245, 245, 0.33);
+    border-left: 1px solid rgba(245, 245, 245, 0.33);
+    border-right: 1px solid rgba(245, 245, 245, 0.33); */
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* background-color: rgb(26, 42, 64); */
+    /* padding: 20px 0; */
 }
 
 #achievement-list-wrapper {
@@ -120,10 +136,10 @@
     width: 100%;
     height: 60%;
     overflow-y: auto;
-    border-bottom: 1px solid lightgray;
+    /* border-bottom: 1px solid lightgray;
     border-left: 1px solid lightgray;
-    border-right: 1px solid lightgray;
-    border-radius: 8px;
+    border-right: 1px solid lightgray; */
+    /* border-radius: 8px; */
 }
 
 #achievement-list-container {
@@ -137,9 +153,9 @@
 
 .achievement-button {
     margin: 24px 24px 0 24px;
-    border: 1px solid black;
-    border-radius: 6px;
-    background-color: rgb(87, 101, 135);
+    /* border: 1px solid black; */
+    border-radius: 4px;
+    background-color: rgb(42, 46, 57);
     width: 400px;
     min-width: 320px;
     max-width: 420px;
@@ -165,6 +181,7 @@
 
 #achievement-details > * {
     margin-left: 20px;
+    height: 13%;
 }
 
 #achievement-title-and-button {
@@ -183,15 +200,25 @@
 #criteria-container {
     display: flex;
     flex-flow: row wrap;
-    height: 70%;
+    height: 64%;
     overflow-y: auto;
+    margin-left: 10px;
+    /* margin-bottom: 20px; */
+}
+
+#criteria-container > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-indent: 12px;
 }
 
 .criteria-achievement,
 .criteria-part {
     width: 300px;
-    border: 1px solid lightgray;
-    background-color: rgb(87, 101, 135);
+    height: 32px;
+    /* border: 1px solid lightgray; */
+    background-color: rgb(54, 62, 84);
     border-radius: 4px;
     margin: 10px;
     padding: 6px 4px;
@@ -200,24 +227,26 @@
 
 .criteria-achievement:hover {
     cursor: pointer;
-    background-color: rgb(72, 83, 112);
+    background-color: rgb(83, 95, 129);
 }
 
 #achievement-list-container .selected {
-    background-color: rgb(134, 157, 214);
+    background-color: rgb(83, 95, 129);
 }
 
 #achievement-list-container .selected:hover {
-    background-color: rgb(134, 157, 214);
+    /* background-color: rgb(149, 151, 158); */
+    cursor: default;
 }
 
 #tracked-note {
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    position: absolute;
+    /* border: 1px solid lightgray; */
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* position: absolute; */
     padding: 10px;
-    right: 20px;
-    top: 72px;
+    /* right: 20px; */
+    /* top: 110px; */
     width: 200px;
     /* text-wrap: wrap; */
 }

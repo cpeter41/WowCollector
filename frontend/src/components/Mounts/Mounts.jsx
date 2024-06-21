@@ -161,12 +161,12 @@ export default function Mounts() {
                                         ></i>
                                     </div>
                                 )}
+                                {notes && notes !== "" && (
+                                    <div id="tracked-note">{notes}</div>
+                                )}
                             </div>
                             <p>{selectedMount?.description}</p>
                             <p>Source: {selectedMount?.source?.name}</p>
-                            {notes && notes !== "" && (
-                                <div id="tracked-note">{notes}</div>
-                            )}
                         </>
                     )}
                 </div>
