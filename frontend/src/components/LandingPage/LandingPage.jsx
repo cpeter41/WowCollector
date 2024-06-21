@@ -24,7 +24,7 @@ export default function LandingPage() {
                         A simple site that displays your World of Warcaft
                         characters&apos; collections!
                     </p>
-                    <h4>Navigate to Home Page</h4>
+                    <h4>Navigate to Main Site</h4>
                 </div>
                 {!user && (
                     <div>
