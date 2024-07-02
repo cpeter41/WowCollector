@@ -54,7 +54,7 @@
 
 #nav-bar > a:hover {
     cursor: pointer;
-    color: rgb(155, 155, 155);
+    /* color: rgb(155, 155, 155); */
 }
 
 #nav-bar-middle .active {

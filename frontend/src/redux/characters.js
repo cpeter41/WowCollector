@@ -90,6 +90,7 @@ export default function characterReducer(state = initState, action) {
             return {
                 ...state,
                 characterList: state.characterList.toSpliced(i, 1),
+                selCharacter: null,
             };
         default:
             return state;
