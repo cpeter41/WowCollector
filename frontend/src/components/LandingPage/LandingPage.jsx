@@ -4,41 +4,45 @@ import LoginFormModal from "../Modals/LoginFormModal";
 import SignupFormModal from "../Modals/SignupFormModal";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
+import Footer from "../Footer";
 
 export default function LandingPage() {
     const user = useSelector((state) => state.session.user);
     const navigate = useNavigate();
 
     return (
-        <div id="landing-page-container">
-            <div id="landing-page-center-div">
-                <div
-                    className="home-nav-button clickable"
-                    onClick={() => {
-                        // navigate to main page
-                        navigate("/achievements");
-                    }}
-                >
-                    <h1>Welcome to WowCollector!</h1>
-                    <p>
-                        A simple site that displays your World of Warcaft
-                        characters&apos; collections!
-                    </p>
-                    <h4>Navigate to Main Site</h4>
-                </div>
-                {!user && (
-                    <div>
-                        <OpenModalMenuItem
-                            itemText="Log In"
-                            modalComponent={<LoginFormModal />}
-                        />
-                        <OpenModalMenuItem
-                            itemText="Sign Up"
-                            modalComponent={<SignupFormModal />}
-                        />
+        <>
+            <div id="landing-page-container">
+                <div id="landing-page-center-div">
+                    <div
+                        className="home-nav-button clickable"
+                        onClick={() => {
+                            // navigate to main page
+                            navigate("/achievements");
+                        }}
+                    >
+                        <h1>Welcome to WowCollector!</h1>
+                        <p>
+                            A simple site that displays your World of Warcaft
+                            characters&apos; collections!
+                        </p>
+                        <h4>Navigate to Main Site</h4>
                     </div>
-                )}
+                    {!user && (
+                        <div>
+                            <OpenModalMenuItem
+                                itemText="Log In"
+                                modalComponent={<LoginFormModal />}
+                            />
+                            <OpenModalMenuItem
+                                itemText="Sign Up"
+                                modalComponent={<SignupFormModal />}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 }
