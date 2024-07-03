@@ -70,11 +70,11 @@
     border-radius: 8px;
     padding: 4px 8px;
     font-weight: 480;
-    color: gray;
+    color: whitesmoke;
 }
 
 #nav-logged-in > *:hover {
-    color: rgb(93, 97, 138);
+    color: rgb(155, 155, 155);
     cursor: pointer;
 }
 

@@ -122,7 +122,7 @@ export default function Mounts() {
         <div id="mounts-container">
             <div id="mount-category-container">
                 <div id="mounts-categories-header">
-                    <h2>Mounts</h2>
+                    <h2>Mounts (A - Z)</h2>
                 </div>
                 {Object.keys(mounts).map((key) => {
                     // filter out the strange nonimplemented mounts ("[" category)

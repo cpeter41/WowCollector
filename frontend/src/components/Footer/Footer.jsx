@@ -8,7 +8,7 @@ export default function Footer() {
                 See this project on GitHub
             </a>
             <div id="footer-links">
-                <span>Connect with me: </span>
+                <span>Connect: </span>
                 <a href="https://github.com/cpeter41">
                     <i className="fa-brands fa-linkedin fa-2xl"></i>
                 </a>

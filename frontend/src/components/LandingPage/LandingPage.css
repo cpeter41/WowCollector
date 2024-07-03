@@ -6,45 +6,57 @@
     height: 88vh;
 }
 
-#landing-page-center-div {
+#landing-page-info {
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-
-.home-nav-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    /* box-shadow: 0px 0px 6px whitesmoke; */
-    border-radius: 20px;
-    margin: 20px;
-    padding: 10px 20px;
-}
-
-.home-nav-button:hover {
+    align-items: flex-start;
     background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin: 20px;
+    padding: 16px 32px;
+    width: 760px;
 }
 
-.home-nav-button h1,
-.home-nav-button p {
-    margin: 6px 0;
+#landing-page-info h1,
+#landing-page-info h2,
+#landing-page-info p {
+    margin: 4px 0;
 }
 
-.home-nav-button h4 {
-    margin: 20px 0;
+#landing-page-info h2 {
+    font-size: 2em;
 }
 
-#landing-page-center-div button {
-    all: unset;
-    margin: 0 10px;
-    padding: 2px 10px;
-    border-radius: 8px;
-    border: 1px solid lightgray;
+#landing-page-info p {
+    font-size: 20px;
 }
 
-#landing-page-center-div button:hover {
-    background-color: rgb(93, 97, 138);
+#alt-char-button {
+    color: #2fb6ff;
+}
+
+#alt-char-button:hover {
+    color: #1c6f9c;
     cursor: pointer;
+}
+
+#landing-page-container button {
+    all: unset;
+    padding: 8px 20px;
+    margin: 16px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.15);
+    /* border: 1px solid lightgray; */
+    align-self: center;
+    font-size: 20px;
+}
+
+#landing-page-container button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.emph-bold {
+    color: rgb(247, 89, 89);
+    font-weight: bolder;
 }
