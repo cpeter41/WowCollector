@@ -63,6 +63,7 @@ function Navigation({ isLoaded }) {
             <div id="nav-bar-middle">
                 <NavLink to="/achievements">Achievements</NavLink>
                 <NavLink to="/mounts">Mounts</NavLink>
+                <NavLink to="/titles">Titles</NavLink>
             </div>
             {user && selectedCharacter && (
                 <div id="open-tracker-button" onClick={() => setOpen(true)}>

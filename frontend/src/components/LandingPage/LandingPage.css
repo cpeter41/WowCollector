@@ -23,8 +23,9 @@
     margin: 4px 0;
 }
 
+#landing-page-info h1,
 #landing-page-info h2 {
-    font-size: 2em;
+    font-size: 3em;
 }
 
 #landing-page-info p {

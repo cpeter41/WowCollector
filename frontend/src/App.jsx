@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
-// import MainPage from "./components/MainPage";
-import Mounts from "./components/Mounts";
 import Achievements from "./components/Achievements";
+import Mounts from "./components/Mounts";
+import Titles from "./components/Titles";
 import * as sessionActions from "./redux/session";
 import { Modal } from "./context/Modal";
 import { HelmetProvider, Helmet } from "react-helmet-async";
@@ -43,13 +43,13 @@ const router = createBrowserRouter([
                 path: "/achievements",
                 element: <Achievements />,
             },
-            // {
-            //     path: "/achievements/:categoryId",
-            //     element: <Achievements />,
-            // },
             {
                 path: "/mounts",
                 element: <Mounts />,
+            },
+            {
+                path: "/titles",
+                element: <Titles />,
             },
             {
                 path: "*",
