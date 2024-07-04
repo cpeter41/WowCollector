@@ -31,7 +31,7 @@ export default function AchievementDetails({ handleAchievementClick }) {
 
     // loads proper categories and subcategories when navigating achievements
     useEffect(() => {
-        if (achievementDetails?.category) {
+        if (rootCategories.length && achievementDetails?.category) {
             const isRootCategory = rootCategories.find(
                 (cat) => cat.id == achievementDetails?.category?.id
             );

@@ -1,13 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { useState } from "react";
-import { editAchievementNote, editMountNote } from "../../../redux/tracker";
+import {
+    editAchievementNote,
+    editMountNote,
+    editTitleNote,
+} from "../../../redux/tracker";
 import "./EditTrackerModal.css";
 
-export default function EditTrackerModal({ achievement, mount }) {
+export default function EditTrackerModal({ achievement, mount, title }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
-    const [note, setNote] = useState(achievement?.note || mount?.note);
+    const [note, setNote] = useState(
+        achievement?.note || mount?.note || title?.note
+    );
     const character = useSelector((state) => state.characters.selCharacter);
 
     const handleSubmit = (e) => {
@@ -23,13 +29,21 @@ export default function EditTrackerModal({ achievement, mount }) {
                         note,
                     })
                 ).then(closeModal);
-        }
-        else if (mount) {
+        } else if (mount) {
             if (character?.id && mount?.blizzId)
                 return dispatch(
                     editMountNote({
                         characterId: character.id,
                         mountId: mount.blizzId,
+                        note,
+                    })
+                ).then(closeModal);
+        } else if (title) {
+            if (character?.id && title?.blizzId)
+                return dispatch(
+                    editTitleNote({
+                        characterId: character.id,
+                        titleId: title.blizzId,
                         note,
                     })
                 ).then(closeModal);

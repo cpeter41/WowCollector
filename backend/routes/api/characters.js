@@ -5,6 +5,7 @@ const {
     User,
     Mount,
     Achievement,
+    Title
 } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 const { checkCharacter } = require("../../utils/bnet");
@@ -367,6 +368,130 @@ router.delete(
 
         return res.status(204).json({
             message: "Tracked mount successfully removed",
+        });
+    }
+);
+
+// ------------------- TITLE TRACKER ROUTES -------------------
+
+// add a title to tracker
+router.post("/:charId/titles", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { charId } = req.params;
+    const { name, titleBlizzId } = req.body;
+
+    const foundChar = await Character.findByPk(charId);
+    if (!foundChar)
+        return res
+            .status(404)
+            .json({ message: "Character couldn't be found." });
+
+    // authorization
+    // consider moving this to middleware
+    if (foundChar.toJSON().userId !== user.id)
+        return next(new Error("Forbidden"));
+
+    const newTrackedTitle = await Title.create({
+        name,
+        characterId: parseInt(charId),
+        blizzId: titleBlizzId,
+    });
+
+    return res.status(201).json(newTrackedTitle);
+});
+
+// get all tracked titles
+router.get("/:charId/titles", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { charId } = req.params;
+
+    const foundChar = await Character.findByPk(charId);
+    if (!foundChar)
+        return res
+            .status(404)
+            .json({ message: "Character couldn't be found." });
+
+    // authorization
+    // consider moving this to middleware
+    if (foundChar.toJSON().userId !== user.id)
+        return next(new Error("Forbidden"));
+
+    const trackedTitles = await Title.findAll({
+        include: [
+            {
+                model: Character,
+                where: { id: charId },
+                attributes: [],
+            },
+        ],
+    });
+
+    return res.status(200).json(trackedTitles);
+});
+
+// add/modify note set on title
+router.put("/:charId/titles", requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { charId } = req.params;
+    const { note, titleId } = req.body;
+
+    const foundChar = await Character.findByPk(charId);
+    if (!foundChar)
+        return res
+            .status(404)
+            .json({ message: "Character couldn't be found." });
+
+    // authorization
+    // consider moving this to middleware
+    if (foundChar.toJSON().userId !== user.id)
+        return next(new Error("Forbidden"));
+
+    const foundMnt = await Title.findOne({
+        where: { blizzId: titleId },
+    });
+    if (!foundMnt)
+        return res
+            .status(404)
+            .json({ message: "Tracked title couldn't be found." });
+
+    foundMnt.note = note;
+    await foundMnt.save();
+
+    return res.status(200).json(foundMnt)
+});
+
+// remove title from tracker
+router.delete(
+    "/:charId/titles/:titleId",
+    requireAuth,
+    async (req, res, next) => {
+        const { user } = req;
+        const { charId, titleId } = req.params;
+
+        const foundChar = await Character.findByPk(charId);
+        if (!foundChar)
+            return res
+                .status(404)
+                .json({ message: "Character couldn't be found." });
+
+        // authorization
+        // consider moving this to middleware
+        if (foundChar.toJSON().userId !== user.id)
+            return next(new Error("Forbidden"));
+
+        const foundTrackedTitle = await Title.findOne({
+            where: { characterId: charId, blizzId: titleId },
+        });
+
+        if (!foundTrackedTitle)
+            return res
+                .status(404)
+                .json({ message: "Tracked title couldn't be found." });
+
+        await foundTrackedTitle.destroy();
+
+        return res.status(204).json({
+            message: "Tracked title successfully removed",
         });
     }
 );

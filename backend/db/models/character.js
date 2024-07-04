@@ -22,18 +22,12 @@ module.exports = (sequelize, DataTypes) => {
                 onDelete: "CASCADE",
                 hooks: true,
             });
-
-            // Character.belongsToMany(models.Achievement, {
-            //     through: "CharAchvmnt",
-            //     foreignKey: "charId",
-            //     otherKey: "achvmntId",
-            // });
-
-            // Character.belongsToMany(models.Mount, {
-            //     through: "CharMount",
-            //     foreignKey: "charId",
-            //     otherKey: "mountId",
-            // });
+            
+            Character.hasMany(models.Title, {
+                foreignKey: "characterId",
+                onDelete: "CASCADE",
+                hooks: true,
+            });
         }
     }
     Character.init(
@@ -52,10 +46,6 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING(64),
                 allowNull: false,
             },
-            // serverSlug: {
-            //     type: DataTypes.STRING(64),
-            //     allowNull: false,
-            // },
             name: {
                 type: DataTypes.STRING(12),
                 allowNull: false,

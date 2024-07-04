@@ -177,8 +177,8 @@ export const selectTitleCategory = (key) => async (dispatch) => {
     dispatch(getTitleCategoryDetails(key));
 };
 
-export const selectTitle = (title) => async (dispatch) => {
-    const res = await csrfFetch(`/api/resources/titles/${title.id}`);
+export const selectTitle = (titleId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/resources/titles/${titleId}`);
     let data;
     if (res.ok) data = await res.json();
 

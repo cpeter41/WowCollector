@@ -1,13 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getAchievementDetails } from "../../redux/resources";
-import "./Titles.css";
 import { useNavigate } from "react-router-dom";
+import { getAchievementDetails } from "../../redux/resources";
+import {
+    trackTitle,
+    removeTrackedTitle,
+} from "../../redux/tracker";
+import renderCriteria from "./renderCriteria";
+import "./Titles.css";
 
 export default function TitleDetails() {
+    const user = useSelector((state) => state.session.user);
+    const character = useSelector((state) => state.characters.selCharacter);
     const title = useSelector((state) => state.resources.current_title);
+    const trackedTitles = useSelector((state) => state.tracker.titles);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    // TODO: hover effects on crosshair
+    // TODO: crosshair color effects on tracking status
     const handleCriteriaClick = () => {
         dispatch(
             getAchievementDetails(
@@ -18,25 +28,49 @@ export default function TitleDetails() {
         navigate("/achievements");
     };
 
+    const handleTrackClick = () => {
+        // track or untrack
+        if (
+            !trackedTitles.find((currTitle) => {
+                return currTitle.blizzId == title.id;
+            })
+        )
+            dispatch(
+                trackTitle({
+                    name: title.name,
+                    characterId: character.id,
+                    titleBlizzId: title.id,
+                })
+            );
+        else
+            dispatch(
+                removeTrackedTitle({
+                    characterId: character.id,
+                    titleBlizzId: title.id,
+                })
+            );
+    };
+
     return (
         <div id="title-details">
-            <h1>{title.name}</h1>
-            {title?.source ? (
-                <div>
-                    Source:{" "}
-                    <button
-                        className="title-criteria"
-                        onClick={handleCriteriaClick}
-                    >
-                        {
-                            title.source?.achievements[
-                                title.source?.achievements.length - 1
-                            ].name
-                        }
-                    </button>
-                </div>
-            ) : (
-                <span>No source listed.</span>
+            {Object.keys(title).length > 0 && (
+                <>
+                    <div id="title-and-tracker">
+                        <h1>{title.name}</h1>
+                        {user && character && (
+                            <div
+                                id="track-button-container"
+                                style={{ fontSize: "x-large" }}
+                            >
+                                <i
+                                    className="fa-solid fa-crosshairs fa-2xl"
+                                    onClick={handleTrackClick}
+                                ></i>
+                            </div>
+                        )}
+                    </div>
+                    {renderCriteria(title, handleCriteriaClick)}
+                </>
             )}
         </div>
     );

@@ -70,6 +70,19 @@
     margin-left: 40px;
 }
 
+#title-and-tracker {
+    display: flex;
+    align-items: center;
+}
+
+#title-and-tracker > h1 {
+    margin-right: 20px;
+}
+
+#source-criteria {
+    height: 32px;
+}
+
 #title-list {
     flex: 1;
     display: flex;

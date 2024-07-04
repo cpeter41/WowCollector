@@ -22,6 +22,9 @@ function Navigation({ isLoaded }) {
     const trackedMountsLength = useSelector(
         (state) => state.tracker.mounts.length
     );
+    const trackedTitlesLength = useSelector(
+        (state) => state.tracker.titles.length
+    );
     const [isOpen, setOpen] = useState(false);
     const dispatch = useDispatch();
 
@@ -63,7 +66,13 @@ function Navigation({ isLoaded }) {
             {user && selectedCharacter && (
                 <div id="open-tracker-button" onClick={() => setOpen(true)}>
                     <i className="fa-solid fa-crosshairs fa-2xl"></i>
-                    <h2>({trackedAchievementsLength + trackedMountsLength})</h2>
+                    <h2>
+                        (
+                        {trackedAchievementsLength +
+                            trackedMountsLength +
+                            trackedTitlesLength}
+                        )
+                    </h2>
                 </div>
             )}
             <div

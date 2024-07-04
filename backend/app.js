@@ -7,7 +7,7 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { ValidationError } = require("sequelize");
-const { Character, Achievement, Mount } = require("./db/models");
+const { Character, Achievement, Mount, Title } = require("./db/models");
 
 const { environment } = require("./config");
 const isProduction = environment === "production";
@@ -58,6 +58,7 @@ app.use(routes);
 Character.sync();
 Achievement.sync();
 Mount.sync();
+Title.sync();
 
 // Error Handling
 

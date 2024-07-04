@@ -6,7 +6,7 @@ export default function TitleButton({ title }) {
     const dispatch = useDispatch();
 
     const handleTitleClick = () => {
-        if (selectedTitle.name !== title.name) dispatch(selectTitle(title));
+        if (selectedTitle.name !== title.name) dispatch(selectTitle(title.id));
     };
 
     return (

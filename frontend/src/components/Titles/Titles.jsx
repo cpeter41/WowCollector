@@ -7,14 +7,13 @@ import TitleDetails from "./TitleDetails";
 import TitleButton from "./TitleButton";
 
 export default function Titles() {
-    // const user = useSelector((state) => state.session.user);
     const titles = useSelector((state) => state.resources.title_list);
     const selectedCategory = useSelector(
         (state) => state.resources.current_title_category
     );
     const dispatch = useDispatch();
 
-    // on load component, if mount_list doesnt exist
+    // on load component, if title_list doesnt exist
     useEffect(() => {
         if (!Object.keys(titles).length) dispatch(getTitleList());
     });
