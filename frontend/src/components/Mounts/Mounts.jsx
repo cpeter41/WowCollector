@@ -41,7 +41,6 @@ export default function Mounts() {
     // color crosshair button based on if mount is tracked or not
     useEffect(() => {
         const addButton = document.getElementById("track-button-container");
-        // const detailNotes = document.getElementById("tracked-note");
         if (selectedMount && trackedMounts && addButton) {
             let note;
             const alreadyTracked = trackedMounts.find((mnt) => {
@@ -49,7 +48,6 @@ export default function Mounts() {
                     note = mnt.note;
                     return true;
                 }
-                // return ach.blizzId == achievementDetails.id
             });
             if (alreadyTracked) {
                 if (note) setNotes(note);

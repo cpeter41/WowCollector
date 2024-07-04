@@ -1,10 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAchievementDetails } from "../../redux/resources";
-import {
-    trackTitle,
-    removeTrackedTitle,
-} from "../../redux/tracker";
+import { trackTitle, removeTrackedTitle } from "../../redux/tracker";
 import renderCriteria from "./renderCriteria";
 import "./Titles.css";
 
@@ -13,10 +10,12 @@ export default function TitleDetails() {
     const character = useSelector((state) => state.characters.selCharacter);
     const title = useSelector((state) => state.resources.current_title);
     const trackedTitles = useSelector((state) => state.tracker.titles);
+    const isTracked = trackedTitles.find((currTitle) => {
+        return currTitle.blizzId == title.id;
+    });
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // TODO: hover effects on crosshair
     // TODO: crosshair color effects on tracking status
     const handleCriteriaClick = () => {
         dispatch(
@@ -30,11 +29,7 @@ export default function TitleDetails() {
 
     const handleTrackClick = () => {
         // track or untrack
-        if (
-            !trackedTitles.find((currTitle) => {
-                return currTitle.blizzId == title.id;
-            })
-        )
+        if (!isTracked)
             dispatch(
                 trackTitle({
                     name: title.name,
@@ -64,6 +59,13 @@ export default function TitleDetails() {
                             >
                                 <i
                                     className="fa-solid fa-crosshairs fa-2xl"
+                                    style={{
+                                        color: `${
+                                            isTracked
+                                                ? "lightcyan"
+                                                : "rgb(110, 110, 110)"
+                                        }`,
+                                    }}
                                     onClick={handleTrackClick}
                                 ></i>
                             </div>
