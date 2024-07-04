@@ -9,14 +9,14 @@ export default function TitleDetails() {
     const user = useSelector((state) => state.session.user);
     const character = useSelector((state) => state.characters.selCharacter);
     const title = useSelector((state) => state.resources.current_title);
-    const trackedTitles = useSelector((state) => state.tracker.titles);
-    const isTracked = trackedTitles.find((currTitle) => {
-        return currTitle.blizzId == title.id;
-    });
+    const isTracked = useSelector((state) => state.tracker.titles).find(
+        (currTitle) => {
+            return currTitle.blizzId == title.id;
+        }
+    );
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // TODO: crosshair color effects on tracking status
     const handleCriteriaClick = () => {
         dispatch(
             getAchievementDetails(
@@ -69,6 +69,9 @@ export default function TitleDetails() {
                                     onClick={handleTrackClick}
                                 ></i>
                             </div>
+                        )}
+                        {isTracked?.note && (
+                            <div id="tracked-note">{isTracked.note}</div>
                         )}
                     </div>
                     {renderCriteria(title, handleCriteriaClick)}

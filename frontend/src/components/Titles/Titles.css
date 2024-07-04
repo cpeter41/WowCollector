@@ -79,6 +79,10 @@
     margin-right: 20px;
 }
 
+#title-and-tracker > #tracked-note {
+    margin: 0 20px;
+}
+
 #track-button-container:hover {
     cursor: pointer;
     color: gray;
