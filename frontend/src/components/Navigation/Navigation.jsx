@@ -29,11 +29,6 @@ function Navigation({ isLoaded }) {
         if (user) dispatch(getCharactersOfUser());
     }, [dispatch, user]);
 
-    // const currentUrl = window.location.href;
-    // const splitArr = currentUrl.split("/");
-    // const currLocation = splitArr[splitArr.length - 1];
-    // // console.log(currLocation);
-
     // check cookie for last selected character
     useEffect(() => {
         const cookie = document.cookie;

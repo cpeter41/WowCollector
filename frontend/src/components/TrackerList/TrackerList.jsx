@@ -85,7 +85,6 @@ export default function TrackerList({ setOpen }) {
     };
 
     const handleMountNavigate = (e) => {
-        console.log(e.target)
         dispatch(selectMount(e.target.id));
         navigate("/mounts");
         setOpen(false);

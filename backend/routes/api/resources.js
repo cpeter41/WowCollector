@@ -174,8 +174,6 @@ router.get("/titles", async (req, res, next) => {
     const response = await fetch(formattedURI, { headers });
     const data = await response.json();
 
-    console.log(data);
-
     const filterName = (name) => {
         return name.replace("of ", "").replace("the ", "").replace('"', "");
     };
@@ -199,8 +197,8 @@ router.get("/titles", async (req, res, next) => {
     return res.json(categorizedTitles);
 });
 
-router.get("/mounts/:mountId", async (req, res, next) => {
-    const { mountId } = req.params;
+router.get("/titles/:titleId", async (req, res, next) => {
+    const { titleId } = req.params;
 
     const oAuthToken = await app.oAuthClient.getToken();
 
@@ -208,7 +206,7 @@ router.get("/mounts/:mountId", async (req, res, next) => {
     const region = "us";
     const host = config.apiHosts[region];
     const namespace = config.namespaces.static[region];
-    const URL = `${host}/data/wow/mount/${mountId}`;
+    const URL = `${host}/data/wow/title/${titleId}`;
     const queryParams = new URLSearchParams({ locale: "en_US", namespace });
     const formattedURI = `${URL}?${queryParams}`;
 

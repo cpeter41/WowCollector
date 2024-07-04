@@ -89,7 +89,6 @@ export const trackAchievement =
         );
 
         const data = await res.json();
-        // console.log("added", data);
         dispatch(addAchievement(data));
     };
 
@@ -138,7 +137,6 @@ export const trackMount =
         });
 
         const data = await res.json();
-        // console.log("added", data);
         dispatch(addMount(data));
     };
 

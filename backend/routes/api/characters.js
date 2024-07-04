@@ -46,7 +46,6 @@ router.post("/", [requireAuth, checkCharacter], async (req, res) => {
         name: formatName(name),
     });
 
-    // console.log(res.locals.character);
 
     const data = newCharacter.toJSON();
     // data.faction = res.locals.character.faction;

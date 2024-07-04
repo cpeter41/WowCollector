@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTitleList } from "../../redux/resources";
 import TitleCategory from "./TitleCategory";
 import "./Titles.css";
+import TitleDetails from "./TitleDetails";
+import TitleButton from "./TitleButton";
 
 export default function Titles() {
     // const user = useSelector((state) => state.session.user);
@@ -24,12 +26,23 @@ export default function Titles() {
                     <h2>Titles (A - Z)</h2>
                 </div>
                 {Object.keys(titles).map((key) => (
-                    <TitleCategory
-                        key={key}
-                        name={key}
-                        selected={key === selectedCategory}
-                    />
+                    <TitleCategory key={key} name={key} />
                 ))}
+            </div>
+            <div id="titles-and-details-container">
+                {selectedCategory ? (
+                    <div id="titles-and-details">
+                        <TitleDetails />
+                        <div id="title-list">
+                            {titles[selectedCategory] &&
+                                titles[selectedCategory].map((title) => (
+                                    <TitleButton key={title.id} title={title} />
+                                ))}
+                        </div>
+                    </div>
+                ) : (
+                    <h3>Select a category on the left to view titles.</h3>
+                )}
             </div>
         </div>
     );

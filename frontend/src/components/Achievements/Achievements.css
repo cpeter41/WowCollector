@@ -207,7 +207,6 @@
     height: 64%;
     overflow-y: auto;
     margin-left: 10px;
-    /* margin-bottom: 20px; */
 }
 
 #criteria-container > div {
@@ -221,7 +220,6 @@
 .criteria-part {
     width: 300px;
     height: 32px;
-    /* border: 1px solid lightgray; */
     background-color: rgb(54, 62, 84);
     border-radius: 4px;
     margin: 10px;
@@ -239,19 +237,12 @@
 }
 
 #achievement-list-container .selected:hover {
-    /* background-color: rgb(149, 151, 158); */
     cursor: default;
 }
 
 #tracked-note {
-    /* border: 1px solid lightgray; */
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.1);
-    /* position: absolute; */
     padding: 10px;
-    /* right: 20px; */
-    /* top: 110px; */
-    /* width: 400px; */
     flex: 1;
-    /* text-wrap: wrap; */
 }
