@@ -17,12 +17,14 @@ export default function LandingPage() {
                     <h1>Welcome to WowCollector!</h1>
                     <p>
                         This website is designed to track collectibles in World
-                        of Warcraft. Currently supported collectibles are:
-                        <ul>
-                            <li>Achievements</li>
-                            <li>Mounts</li>
-                            <li>Titles</li>
-                        </ul>
+                        of Warcraft. Currently supported collectibles are:{" "}
+                    </p>
+                    <ul>
+                        <li>Achievements</li>
+                        <li>Mounts</li>
+                        <li>Titles</li>
+                    </ul>
+                    <p>
                         You can view ALL collectibles without an account. If you
                         want to track these collectibles, an account is{" "}
                         <span className="emph-bold">required</span>.
@@ -47,14 +49,14 @@ export default function LandingPage() {
                             </span>
                         )}{" "}
                         Then press the{" "}
-                        <i className="fa-solid fa-crosshairs fa-xl"></i> button
-                        on a collectible to add it to that character&apos;s
-                        tracker.
+                        <i
+                            className="fa-solid fa-crosshairs fa-xl"
+                            style={{ color: "lightcyan" }}
+                        ></i>{" "}
+                        button on a collectible to add it to that
+                        character&apos;s tracker.
                     </p>
-                    <p>
-                        Multiple characters can be added to an account. You can add a
-                        note to any tracked item for your convenience.
-                    </p>
+                    <p>Multiple characters can be added to an account.</p>
                     {!user && (
                         <OpenModalMenuItem
                             itemText="Sign Up"

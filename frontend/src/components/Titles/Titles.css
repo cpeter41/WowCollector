@@ -1,0 +1,42 @@
+#titles-container {
+    height: 89vh;
+    display: flex;
+    margin-top: 16px;
+}
+
+#title-categories {
+    width: 280px;
+    overflow-y: auto;
+    height: 100%;
+    margin: 0 12px;
+}
+
+#title-categories-header {
+    border-radius: 4px;
+    background-color: rgb(68, 78, 105);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.title-category {
+    height: 60px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-category:hover {
+    cursor: pointer;
+    background-color: rgb(49, 57, 79);
+}
+
+.title-category.selected {
+    background-color: rgb(83, 95, 129);
+}

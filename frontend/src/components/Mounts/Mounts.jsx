@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getMountList } from "../../redux/resources";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    getMountList,
     selectMountCategory,
     selectMount,
     clearSelectedMount,
@@ -22,7 +22,6 @@ export default function Mounts() {
     );
     const dispatch = useDispatch();
     const [notes, setNotes] = useState();
-    // const [mountArray, setArray] = useState([]);
 
     // on load component, if mount_list doesnt exist
     useEffect(() => {
