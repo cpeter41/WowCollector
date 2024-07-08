@@ -40,33 +40,33 @@ module.exports = {
                 // character 2
                 {
                     name: "Scintillating Mana Ray",
-                    characterId: 1,
+                    characterId: 2,
                     blizzId: 976,
                 },
                 {
                     name: "Heavenly Onyx Cloud Serpent",
-                    characterId: 1,
+                    characterId: 2,
                     blizzId: 473,
                 },
                 {
                     name: "Grey Riding Camel",
-                    characterId: 1,
+                    characterId: 2,
                     blizzId: 400,
                 },
                 {
                     name: "Ashes of Al'ar",
-                    characterId: 1,
+                    characterId: 2,
                     blizzId: 183,
                 },
                 // character 3
                 {
                     name: "Mimiron's Head",
-                    characterId: 1,
+                    characterId: 3,
                     blizzId: 304,
                 },
                 {
                     name: "Alabaster Stormtalon",
-                    characterId: 1,
+                    characterId: 3,
                     blizzId: 1266,
                 },
             ],
