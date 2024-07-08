@@ -20,31 +20,50 @@ module.exports = {
          * }], {});
          */
         await Achievement.bulkCreate([
+            // character 1
             {
                 name: "Going Down?",
                 characterId: 1,
                 blizzId: 964,
-                // desc: "Fall 65 yards without dying.",
-                // points: 10,
-                // imgUrl: "https://wow.zamimg.com/images/wow/icons/large/spell_shadow_twistedfaith.jpg",
             },
             {
                 name: "Mountain o' Mounts",
                 characterId: 1,
                 blizzId: 2537,
-                // desc: "Obtain 100 mounts (usable by a single character).",
-                // points: 10,
-                // imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_hunter_pet_dragonhawk.jpg",
             },
             {
                 name: "To All The Squirrels I've Loved Before",
                 characterId: 1,
                 blizzId: 1206,
-                // desc: "Show the critters of Azeroth how much you /love them.",
-                // points: 10,
-                // imgUrl: "https://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_crimsonhare.jpg",
             },
-        ]);
+            // character 2
+            {
+                name: "To All The Squirrels Who Shared My Life",
+                characterId: 2,
+                blizzId: 2557,
+            },
+            {
+                name: "Lodi Dodi We Loves the Skadi",
+                characterId: 2,
+                blizzId: 1873,
+            },
+            // character 3
+            {
+                name: "Mythic Remix: Siege of Orgrimmar",
+                characterId: 3,
+                blizzId: 19961,
+            },
+            {
+                name: "Torch Juggler",
+                characterId: 3,
+                blizzId: 272,
+            },
+            {
+                name: "Get to the Choppa!",
+                characterId: 3,
+                blizzId: 2097,
+            },
+        ], options);
     },
 
     async down(queryInterface, Sequelize) {
@@ -59,12 +78,8 @@ module.exports = {
         return queryInterface.bulkDelete(
             "Achievements",
             {
-                name: {
-                    [Op.in]: [
-                        "Going Down?",
-                        "Mountain o' Mounts",
-                        "To All The Squirrels I've Loved Before",
-                    ],
+                id: {
+                    [Op.lte]: 8,
                 },
             },
             options

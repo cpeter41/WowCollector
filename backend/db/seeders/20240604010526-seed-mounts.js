@@ -19,29 +19,59 @@ module.exports = {
          *   isBetaMember: false
          * }], {});
          */
-        await Mount.bulkCreate([
-            {
-                name: "Pinto",
-                characterId: 1,
-                blizzId: 11,
-                // desc: "Its calm temperament makes it ideal to train young children in horseback riding.",
-                // imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_mount_ridinghorse.jpg",
-            },
-            {
-                name: "Invincible",
-                characterId: 1,
-                blizzId: 363,
-                //     desc: "The famous steed of Arthas Menethil, who serves its master in life and in death. Riding him is truly a feat of strength.",
-                //     imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_mount_pegasus.jpg",
-            },
-            {
-                name: "Swift Zulian Tiger",
-                characterId: 1,
-                blizzId: 111,
-                // desc: "The last known Zulian tigers were kept by High Priest Thekal, deep within Zul'Gurub. They are said to have been hunted into extinction.",
-                // imgUrl: "https://wow.zamimg.com/images/wow/icons/large/ability_mount_jungletiger.jpg",
-            },
-        ]);
+        await Mount.bulkCreate(
+            [
+                // character 1
+                {
+                    name: "Pinto",
+                    characterId: 1,
+                    blizzId: 11,
+                },
+                {
+                    name: "Invincible",
+                    characterId: 1,
+                    blizzId: 363,
+                },
+                {
+                    name: "Swift Zulian Tiger",
+                    characterId: 1,
+                    blizzId: 111,
+                },
+                // character 2
+                {
+                    name: "Scintillating Mana Ray",
+                    characterId: 1,
+                    blizzId: 976,
+                },
+                {
+                    name: "Heavenly Onyx Cloud Serpent",
+                    characterId: 1,
+                    blizzId: 473,
+                },
+                {
+                    name: "Grey Riding Camel",
+                    characterId: 1,
+                    blizzId: 400,
+                },
+                {
+                    name: "Ashes of Al'ar",
+                    characterId: 1,
+                    blizzId: 183,
+                },
+                // character 3
+                {
+                    name: "Mimiron's Head",
+                    characterId: 1,
+                    blizzId: 304,
+                },
+                {
+                    name: "Alabaster Stormtalon",
+                    characterId: 1,
+                    blizzId: 1266,
+                },
+            ],
+            options
+        );
     },
 
     async down(queryInterface, Sequelize) {
@@ -56,8 +86,8 @@ module.exports = {
         return queryInterface.bulkDelete(
             "Mounts",
             {
-                name: {
-                    [Op.in]: ["Pinto", "Invincible", "Swift Zulian Tiger"],
+                id: {
+                    [Op.lte]: 9,
                 },
             },
             options
