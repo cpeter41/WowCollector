@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getMountList } from "../../redux/resources";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    getMountList,
     selectMountCategory,
     selectMount,
     clearSelectedMount,
@@ -22,7 +22,6 @@ export default function Mounts() {
     );
     const dispatch = useDispatch();
     const [notes, setNotes] = useState();
-    // const [mountArray, setArray] = useState([]);
 
     // on load component, if mount_list doesnt exist
     useEffect(() => {
@@ -42,7 +41,6 @@ export default function Mounts() {
     // color crosshair button based on if mount is tracked or not
     useEffect(() => {
         const addButton = document.getElementById("track-button-container");
-        // const detailNotes = document.getElementById("tracked-note");
         if (selectedMount && trackedMounts && addButton) {
             let note;
             const alreadyTracked = trackedMounts.find((mnt) => {
@@ -50,7 +48,6 @@ export default function Mounts() {
                     note = mnt.note;
                     return true;
                 }
-                // return ach.blizzId == achievementDetails.id
             });
             if (alreadyTracked) {
                 if (note) setNotes(note);
@@ -122,7 +119,7 @@ export default function Mounts() {
         <div id="mounts-container">
             <div id="mount-category-container">
                 <div id="mounts-categories-header">
-                    <h2>Mounts</h2>
+                    <h2>Mounts (A - Z)</h2>
                 </div>
                 {Object.keys(mounts).map((key) => {
                     // filter out the strange nonimplemented mounts ("[" category)
@@ -144,50 +141,58 @@ export default function Mounts() {
                 })}
             </div>
             <div id="mounts-and-details-container">
-                <div id="mount-details">
-                    {Object.keys(selectedMount).length > 0 && (
-                        <>
-                            <div id="mount-title-and-button">
-                                <h2>{selectedMount?.name}</h2>
-                                {/* font size 'amplifier' div (xl + 2xl) */}
-                                {user && selectedCharacter && (
-                                    <div
-                                        id="track-button-container"
-                                        style={{ fontSize: "x-large" }}
-                                    >
-                                        <i
-                                            className="fa-solid fa-crosshairs fa-2xl"
-                                            onClick={handleTrackClick}
-                                        ></i>
+                {mounts && mounts[selectedCategoryKey] ? (
+                    <>
+                        <div id="mount-details">
+                            {Object.keys(selectedMount).length > 0 && (
+                                <>
+                                    <div id="mount-title-and-button">
+                                        <h2>{selectedMount?.name}</h2>
+                                        {/* font size 'amplifier' div (xl + 2xl) */}
+                                        {user && selectedCharacter && (
+                                            <div
+                                                id="track-button-container"
+                                                style={{ fontSize: "x-large" }}
+                                            >
+                                                <i
+                                                    className="fa-solid fa-crosshairs fa-2xl"
+                                                    onClick={handleTrackClick}
+                                                ></i>
+                                            </div>
+                                        )}
+                                        {notes && notes !== "" && (
+                                            <div id="tracked-note">{notes}</div>
+                                        )}
                                     </div>
-                                )}
-                                {notes && notes !== "" && (
-                                    <div id="tracked-note">{notes}</div>
-                                )}
-                            </div>
-                            <p>{selectedMount?.description}</p>
-                            <p>Source: {selectedMount?.source?.name}</p>
-                        </>
-                    )}
-                </div>
-                <div id="mounts-in-category-list">
-                    {mounts &&
-                        mounts[selectedCategoryKey] &&
-                        mounts[selectedCategoryKey].map((mount) => (
-                            <div
-                                className={`mount-item${
-                                    mount.id === selectedMount.id
-                                        ? " selected"
-                                        : ""
-                                }`}
-                                id={mount.id}
-                                key={mount.id}
-                                onClick={handleMountClick}
-                            >
-                                {mount.name}
-                            </div>
-                        ))}
-                </div>
+                                    <p>{selectedMount?.description}</p>
+                                    <p>Source: {selectedMount?.source?.name}</p>
+                                </>
+                            )}
+                        </div>
+                        <div id="mounts-in-category-list">
+                            {mounts &&
+                                mounts[selectedCategoryKey] &&
+                                mounts[selectedCategoryKey].map((mount) => (
+                                    <div
+                                        className={`mount-item${
+                                            mount.id === selectedMount.id
+                                                ? " selected"
+                                                : ""
+                                        }`}
+                                        id={mount.id}
+                                        key={mount.id}
+                                        onClick={handleMountClick}
+                                    >
+                                        {mount.name}
+                                    </div>
+                                ))}
+                        </div>
+                    </>
+                ) : (
+                    <div>
+                        <h3>Select a category on the left to view mounts.</h3>
+                    </div>
+                )}
             </div>
         </div>
     );

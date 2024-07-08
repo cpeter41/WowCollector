@@ -51,7 +51,6 @@ function ProfileButton({ user }) {
             <button id="profile-button" onClick={toggleMenu}>
                 <i
                     className="fas fa-user-circle fa-xl"
-                    style={{ color: "lightgray" }}
                 />
                 {showMenu ? (
                     <i className="fa-solid fa-angle-down fa-xl"></i>
@@ -63,12 +62,6 @@ function ProfileButton({ user }) {
                 <>
                     <li className="profile-li">Hello, {user.username}</li>
                     <li className="profile-li bottom-border">{user.email}</li>
-                    {/* <li className="profile-li bottom-border">
-                        <NavLink className="nav-link" to="/groups">View Groups</NavLink>
-                    </li>
-                    <li className="profile-li bottom-border">
-                        <NavLink className="nav-link" to="/events">View Events</NavLink>
-                    </li> */}
                     <li id="logout-li">
                         <button onClick={logout} id="logout">
                             Log Out

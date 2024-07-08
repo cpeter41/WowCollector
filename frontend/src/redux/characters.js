@@ -56,7 +56,6 @@ export const addCharacter = (char) => async (dispatch) => {
         body: JSON.stringify(char),
     });
     const data = await res.json();
-    // console.log("DATA: ", data);
     dispatch(addChar(data));
 };
 
@@ -90,6 +89,7 @@ export default function characterReducer(state = initState, action) {
             return {
                 ...state,
                 characterList: state.characterList.toSpliced(i, 1),
+                selCharacter: null,
             };
         default:
             return state;

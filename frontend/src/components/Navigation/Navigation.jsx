@@ -22,17 +22,15 @@ function Navigation({ isLoaded }) {
     const trackedMountsLength = useSelector(
         (state) => state.tracker.mounts.length
     );
+    const trackedTitlesLength = useSelector(
+        (state) => state.tracker.titles.length
+    );
     const [isOpen, setOpen] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (user) dispatch(getCharactersOfUser());
     }, [dispatch, user]);
-
-    // const currentUrl = window.location.href;
-    // const splitArr = currentUrl.split("/");
-    // const currLocation = splitArr[splitArr.length - 1];
-    // // console.log(currLocation);
 
     // check cookie for last selected character
     useEffect(() => {
@@ -63,11 +61,18 @@ function Navigation({ isLoaded }) {
             <div id="nav-bar-middle">
                 <NavLink to="/achievements">Achievements</NavLink>
                 <NavLink to="/mounts">Mounts</NavLink>
+                <NavLink to="/titles">Titles</NavLink>
             </div>
             {user && selectedCharacter && (
                 <div id="open-tracker-button" onClick={() => setOpen(true)}>
                     <i className="fa-solid fa-crosshairs fa-2xl"></i>
-                    <h2>({trackedAchievementsLength + trackedMountsLength})</h2>
+                    <h2>
+                        (
+                        {trackedAchievementsLength +
+                            trackedMountsLength +
+                            trackedTitlesLength}
+                        )
+                    </h2>
                 </div>
             )}
             <div

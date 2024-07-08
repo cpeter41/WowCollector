@@ -9,6 +9,10 @@ const GET_MOUNT_LIST = "resources/getMountList";
 const SEL_MOUNT_CAT = "resources/selectMountCategory";
 const SEL_MOUNT = "resources/selectMount";
 
+const GET_TITLE_LIST = "resources/getTitleList";
+const SEL_TITLE_CAT = "resources/selectTitleCategory";
+const SEL_TITLE = "resources/selectTitle";
+
 const getCategories = (categories) => {
     return {
         type: GET_CATEGORIES,
@@ -57,6 +61,30 @@ const getMountDetails = (mount) => {
         mount,
     };
 };
+
+const getTitles = (titles) => {
+    return {
+        type: GET_TITLE_LIST,
+        titles,
+    };
+};
+
+const getTitleCategoryDetails = (key) => {
+    return {
+        type: SEL_TITLE_CAT,
+        key,
+    };
+};
+
+const getTitleDetails = (title) => {
+    return {
+        type: SEL_TITLE,
+        title,
+    };
+};
+
+// Import these functions
+// -- Achievements
 
 export const setAchievementCategories = () => async (dispatch) => {
     const res = await csrfFetch("/api/resources/achievements/categories");
@@ -109,6 +137,8 @@ export const clearAchievementSelection = () => async (dispatch) => {
     dispatch(getAchvmntDetails({}));
 };
 
+// -- Mounts
+
 export const getMountList = () => async (dispatch) => {
     const res = await csrfFetch("/api/resources/mounts");
 
@@ -131,7 +161,33 @@ export const selectMount = (mountId) => async (dispatch) => {
 
 export const clearSelectedMount = () => async (dispatch) => {
     dispatch(getMountDetails({}));
-}
+};
+
+// -- Titles
+
+export const getTitleList = () => async (dispatch) => {
+    const res = await csrfFetch("/api/resources/titles");
+
+    let data;
+    if (res.ok) data = await res.json();
+    dispatch(getTitles(data));
+};
+
+export const selectTitleCategory = (key) => async (dispatch) => {
+    dispatch(getTitleCategoryDetails(key));
+};
+
+export const selectTitle = (titleId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/resources/titles/${titleId}`);
+    let data;
+    if (res.ok) data = await res.json();
+
+    dispatch(getTitleDetails(data));
+};
+
+export const clearSelectedTitle = () => async (dispatch) => {
+    dispatch(getTitleDetails({}));
+};
 
 const initState = {
     // root categories of achievements for base "/achievements" page
@@ -143,14 +199,21 @@ const initState = {
     // selected achievement for full details on modified page ^
     current_achievement: {},
     // list of mounts, alphabetized
-    mount_list: [],
+    mount_list: {},
     // current selected mount category (first letter)
     current_mount_category: "",
     // current selected mount
     current_mount: {},
+    // list of titles, alphabetized
+    title_list: {},
+    // current selected title category (first letter, skipping "the")
+    current_title_category: "",
+    // current selected title
+    current_title: {},
 };
 
 export default function resourcesReducer(state = initState, action) {
+    // consider refactoring this into separate store slices
     switch (action.type) {
         case GET_CATEGORIES:
             return { ...state, achievement_categories: action.categories };
@@ -166,6 +229,12 @@ export default function resourcesReducer(state = initState, action) {
             return { ...state, current_mount_category: action.key };
         case SEL_MOUNT:
             return { ...state, current_mount: action.mount };
+        case GET_TITLE_LIST:
+            return { ...state, title_list: action.titles };
+        case SEL_TITLE_CAT:
+            return { ...state, current_title_category: action.key };
+        case SEL_TITLE:
+            return { ...state, current_title: action.title };
         default:
             return state;
     }

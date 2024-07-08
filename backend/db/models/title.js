@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class CharAchvmnt extends Model {
+    class Title extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -9,38 +9,40 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            Title.belongsTo(models.Character, {
+                foreignKey: "characterId",
+            });
         }
     }
-    CharAchvmnt.init(
+    Title.init(
         {
-            charId: {
+            name: {
+                type: DataTypes.STRING(128),
+                allowNull: false,
+            },
+            characterId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: { model: "Characters", key: "id" },
-                onDelete: "CASCADE",
             },
-            achvmntId: {
+            blizzId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                references: { model: "Achievements", key: "id" },
-                onDelete: "CASCADE",
+            },
+            note: {
+                type: DataTypes.TEXT,
             },
         },
         {
             sequelize,
-            modelName: "CharAchvmnt",
+            modelName: "Title",
             indexes: [
-                /**
-                 * prevents same achievement from being
-                 * added more than once per character
-                 * NOTE: needs a sync() call to apply index (happens in app.js)
-                 */
                 {
-                    fields: ["charId", "achvmntId"],
+                    fields: ["characterId", "blizzId"],
                     unique: true,
                 },
             ],
         }
     );
-    return CharAchvmnt;
+    return Title;
 };

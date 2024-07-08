@@ -1,0 +1,138 @@
+#titles-and-details-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+#titles-container {
+    height: 89vh;
+    display: flex;
+    margin-top: 16px;
+}
+
+/* CATEGORIES */
+#title-categories {
+    width: 280px;
+    overflow-y: auto;
+    height: 100%;
+    margin: 0 12px;
+}
+
+#title-categories-header {
+    border-radius: 4px;
+    background-color: rgb(68, 78, 105);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.title-category {
+    height: 60px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-category:hover {
+    cursor: pointer;
+    background-color: rgb(49, 57, 79);
+}
+
+.title-category.selected {
+    background-color: rgb(83, 95, 129);
+}
+
+/* LIST AND DETAILS */
+#titles-and-details {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#title-details {
+    height: 20%;
+    width: 100%;
+    background-color: rgb(12, 12, 12);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    overflow-y: auto;
+}
+
+#title-details > * {
+    margin-left: 40px;
+}
+
+#title-and-tracker {
+    display: flex;
+    align-items: center;
+}
+
+#title-and-tracker > h1 {
+    margin-right: 20px;
+}
+
+#title-and-tracker > #tracked-note {
+    margin: 0 20px;
+}
+
+#track-button-container:hover {
+    cursor: pointer;
+    color: gray;
+}
+
+#source-criteria {
+    height: 32px;
+}
+
+#title-list {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.title-item {
+    height: 86px;
+    width: 400px;
+    border-radius: 4px;
+    margin: 20px;
+    background-color: rgb(42, 46, 57);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-indent: 20px;
+    font-size: larger;
+    text-overflow: clip;
+}
+
+.title-item:hover {
+    cursor: pointer;
+    background-color: rgb(54, 62, 84);
+}
+
+.title-item.selected {
+    background-color: rgb(83, 95, 129);
+}
+
+.title-criteria {
+    all: unset;
+    height: 32px;
+    width: 300px;
+    background-color: rgb(54, 62, 84);
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+.title-criteria:hover {
+    cursor: pointer;
+    background-color: rgb(83, 95, 129);
+}

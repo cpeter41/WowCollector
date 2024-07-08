@@ -6,8 +6,7 @@ const config = require("../../bnetConfig.js");
 // ------------- BLIZZARD API ACHIEVEMENT ROUTES -------------
 /**
  * These routes are for obtaining all of the achievements from
- * the Blizzard API. Should only need to be run when new
- * achievements are added to the game.
+ * the Blizzard API.
  */
 
 // gets a list of all categories of achievements
@@ -30,7 +29,6 @@ router.get("/achievements/categories", async (req, res, next) => {
     const data = await response.json();
     for (const rCat of data.root_categories) {
         // format API request URI
-        // console.log("----------------- RCAT ", rCat);
         const URL = `${host}/data/wow/achievement-category/${rCat.id}`;
         const queryParams = new URLSearchParams({ locale: "en_US", namespace });
         const formattedURI = `${URL}?${queryParams}`;
@@ -39,9 +37,7 @@ router.get("/achievements/categories", async (req, res, next) => {
         const headers = { Authorization: `Bearer ${oAuthToken}` };
         const response = await fetch(formattedURI, { headers });
         const data = await response.json();
-        // console.log("data for ", rCat, " : ", data.subcategories);
         rCat.subcategories = data.subcategories;
-        // console.log("rcat: ", rCat.subcategories);
     }
     return res.json(data.root_categories);
 });
@@ -94,7 +90,6 @@ router.get("/achievements/:achievementId", async (req, res, next) => {
     // attach oauth token
     const headers = { Authorization: `Bearer ${oAuthToken}` };
     const response = await fetch(formattedURI, { headers });
-    // console.log(response);
     const data = await response.json();
     return res.json(data);
 });
@@ -102,8 +97,7 @@ router.get("/achievements/:achievementId", async (req, res, next) => {
 // ---------------- BLIZZARD API MOUNT ROUTES ----------------
 /**
  * These routes are for obtaining all of the mounts from the
- * Blizzard API. Should only need to be run when new mounts
- * are added to the game.
+ * Blizzard API.
  */
 router.get("/mounts", async (req, res, next) => {
     const oAuthToken = await app.oAuthClient.getToken();
@@ -127,8 +121,6 @@ router.get("/mounts", async (req, res, next) => {
     });
 
     // categorized into keys of each letter of the alphabet
-    // also sorts the weird non ingame mounts into categories like "["
-    // filter those out i guess
     const categorizedMounts = {};
     data.mounts.forEach((mount) => {
         const key = mount.name[0];
@@ -137,13 +129,10 @@ router.get("/mounts", async (req, res, next) => {
         } else categorizedMounts[key] = [mount];
     });
 
-    // console.log(categorizedMounts);
-
     return res.json(categorizedMounts);
 });
 
 router.get("/mounts/:mountId", async (req, res, next) => {
-    console.log("called! :)")
     const { mountId } = req.params;
 
     const oAuthToken = await app.oAuthClient.getToken();
@@ -153,6 +142,71 @@ router.get("/mounts/:mountId", async (req, res, next) => {
     const host = config.apiHosts[region];
     const namespace = config.namespaces.static[region];
     const URL = `${host}/data/wow/mount/${mountId}`;
+    const queryParams = new URLSearchParams({ locale: "en_US", namespace });
+    const formattedURI = `${URL}?${queryParams}`;
+
+    // attach oauth token
+    const headers = { Authorization: `Bearer ${oAuthToken}` };
+    const response = await fetch(formattedURI, { headers });
+    const data = await response.json();
+
+    return res.json(data);
+});
+
+// ---------------- BLIZZARD API TITLE ROUTES ----------------
+/**
+ * These routes are for obtaining all of the titles from the
+ * Blizzard API.
+ */
+router.get("/titles", async (req, res, next) => {
+    const oAuthToken = await app.oAuthClient.getToken();
+
+    // format API request URI
+    const region = "us";
+    const host = config.apiHosts[region];
+    const namespace = config.namespaces.static[region];
+    const URL = `${host}/data/wow/title/index`;
+    const queryParams = new URLSearchParams({ locale: "en_US", namespace });
+    const formattedURI = `${URL}?${queryParams}`;
+
+    // attach oauth token
+    const headers = { Authorization: `Bearer ${oAuthToken}` };
+    const response = await fetch(formattedURI, { headers });
+    const data = await response.json();
+
+    const filterName = (name) => {
+        return name.replace("of ", "").replace("the ", "").replace('"', "");
+    };
+
+    data.titles.sort((a, b) => {
+        let first = filterName(a.name);
+        let second = filterName(b.name);
+        if (first < second) return -1;
+        else return 1;
+    });
+
+    // categorized into keys of each letter of the alphabet
+    const categorizedTitles = {};
+    data.titles.forEach((title) => {
+        const key = filterName(title.name)[0];
+        if (categorizedTitles[key]) {
+            categorizedTitles[key].push(title);
+        } else categorizedTitles[key] = [title];
+    });
+
+    return res.json(categorizedTitles);
+});
+
+router.get("/titles/:titleId", async (req, res, next) => {
+    const { titleId } = req.params;
+
+    const oAuthToken = await app.oAuthClient.getToken();
+
+    // format API request URI
+    const region = "us";
+    const host = config.apiHosts[region];
+    const namespace = config.namespaces.static[region];
+    const URL = `${host}/data/wow/title/${titleId}`;
     const queryParams = new URLSearchParams({ locale: "en_US", namespace });
     const formattedURI = `${URL}?${queryParams}`;
 

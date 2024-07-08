@@ -19,16 +19,32 @@ module.exports = {
          *   isBetaMember: false
          * }], {});
          */
-        await Character.bulkCreate([
-            {
-                userId: 1,
-                region: "us",
-                serverName: "Borean Tundra",
-                // serverSlug: "borean-tundra",
-                name: "Christopher",
-                isPrimary: true,
-            },
-        ]);
+        await Character.bulkCreate(
+            [
+                {
+                    userId: 1,
+                    region: "us",
+                    serverName: "Borean Tundra",
+                    name: "Christopher",
+                    isPrimary: true,
+                },
+                {
+                    userId: 1,
+                    region: "us",
+                    serverName: "Borean Tundra",
+                    name: "Anaverina",
+                    isPrimary: false,
+                },
+                {
+                    userId: 1,
+                    region: "us",
+                    serverName: "Tichondrius",
+                    name: "Twooloo",
+                    isPrimary: false,
+                },
+            ],
+            options
+        );
     },
 
     async down(queryInterface, Sequelize) {
@@ -45,6 +61,14 @@ module.exports = {
             {
                 name: "Christopher",
                 serverName: "Borean Tundra",
+            },
+            {
+                name: "Anaverina",
+                serverName: "Borean Tundra",
+            },
+            {
+                name: "Twooloo",
+                serverName: "Tichondrius",
             },
             options
         );

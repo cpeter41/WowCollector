@@ -11,7 +11,6 @@ export default function AchievementContainer() {
     const selectedAchievement = useSelector((state) => state.resources.current_achievement);
 
     const handleAchievementClick = (e) => {
-        // console.log(e.target);
         if (!e.target.classList.contains("selected")) {
             const achievementList = document.getElementById(
                 "achievement-list-container"

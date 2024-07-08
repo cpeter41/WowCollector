@@ -40,24 +40,6 @@ const validateSignup = [
 // signup user
 router.post("/", validateSignup, async (req, res) => {
     const { email, password, username, imageId } = req.body;
-    // const params = {
-    //     Bucket: S3_BUCKET,
-    //     Key: file.name,
-    //     Body: file,
-    // };
-    // var upload = s3
-    //     .putObject(params)
-    //     .on("httpUploadProgress", (evt) => {
-    //         console.log(
-    //             "Uploading " + parseInt((evt.loaded * 100) / evt.total) + "%"
-    //         );
-    //     })
-    //     .promise();
-
-    // const response = await upload.then((err, data) => {
-    //     console.log(err);
-    //     alert("File uploaded successfully.");
-    // });
 
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({

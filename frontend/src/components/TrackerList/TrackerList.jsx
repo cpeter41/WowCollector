@@ -4,9 +4,17 @@ import {
     removeTrackedAchievement,
     getTrackedMounts,
     removeTrackedMount,
+    getTrackedTitles,
+    removeTrackedTitle,
 } from "../../redux/tracker";
 import EditTrackerModal from "../Modals/EditTrackerNoteModal";
-import { getAchievementDetails, selectMount } from "../../redux/resources";
+import TrackerItem from "./TrackerItem";
+import {
+    getAchievementDetails,
+    selectMount,
+    selectTitle,
+    selectTitleCategory,
+} from "../../redux/resources";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
@@ -28,11 +36,19 @@ export default function TrackerList({ setOpen }) {
     const trackedMounts = useSelector((state) => state.tracker.mounts);
     const [mntOpen, setMntOpen] = useState(true);
 
+    const trackedTitles = useSelector((state) => state.tracker.titles);
+    const [ttlOpen, setTtlOpen] = useState(true);
+
+    const filterName = (name) => {
+        return name.replace("of ", "").replace("the ", "").replace('"', "");
+    };
+
     useEffect(() => {
         if (selectedCharacter) {
             document.cookie = `selCharacterId=${selectedCharacter.id};max-age=2629744`;
             dispatch(getTrackedAchievements(selectedCharacter.id));
             dispatch(getTrackedMounts(selectedCharacter.id));
+            dispatch(getTrackedTitles(selectedCharacter.id));
         }
     }, [selectedCharacter, dispatch]);
 
@@ -52,6 +68,16 @@ export default function TrackerList({ setOpen }) {
                 removeTrackedMount({
                     characterId: selectedCharacter.id,
                     mountId: e.target.id,
+                })
+            );
+    };
+
+    const handleDeleteTitle = (ttl) => {
+        if (trackedTitles.find((currTtl) => currTtl.blizzId == ttl.blizzId))
+            dispatch(
+                removeTrackedTitle({
+                    characterId: selectedCharacter.id,
+                    titleBlizzId: ttl.blizzId,
                 })
             );
     };
@@ -78,6 +104,16 @@ export default function TrackerList({ setOpen }) {
         trackerBackground.style.zIndex = 0;
     };
 
+    const handleNoteTitle = (ttl) => {
+        const foundTitle = trackedTitles.find(
+            (currTtl) => currTtl.blizzId == ttl.blizzId
+        );
+        if (Object.keys(foundTitle))
+            setModalContent(<EditTrackerModal title={foundTitle} />);
+        const trackerBackground = document.getElementById("tracker-background");
+        trackerBackground.style.zIndex = 0;
+    };
+
     const handleAchievementNavigate = (e) => {
         dispatch(getAchievementDetails(e.target.id));
         navigate("/achievements");
@@ -85,9 +121,15 @@ export default function TrackerList({ setOpen }) {
     };
 
     const handleMountNavigate = (e) => {
-        console.log(e.target)
         dispatch(selectMount(e.target.id));
         navigate("/mounts");
+        setOpen(false);
+    };
+
+    const handleTitleNavigate = (ttl) => {
+        dispatch(selectTitleCategory(filterName(ttl.name)[0]));
+        dispatch(selectTitle(ttl.blizzId));
+        navigate("/titles");
         setOpen(false);
     };
 
@@ -133,7 +175,6 @@ export default function TrackerList({ setOpen }) {
                                         onClick={handleNoteAchievement}
                                     ></i>
                                 </div>
-                                {/* dont repeat ids. oh well... */}
                                 <span
                                     id={achv.blizzId}
                                     onClick={handleAchievementNavigate}
@@ -193,6 +234,32 @@ export default function TrackerList({ setOpen }) {
                                     <div id={mnt.blizzId}>{mnt.note}</div>
                                 </span>
                             </li>
+                        ))}
+                </ul>
+            </div>
+            <div id="tracked-titles-container">
+                <div
+                    className="tracker-list-section-header"
+                    onClick={() => setTtlOpen(!ttlOpen)}
+                >
+                    {ttlOpen ? (
+                        <i className="fa-solid fa-angle-down fa-xl"></i>
+                    ) : (
+                        <i className="fa-solid fa-angle-up fa-xl"></i>
+                    )}
+                    <h2>Titles ({trackedTitles?.length})</h2>
+                </div>
+                <ul>
+                    {ttlOpen &&
+                        trackedTitles &&
+                        trackedTitles.map((ttl) => (
+                            <TrackerItem
+                                key={ttl.blizzId}
+                                item={ttl}
+                                del={handleDeleteTitle}
+                                note={handleNoteTitle}
+                                nav={handleTitleNavigate}
+                            />
                         ))}
                 </ul>
             </div>
